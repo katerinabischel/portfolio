@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>UI Kit · 02 Components</title>
+<meta name="viewport" content="width=1280">
+<link rel="stylesheet" href="shared.css">
+<style>
+  /* Sub-section heading */
+  .sub-head {
+    display: flex; align-items: baseline; gap: 16px;
+    margin: 64px 0 24px;
+  }
+  .sub-head .num { font-family: var(--mono); font-size: 11px; letter-spacing: 0.28em; color: var(--gold); text-transform: uppercase; }
+  .sub-head .title { font-family: var(--serif); font-size: 32px; line-height: 1; }
+  .sub-head .rule { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(212,184,122,0.35), transparent); }
+
+  .demo-frame {
+    padding: 32px;
+    border-radius: var(--r-lg);
+    background:
+      radial-gradient(800px 400px at 20% 0%, rgba(111,143,184,0.10), transparent 60%),
+      linear-gradient(180deg, rgba(11,20,36,0.5), rgba(11,20,36,0.85));
+    border: 1px dashed rgba(255,255,255,0.10);
+    position: relative;
+  }
+  .demo-frame::before {
+    content: attr(data-label);
+    position: absolute; top: 12px; right: 16px;
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--gold); opacity: 0.6;
+  }
+
+  /* ===== NAV demo ===== */
+  .nav-demo {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 28px;
+    border-radius: 999px;
+  }
+  .nav-demo .brand { font-family: var(--serif); font-size: 22px; color: var(--paper); letter-spacing: 0.02em; }
+  .nav-demo .brand .glyph { color: var(--gold); font-style: italic; }
+  .nav-demo nav { display: flex; gap: 4px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; }
+  .nav-demo nav a { padding: 8px 14px; border-radius: 999px; color: var(--ash); }
+  .nav-demo nav a.active { color: var(--gold-glow); background: rgba(212,184,122,0.12); }
+
+  /* ===== Project card ===== */
+  .pcard {
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: transform 0.5s ease;
+  }
+  .pcard:hover { transform: translateY(-4px); }
+  .pcard .media {
+    aspect-ratio: 16/9;
+    background:
+      linear-gradient(135deg, rgba(212,184,122,0.05), transparent 40%),
+      radial-gradient(circle at 30% 70%, #2a4a6a, #0e1828 80%);
+    position: relative; overflow: hidden;
+  }
+  .pcard .media .pano {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(180deg, transparent 60%, rgba(11,20,36,0.5)),
+      linear-gradient(90deg, #1a3a5a, #4a7a9a 40%, #2a5a7a 60%, #0a1a2a);
+  }
+  .pcard .media::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 60%;
+    background: linear-gradient(180deg, transparent, rgba(11,20,36,0.85));
+    pointer-events: none;
+  }
+  .pcard .media .water-line {
+    position: absolute; left: 0; right: 0; bottom: 38%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(212,184,122,0.6), transparent);
+  }
+  .pcard .body {
+    padding: 24px 24px 28px;
+    background: linear-gradient(180deg, rgba(20,32,57,0.7), rgba(11,20,36,0.95));
+    border-top: 1px solid rgba(255,255,255,0.10);
+  }
+  .pcard .body .meta { display:flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .pcard h4 { color: var(--paper); font-style: normal; font-size: 24px; line-height: 1.2; }
+  .pcard p { font-family: var(--serif); font-size: 16px; color: var(--ash); margin: 10px 0 16px; line-height: 1.5; }
+  .pcard .tags { display:flex; flex-wrap: wrap; gap:6px; }
+  .pcard .arrow-link { margin-top: 18px; display: inline-flex; gap: 8px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold-glow); }
+
+  /* ===== Panorama frame ===== */
+  .pano-frame {
+    position: relative;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    aspect-ratio: 21/9;
+    background:
+      linear-gradient(180deg, rgba(11,20,36,0.2), rgba(11,20,36,0.6)),
+      linear-gradient(90deg, #1a2a4a 0%, #4a6a8a 25%, #6a8aaa 50%, #8aaaca 65%, #4a6a8a 85%, #1a2a4a 100%);
+  }
+  .pano-frame::after {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(2px 2px at 22% 30%, rgba(255,255,255,0.7), transparent 50%),
+      radial-gradient(1.5px 1.5px at 65% 18%, rgba(255,255,255,0.7), transparent 50%),
+      radial-gradient(1px 1px at 88% 40%, rgba(240,220,168,0.7), transparent 50%);
+    opacity: 0.7;
+    pointer-events: none;
+  }
+  .pano-frame .pano-caption {
+    position: absolute; left: 24px; bottom: 24px; right: 24px;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    z-index: 2;
+  }
+  .pano-frame .pano-caption .left { display: flex; flex-direction: column; gap: 6px; max-width: 60%; }
+  .pano-frame .pano-caption .title-cap { font-family: var(--serif); font-style: italic; font-size: 22px; color: var(--paper); }
+  .pano-frame .pano-caption .coord { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.22em; color: var(--ash); text-transform: uppercase; opacity: 0.85; }
+  .pano-frame .pano-controls {
+    display: flex; gap: 6px;
+    background: rgba(11,20,36,0.5);
+    border: 1px solid rgba(255,255,255,0.18);
+    backdrop-filter: blur(12px);
+    padding: 6px;
+    border-radius: 999px;
+  }
+  .pano-frame .pano-controls button {
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.18);
+    background: rgba(255,255,255,0.06);
+    color: var(--paper);
+    font-family: var(--mono); font-size: 11px;
+    cursor: pointer;
+  }
+  .pano-frame .pano-progress {
+    position: absolute; left: 24px; right: 24px; top: 24px;
+    height: 1px; background: rgba(255,255,255,0.2);
+  }
+  .pano-frame .pano-progress .fill {
+    height: 100%; width: 38%;
+    background: linear-gradient(90deg, var(--gold-soft), var(--gold));
+    box-shadow: 0 0 12px rgba(212,184,122,0.5);
+  }
+  .pano-frame .pano-corner {
+    position: absolute; top: 16px; right: 16px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; color: var(--gold); text-transform: uppercase;
+    background: rgba(11,20,36,0.55); padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(212,184,122,0.4);
+  }
+
+  /* Glass pano viewer (porthole style) */
+  .pano-porthole {
+    position: relative; aspect-ratio: 16/9;
+    border-radius: var(--r-lg);
+    background:
+      linear-gradient(110deg, #6a8aaa 0%, #2a5a7a 60%, #0e1828 100%);
+    overflow: hidden;
+  }
+  .pano-porthole .glass-window {
+    position: absolute; inset: 24px;
+    border-radius: 28px;
+    border: 1px solid rgba(255,255,255,0.35);
+    background: linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02));
+    backdrop-filter: blur(2px) saturate(1.4);
+    box-shadow: 0 30px 60px -30px rgba(8,14,28,0.7), 0 1px 0 rgba(255,255,255,0.3) inset;
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 22px;
+  }
+  .pano-porthole .glass-window::after {
+    content: ""; position: absolute; left: 8%; right: 8%; top: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent);
+  }
+
+  /* ===== Story scroll ===== */
+  .scroll-bar {
+    display: flex; gap: 8px; overflow-x: auto;
+    padding: 8px 0;
+  }
+  .scroll-bar .frame {
+    min-width: 200px; aspect-ratio: 4/5;
+    border-radius: var(--r-md);
+    background: linear-gradient(135deg, #1a2a4a, #0e1828);
+    border: 1px solid rgba(255,255,255,0.10);
+    position: relative;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .scroll-bar .frame .label {
+    position: absolute; left: 12px; bottom: 12px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase;
+  }
+  .scroll-bar .frame::before {
+    content: ""; position: absolute; inset: 12px; border: 1px solid rgba(255,255,255,0.18); border-radius: 8px;
+  }
+  .scroll-bar .frame.active { border-color: rgba(212,184,122,0.7); box-shadow: 0 0 24px rgba(212,184,122,0.3); }
+
+  /* Form area */
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .form-grid .full { grid-column: 1 / -1; }
+
+  /* Loading states */
+  .ripple-loader {
+    position: relative; width: 100%; height: 80px;
+    border-radius: var(--r-md);
+    overflow: hidden;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.10);
+  }
+  .ripple-loader .wave {
+    position: absolute; top: 0; bottom: 0; width: 60%;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(212,184,122,0.0) 10%,
+      rgba(212,184,122,0.25) 50%,
+      rgba(212,184,122,0.0) 90%,
+      transparent 100%);
+    animation: slide 2.6s cubic-bezier(0.6, 0, 0.4, 1) infinite;
+  }
+  @keyframes slide {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(250%); }
+  }
+
+  .skeleton-row { height: 12px; border-radius: 6px; background: rgba(255,255,255,0.08); position: relative; overflow: hidden; }
+  .skeleton-row::after { content:""; position:absolute; inset:0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent); animation: slide 2s infinite; }
+  .sk-1 { width: 70%; }
+  .sk-2 { width: 90%; margin-top: 14px; }
+  .sk-3 { width: 45%; margin-top: 14px; }
+
+  /* divider treatments */
+  .divider-stage { padding: 0; height: 100px; position: relative; }
+
+  /* Caption block */
+  .cap-block {
+    display: grid; grid-template-columns: 1fr 240px; gap: 24px;
+    padding: 18px 0;
+    border-top: 1px solid rgba(255,255,255,0.10);
+    border-bottom: 1px solid rgba(255,255,255,0.10);
+  }
+  .cap-block .pano-mini {
+    aspect-ratio: 21/9;
+    border-radius: var(--r-sm);
+    background: linear-gradient(90deg, #1a3a5a, #4a7a9a 40%, #2a5a7a 60%, #0a1a2a);
+    grid-column: 1 / -1;
+  }
+  .cap-block .cap-meta { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); display: flex; flex-direction: column; gap: 4px; }
+  .cap-block .cap-meta span { color: var(--ash); opacity: 0.7; letter-spacing: 0.14em; }
+  .cap-block .cap-text { font-family: var(--serif); font-size: 16px; line-height: 1.5; color: var(--ash-soft); font-style: italic; }
+</style>
+</head>
+<body>
+<div class="starfield"></div>
+
+<header class="kit-nav glass">
+  <div class="brand">Bischel <span class="amp">&</span> Co. <span class="spec" style="margin-left:12px">UI KIT v1</span></div>
+  <nav class="links">
+    <a href="index.html">Cover</a>
+    <a href="foundations.html">01 · Foundations</a>
+    <a href="components.html" class="active">02 · Components</a>
+    <a href="templates.html">03 · Templates</a>
+  </nav>
+</header>
+
+<main class="kit-shell">
+
+  <header class="section-head">
+    <div class="index">Chapter II</div>
+    <div class="title iridescent-text">Components</div>
+    <div class="meta">12 plates · ink palette</div>
+  </header>
+
+  <p class="body-serif" style="max-width: 760px; font-style: italic; color: var(--ash);">
+    Each plate is shown in its resting state, on a tinted demo frame. Hover and active
+    treatments are described in the spec strip. Anatomy is consistent: glass surface,
+    iridescent rim, monospaced caption, serif headline, gold accent.
+  </p>
+
+  <!-- ============ NAV ============ -->
+  <div class="sub-head">
+    <span class="num">PLATE 1</span>
+    <h3 class="title">Navigation</h3>
+    <span class="rule"></span>
+    <span class="spec">sticky · top: 24 · pill</span>
+  </div>
+  <div class="demo-frame" data-label="Resting · 1280">
+    <div class="nav-demo glass">
+      <div class="brand">Katerina <span class="glyph">&amp;</span> the river</div>
+      <nav>
+        <a href="#" class="active">Home</a>
+        <a href="#">About</a>
+        <a href="#">Projects</a>
+        <a href="#">Research</a>
+        <a href="#">Writing</a>
+        <a href="#">Contact</a>
+      </nav>
+      <a class="btn btn-primary" style="padding: 10px 18px;">Resume <span class="arrow">↓</span></a>
+    </div>
+  </div>
+
+  <!-- ============ BUTTONS ============ -->
+  <div class="sub-head">
+    <span class="num">PLATE 2</span>
+    <h3 class="title">Buttons</h3>
+    <span class="rule"></span>
+    <span class="spec">three weights · gentle hover lift</span>
+  </div>
+  <div class="demo-frame" data-label="States" style="display:flex; flex-wrap: wrap; gap: 16px; align-items: center;">
+    <button class="btn btn-primary">View My Work <span class="arrow">→</span></button>
+    <button class="btn">Download Resume <span class="arrow">↓</span></button>
+    <button class="btn btn-ghost">Read More</button>
+    <button class="btn" disabled style="opacity:0.4; cursor:not-allowed;">Disabled</button>
+    <span class="spec" style="margin-left: auto;">Hover · gold rim, +2px lift, +12% saturation</span>
+  </div>
+
+  <!-- ============ TAGS ============ -->
+  <div class="sub-head">
+    <span class="num">PLATE 3</span>
+    <h3 class="title">Tags &amp; chips</h3>
+    <span class="rule"></span>
+    <span class="spec">disciplines · status · era</span>
+  </div>
+  <div class="demo-frame" data-label="Variants" style="display:flex; flex-wrap: wrap; gap: 10px;">
+    <span class="chip"><span class="dot"></span>Hydrology</span>
+    <span class="chip"><span class="dot"></span>R · Shiny</span>
+    <span class="chip water"><span class="dot"></span>Watershed</span>
+    <span class="chip water"><span class="dot"></span>Marine</span>
+    <span class="chip gold"><span class="dot"></span>In preparation</span>
+    <span class="chip gold"><span class="dot"></span>Featured</span>
+    <span class="chip"><span class="dot"></span>YOLOv8</span>
+    <span class="chip"><span class="dot"></span>Python</span>
+    <span class="chip"><span class="dot"></span>2026</span>
+    <span class="chip"><span class="dot"></span>UCSB · Bren</span>
+  </div>
+
+  <!-- ============ INPUTS ============ -->
+  <div class="sub-head">
+    <span class="num">PLATE 4</span>
+    <h3 class="title">Inputs · the contact form</h3>
+    <span class="rule"></span>
+    <span class="spec">glass field on ink ground</span>
+  </div>
+  <div class="demo-frame" data-label="Form" style="padding: 40px;">
+    <div class="form-grid">
+      <div class="field">
+        <label>§ Name</label>
+        <input type="text" placeholder="A name to write the letter to">
+      </div>
+      <div class="field">
+        <label>§ Reply to</label>
+        <input type="email" placeholder="hello@yourdomain.com">
+      </div>
+      <div class="field">
+        <label>§ Subject</label>
+        <select>
+          <option>Collaboration · field research</option>
+          <option>Writing · technical commission</option>
+          <option>A note</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>§ Date</label>
+        <input type="text" placeholder="iv · 2026" value="iv · 2026">
+      </div>
+      <div class="field full">
+        <label>§ Letter</label>
+        <textarea rows="5" placeholder="Begin where the watershed bends —"></textarea>
+      </div>
+      <div class="full" style="display:flex; justify-content: space-between; align-items: center;">
+        <div class="spec">// signed at sea level · santa barbara</div>
+        <button class="btn btn-primary">Send the letter <span class="arrow">→</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PROJECT CARDS ============ -->
+  <div class="sub-head">
+    <span class="num">PLATE 5</span>
+    <h3 class="title">Project cards</h3>
+    <span class="rule"></span>
+    <span class="spec">three weights · with panorama media</span>
+  </div>
+  <div class="demo-frame" data-label="Variants">
+    <div class="grid grid-3">
+      <article class="pcard glass">
+        <div class="media">
+          <div class="pano"></div>
+          <div class="water-line"></div>
+        </div>
+        <div class="body">
+          <div class="meta">
+            <span class="spec">§ 04 · Capstone</span>
+            <span class="chip gold"><span class="dot"></span>2026</span>
+          </div>
+          <h4>River remediation · Pilcomayo Basin</h4>
+          <p>Spatiotemporal heavy-metal dynamics, sediment-water partitioning, and geochemically targeted remediation strategies.</p>
+          <div class="tags">
+            <span class="chip"><span class="dot"></span>Hydrology</span>
+            <span class="chip"><span class="dot"></span>R</span>
+            <span class="chip"><span class="dot"></span>GIS</span>
+          </div>
+          <a class="arrow-link" href="#">Open case study <span class="arrow">→</span></a>
+        </div>
+      </article>
+
+      <article class="pcard glass">
+        <div class="media">
+          <div class="pano" style="background: linear-gradient(110deg, #2a4a3a, #4a7a6a 40%, #6a9a8a 60%, #1a2a26);"></div>
+          <div class="water-line"></div>
+        </div>
+        <div class="body">
+          <div class="meta">
+            <span class="spec">§ 02 · Research</span>
+            <span class="chip water"><span class="dot"></span>AI</span>
+          </div>
+          <h4>YOLOv8 pollinator monitoring</h4>
+          <p>Computer vision pipeline for identifying native bee taxa across Cheadle Center reserve transects.</p>
+          <div class="tags">
+            <span class="chip"><span class="dot"></span>Python</span>
+            <span class="chip"><span class="dot"></span>YOLOv8</span>
+          </div>
+          <a class="arrow-link" href="#">Read research <span class="arrow">→</span></a>
+        </div>
+      </article>
+
+      <article class="pcard glass">
+        <div class="media">
+          <div class="pano" style="background: linear-gradient(110deg, #4a3a5a, #2a4a8a 40%, #6a7aaa 60%, #1a2a4a);"></div>
+          <div class="water-line"></div>
+        </div>
+        <div class="body">
+          <div class="meta">
+            <span class="spec">§ 03 · Dashboard</span>
+            <span class="chip"><span class="dot"></span>R · Shiny</span>
+          </div>
+          <h4>Watershed health · interactive R Shiny</h4>
+          <p>Live-updating dashboards for watershed managers — turbidity, nitrate loading, and discharge by season.</p>
+          <div class="tags">
+            <span class="chip"><span class="dot"></span>Shiny</span>
+            <span class="chip"><span class="dot"></span>D3</span>
+          </div>
+          <a class="arrow-link" href="#">Open dashboard <span class="arrow">→</span></a>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <!-- ============ PANORAMA — three treatments ============ -->
+  <div class="sub-head">
+    <span class="num">PLATE 6</span>
+    <h3 class="title">Panorama viewer · three treatments</h3>
+    <span class="rule"></span>
+    <span class="spec">your photographs are the medium</span>
+  </div>
+
+  <p class="body-serif" style="max-width: 740px; font-style: italic; color: var(--ash); margin-bottom: 16px;">
+    Treatment A — full-bleed cinematic. The panorama is the page. Glass overlay holds caption, coordinates, and progress through the panorama.
+  </p>
+  <div class="demo-frame" data-label="Treatment A · cinematic">
+    <div class="pano-frame">
+      <div class="pano-progress"><div class="fill"></div></div>
+      <div class="pano-corner">⌖ 34.4133° N · 119.8610° W</div>
+      <div class="pano-caption">
+        <div class="left">
+          <span class="coord">§ Plate VI · Carpinteria saltmarsh · vi · 2025</span>
+          <span class="title-cap">— where the tide remembers</span>
+        </div>
+        <div class="pano-controls">
+          <button>‹</button>
+          <button>◐</button>
+          <button>›</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="body-serif" style="max-width: 740px; font-style: italic; color: var(--ash); margin: 32px 0 16px;">
+    Treatment B — porthole. Floating glass window reveals the panorama through it; reads as a frost-edged window in the redwood study.
+  </p>
+  <div class="demo-frame" data-label="Treatment B · porthole">
+    <div class="pano-porthole">
+      <div class="glass-window">
+        <div style="display:flex; justify-content: space-between; align-items: center;">
+          <span class="spec" style="color: var(--paper); opacity:0.9;">§ Sevenmile Creek</span>
+          <span class="spec" style="color: var(--gold); opacity:0.9;">⌖ 02 of 06</span>
+        </div>
+        <div>
+          <div style="font-family: var(--serif); font-style: italic; font-size: 28px; color: var(--paper);">— a thawing river</div>
+          <div class="spec" style="margin-top: 8px; color: var(--ash); opacity: 0.85;">drag to pan · scroll to zoom</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="body-serif" style="max-width: 740px; font-style: italic; color: var(--ash); margin: 32px 0 16px;">
+    Treatment C — narrative scroll. Horizontal filmstrip of panorama frames; selected frame opens above. Use for "story" sections.
+  </p>
+  <div class="demo-frame" data-label="Treatment C · scroll">
+    <div class="pano-frame" style="aspect-ratio: 21/8;">
+      <div class="pano-corner">Ch. III · Frame 03 of 09</div>
+      <div class="pano-caption">
+        <div class="left">
+          <span class="coord">§ Mono Lake · ix · 2024</span>
+          <span class="title-cap">— tufa towers at first light</span>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-bar" style="margin-top: 16px;">
+      <div class="frame"><div class="label">01</div></div>
+      <div class="frame"><div class="label">02</div></div>
+      <div class="frame active"><div class="label">03</div></div>
+      <div class="frame"><div class="label">04</div></div>
+      <div class="frame"><div class="label">05</div></div>
+      <div class="frame"><div class="label">06</div></div>
+      <div class="frame"><div class="label">07</div></div>
+      <div class="frame"><div class="label">08</div></div>
+      <div class="frame"><div class="label">09</div></div>
+    </div>
+  </div>
+
+  <!-- ============ IMAGE CAPTION ============ -->
+  <div class="sub-head">
+    <span class="num">PLATE 7</span>
+    <h3 class="title">Image captions</h3>
+    <span class="rule"></span>
+    <span class="spec">cartographer's hand</span>
+  </div>
+  <div class="demo-frame" data-label="Annotated">
+    <div class="cap-block">
+      <div class="pano-mini"></div>
+    </div>
+    <div style="display: grid; grid-template-columns: 240px 1fr; gap: 32px; padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.10);">
+      <div class="cap-meta">
+        § Plate 04
+        <span>13 · iv · 2025</span>
+        <span>iPhone 15 Pro · pano</span>
+        <span>0.5x · 24mm equiv.</span>
+      </div>
+      <div class="cap-text">
+        Carpinteria salt marsh at low tide. Pickleweed and cordgrass form a shifting
+        mosaic; ⌖ <span style="color:var(--gold)">34.4133° N</span> 119.5363° W.
+        Photographed during sediment-pH transect work, summer 2025.
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ DIVIDERS ============ -->
+  <div class="sub-head">
+    <span class="num">PLATE 8</span>
+    <h3 class="title">Section dividers</h3>
+    <span class="rule"></span>
+    <span class="spec">water, hairline, marginalia</span>
+  </div>
+  <div class="demo-frame" data-label="Six treatments" style="display:flex; flex-direction: column; gap: 24px;">
+
+    <!-- ripple svg -->
+    <div class="divider-stage" style="height: 80px;">
+      <svg viewBox="0 0 1200 80" preserveAspectRatio="none" style="width:100%; height:100%;">
+        <path d="M0,40 Q150,10 300,40 T600,40 T900,40 T1200,40" stroke="rgba(212,184,122,0.5)" fill="none" stroke-width="1.2"/>
+        <path d="M0,50 Q150,20 300,50 T600,50 T900,50 T1200,50" stroke="rgba(255,255,255,0.18)" fill="none" stroke-width="1"/>
+        <path d="M0,60 Q150,30 300,60 T600,60 T900,60 T1200,60" stroke="rgba(255,255,255,0.10)" fill="none" stroke-width="1"/>
+      </svg>
+    </div>
+
+    <div class="rule-diamond">
+      <div class="diamond"></div>
+      <span class="eyebrow">§ A new chapter begins</span>
+      <div class="diamond"></div>
+    </div>
+
+    <div style="height:1px; background: linear-gradient(90deg, transparent, var(--gold), transparent);"></div>
+
+    <!-- compass marginalia -->
+    <div style="display:flex; align-items: center; gap: 20px;">
+      <span class="spec" style="color: var(--gold);">N</span>
+      <span style="flex:1; height:1px; background: rgba(255,255,255,0.18);"></span>
+      <svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:var(--gold);fill:none;stroke-width:1.25;"><path d="M12 3v18M5 7l14 10M5 17l14-10"/></svg>
+      <span style="flex:1; height:1px; background: rgba(255,255,255,0.18);"></span>
+      <span class="spec" style="color: var(--gold);">S</span>
+    </div>
+
+    <!-- triple star -->
+    <div class="rule-diamond">
+      <span style="color: var(--gold); font-size: 12px;">✦ &nbsp; ✦ &nbsp; ✦</span>
+    </div>
+
+    <!-- numerical -->
+    <div style="display:flex; align-items:center; gap:20px;">
+      <span class="spec">§ 03 — § 04</span>
+      <span style="flex:1; height:1px; border-top: 1px dashed rgba(255,255,255,0.30);"></span>
+      <span class="spec" style="color: var(--gold);">turn the page →</span>
+    </div>
+  </div>
+
+  <!-- ============ LOADING ============ -->
+  <div class="sub-head">
+    <span class="num">PLATE 9</span>
+    <h3 class="title">Loading states · the river is filling</h3>
+    <span class="rule"></span>
+    <span class="spec">ripple, skeleton, drift</span>
+  </div>
+  <div class="demo-frame" data-label="Three">
+    <div class="grid grid-3" style="gap: 32px;">
+      <div>
+        <div class="spec" style="margin-bottom: 12px;">§ Tide bar</div>
+        <div class="ripple-loader"><div class="wave"></div></div>
+        <div class="spec" style="margin-top: 12px; opacity: 0.6;">Used for whole-page loads.</div>
+      </div>
+      <div>
+        <div class="spec" style="margin-bottom: 12px;">§ Skeleton page</div>
+        <div class="glass" style="padding: 18px;">
+          <div class="skeleton-row sk-1"></div>
+          <div class="skeleton-row sk-2"></div>
+          <div class="skeleton-row sk-3"></div>
+        </div>
+        <div class="spec" style="margin-top: 12px; opacity: 0.6;">For lists &amp; cards.</div>
+      </div>
+      <div>
+        <div class="spec" style="margin-bottom: 12px;">§ Drifting orb</div>
+        <div style="height: 90px; display:flex; align-items: center; justify-content: center; gap: 10px;">
+          <span style="width: 10px; height: 10px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 12px var(--gold); animation: bob 1.4s ease-in-out infinite;"></span>
+          <span style="width: 10px; height: 10px; border-radius: 50%; background: var(--aurora-2); box-shadow: 0 0 12px var(--aurora-2); animation: bob 1.4s ease-in-out 0.2s infinite;"></span>
+          <span style="width: 10px; height: 10px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 12px var(--gold); animation: bob 1.4s ease-in-out 0.4s infinite;"></span>
+        </div>
+        <style>@keyframes bob { 0%,100%{transform: translateY(0); opacity:0.5} 50% {transform: translateY(-10px); opacity:1} }</style>
+        <div class="spec" style="margin-top: 12px; opacity: 0.6;">For inline / submit waiting.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ HERO PRESETS ============ -->
+  <div class="sub-head">
+    <span class="num">PLATE 10</span>
+    <h3 class="title">Hero block</h3>
+    <span class="rule"></span>
+    <span class="spec">portrait + manifesto</span>
+  </div>
+  <div class="demo-frame" data-label="Default">
+    <div class="glass" style="padding: 56px; display:grid; grid-template-columns: 1fr 280px; gap: 48px; align-items: center;">
+      <div>
+        <div class="eyebrow">§ Welcome to my portfolio · MMXXVI</div>
+        <h1 style="margin-top: 16px; font-size: 88px; line-height: 0.95;">Hi, I'm <em style="color: var(--gold-glow); font-weight:300; font-style: italic;">Katerina</em></h1>
+        <p class="body-serif" style="max-width: 540px; margin-top: 20px; font-style: italic; color: var(--ash);">Environmental scientist · applied marine sciences. Mapmaker of watersheds, with a hand for data and a soft spot for rivers that remember.</p>
+        <div style="display:flex; gap: 12px; margin-top: 28px; flex-wrap: wrap;">
+          <span class="chip gold"><span class="dot"></span>M.E.S.M. UCSB Bren · 2026</span>
+          <span class="chip water"><span class="dot"></span>Water · Pollution Remediation</span>
+          <span class="chip"><span class="dot"></span>Data Science</span>
+        </div>
+        <div style="display:flex; gap: 12px; margin-top: 28px;">
+          <button class="btn btn-primary">View My Work <span class="arrow">→</span></button>
+          <button class="btn">Download Resume <span class="arrow">↓</span></button>
+        </div>
+      </div>
+      <div style="aspect-ratio: 4/5; border-radius: var(--r-lg); border: 1px solid rgba(212,184,122,0.4); background: radial-gradient(circle at 50% 30%, #4a6a8e, #0e1828); display:flex; align-items:flex-end; padding: 18px;">
+        <div class="spec" style="color: var(--gold);">⌖ portrait placeholder</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <div class="sub-head">
+    <span class="num">PLATE 11</span>
+    <h3 class="title">Footer · the colophon</h3>
+    <span class="rule"></span>
+    <span class="spec">manuscript end-page</span>
+  </div>
+  <div class="demo-frame" data-label="Default">
+    <footer class="glass" style="padding: 56px; display:grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 32px;">
+      <div>
+        <div class="brand" style="font-family: var(--serif); font-size: 28px; color: var(--paper);">Katerina <em style="color: var(--gold);">&amp;</em> the river</div>
+        <p class="body-serif" style="margin-top: 14px; max-width: 320px; font-style: italic; color: var(--ash);">A portfolio of watersheds, pollution remediation, and the quiet science of how water remembers.</p>
+        <div class="rule-diamond" style="margin-top: 24px;"><div class="diamond"></div><span class="spec">colophon</span></div>
+        <div class="spec" style="margin-top: 14px; opacity: 0.7;">Set in Cormorant Garamond &amp; JetBrains Mono. Built ⌖ Santa Barbara.</div>
+      </div>
+      <div>
+        <div class="eyebrow">§ Pages</div>
+        <div style="display:flex; flex-direction: column; gap: 10px; margin-top: 14px; font-family: var(--serif); font-size: 18px;">
+          <a href="#">Home</a><a href="#">About</a><a href="#">Projects</a><a href="#">Research</a><a href="#">Writing</a><a href="#">Contact</a>
+        </div>
+      </div>
+      <div>
+        <div class="eyebrow">§ Field</div>
+        <div style="display:flex; flex-direction: column; gap: 10px; margin-top: 14px; font-family: var(--serif); font-size: 18px;">
+          <a href="#">Pilcomayo manuscript</a><a href="#">YOLOv8 pollinators</a><a href="#">R Shiny dashboards</a><a href="#">Watershed plans</a>
+        </div>
+      </div>
+      <div>
+        <div class="eyebrow">§ Elsewhere</div>
+        <div style="display:flex; flex-direction: column; gap: 10px; margin-top: 14px; font-family: var(--serif); font-size: 18px;">
+          <a href="#">Email</a><a href="#">LinkedIn</a><a href="#">GitHub</a><a href="#">ORCID</a>
+        </div>
+        <div class="spec" style="margin-top: 24px; opacity: 0.6;">© MMXXVI · K. Bischel</div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ============ CALLOUTS / QUOTE ============ -->
+  <div class="sub-head">
+    <span class="num">PLATE 12</span>
+    <h3 class="title">Callouts &amp; pull quotes</h3>
+    <span class="rule"></span>
+    <span class="spec">manuscript marginalia</span>
+  </div>
+  <div class="demo-frame" data-label="Three">
+    <div class="grid grid-3">
+      <aside class="parchment" style="padding: 28px;">
+        <div class="eyebrow">§ Footnote 04</div>
+        <p style="font-family: var(--serif); font-size: 17px; line-height: 1.5; margin: 12px 0 0; color: #4a3f23;">Cadmium concentrations exceeded baseline by 3.2σ along the lower transect — see appendix A, fig. 12.</p>
+      </aside>
+      <aside class="glass" style="padding: 28px;">
+        <div class="eyebrow">§ Pull quote</div>
+        <p style="font-family: var(--serif); font-style: italic; font-size: 22px; line-height: 1.4; margin: 12px 0 0; color: var(--paper);">“Where environmental complexity meets analytical clarity.”</p>
+      </aside>
+      <aside class="glass" style="padding: 28px; border-color: rgba(212,184,122,0.35); background: linear-gradient(135deg, rgba(212,184,122,0.12), rgba(255,255,255,0.04));">
+        <div class="eyebrow">§ Featured · 2025</div>
+        <p style="font-family: var(--serif); font-size: 19px; line-height: 1.4; margin: 12px 0 0; color: var(--paper);">Pollinator monitoring research — UCSB Cheadle Center Newsletter.</p>
+        <a class="arrow-link" style="display: inline-flex; gap: 8px; margin-top: 16px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold-glow);">Read feature <span class="arrow">→</span></a>
+      </aside>
+    </div>
+  </div>
+
+  <footer style="margin-top: 96px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.10); display:flex; justify-content: space-between; align-items: center;">
+    <a href="foundations.html" class="btn btn-ghost"><span class="arrow" style="transform: rotate(180deg);">→</span> Chapter I · Foundations</a>
+    <div class="spec">End of Chapter II — Components</div>
+    <a href="templates.html" class="btn btn-primary">Chapter III · Templates <span class="arrow">→</span></a>
+  </footer>
+
+</main>
+</body>
+</html>

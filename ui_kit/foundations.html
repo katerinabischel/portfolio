@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>UI Kit · 01 Foundations</title>
+<meta name="viewport" content="width=1280">
+<link rel="stylesheet" href="shared.css">
+<style>
+  /* palette section */
+  .palette-card {
+    padding: 28px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .palette-card .pal-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .palette-card h3 { font-size: 28px; }
+  .palette-card .pal-sub { font-family: var(--serif); font-style: italic; color: var(--ash); font-size: 16px; max-width: 360px; }
+  .pal-strip {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px;
+  }
+  .pal-strip .swatch {
+    aspect-ratio: 1 / 1.4;
+    border-radius: 10px;
+    padding: 12px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    border: 1px solid rgba(255,255,255,0.10);
+    position: relative; overflow: hidden;
+  }
+  .pal-strip .swatch .label { font-family: var(--serif); font-style: italic; font-size: 14px; line-height: 1; }
+  .pal-strip .swatch .hex { font-family: var(--mono); font-size: 9px; letter-spacing: 0.14em; opacity: 0.85; }
+
+  /* type specimens */
+  .type-specimen {
+    padding: 40px;
+    display: grid; grid-template-columns: 200px 1fr; gap: 32px;
+    align-items: baseline;
+  }
+  .type-specimen .ts-meta {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold);
+    border-left: 1px solid rgba(212,184,122,0.4); padding-left: 16px;
+  }
+  .type-specimen .ts-meta span { display: block; color: var(--ash); margin-top: 6px; letter-spacing: 0.18em; opacity: 0.8; }
+  .type-specimen .ts-sample { color: var(--paper); }
+
+  .scale-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 200px;
+    gap: 24px;
+    padding: 16px 0;
+    align-items: baseline;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .scale-row:last-child { border-bottom: none; }
+  .scale-row .name { font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); }
+  .scale-row .meta { font-family: var(--mono); font-size: 11px; color: var(--aurora-3); opacity: 0.7; letter-spacing: 0.12em; text-align: right; }
+
+  /* materials */
+  .mat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .mat-card {
+    aspect-ratio: 1 / 1.05;
+    border-radius: var(--r-lg);
+    padding: 28px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    position: relative; overflow: hidden;
+  }
+  .mat-card .name { font-family: var(--serif); font-size: 26px; color: var(--paper); }
+  .mat-card .desc { font-family: var(--mono); font-size: 11px; line-height: 1.6; color: var(--ash); letter-spacing: 0.02em; }
+  .mat-bg-1 { background: linear-gradient(135deg,#0e1828,#1a2a4a); }
+  .mat-bg-2 { background: radial-gradient(circle at 30% 30%, #2c3a5c, #0b1424); }
+  .mat-bg-3 {
+    background:
+      radial-gradient(800px 400px at 70% 30%, rgba(212,184,122,0.15), transparent 60%),
+      linear-gradient(160deg, #15233f 0%, #0b1424 100%);
+  }
+  .mat-card.parchment-mat .name, .mat-card.parchment-mat .desc { color: #2a2418; }
+  .mat-card.parchment-mat .desc { color: #5a4d2e; }
+
+  /* spacing scale */
+  .space-row {
+    display: grid; grid-template-columns: 80px 1fr 100px; gap: 16px; align-items: center;
+    padding: 12px 0; border-bottom: 1px dashed rgba(255,255,255,0.10);
+  }
+  .space-row:last-child { border-bottom: none; }
+  .space-row .label { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; }
+  .space-row .bar { height: 12px; background: linear-gradient(90deg, var(--gold), var(--gold-soft)); border-radius: 6px; box-shadow: 0 0 12px rgba(212,184,122,0.3); }
+  .space-row .px { text-align: right; font-family: var(--mono); font-size: 11px; color: var(--ash); opacity: 0.8; }
+
+  /* shadow specimens */
+  .shadow-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .shadow-card {
+    height: 140px;
+    border-radius: var(--r-md);
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.14);
+    display: flex; align-items: flex-end; padding: 14px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold);
+  }
+  .sh-1 { box-shadow: 0 4px 12px -6px rgba(8,14,28,0.6); }
+  .sh-2 { box-shadow: 0 12px 30px -16px rgba(8,14,28,0.7); }
+  .sh-3 { box-shadow: 0 30px 60px -30px rgba(8,14,28,0.7), 0 1px 0 rgba(255,255,255,0.12) inset; }
+  .sh-4 { box-shadow: 0 30px 80px -30px rgba(212,184,122,0.4), 0 0 0 1px rgba(212,184,122,0.3) inset; }
+
+  /* iconography */
+  .icon-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+  .icon-tile {
+    aspect-ratio: 1; border-radius: var(--r-md);
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.10);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 10px;
+    color: var(--gold-glow);
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase;
+  }
+  .icon-tile svg { width: 28px; height: 28px; stroke: currentColor; fill: none; stroke-width: 1.25; stroke-linecap: round; stroke-linejoin: round; }
+</style>
+</head>
+<body>
+<div class="starfield"></div>
+
+<header class="kit-nav glass">
+  <div class="brand">Bischel <span class="amp">&</span> Co. <span class="spec" style="margin-left:12px">UI KIT v1</span></div>
+  <nav class="links">
+    <a href="index.html">Cover</a>
+    <a href="foundations.html" class="active">01 · Foundations</a>
+    <a href="components.html">02 · Components</a>
+    <a href="templates.html">03 · Templates</a>
+  </nav>
+</header>
+
+<main class="kit-shell">
+
+  <!-- ============= INTRO ============= -->
+  <header class="section-head">
+    <div class="index">Chapter I</div>
+    <div class="title iridescent-text">Foundations</div>
+    <div class="meta">Palettes · Type · Materials · Space</div>
+  </header>
+
+  <p class="body-serif" style="max-width: 760px; font-style: italic; color: var(--ash);">
+    The atelier rests on four pillars — color, letterform, material, and the rhythm
+    of space between them. Three palette directions are offered; the type system
+    and material kit are shared across all three.
+  </p>
+
+  <!-- ============= PALETTES ============= -->
+  <section style="margin-top: 80px;">
+    <div class="rule-diamond" style="margin-bottom: 32px;">
+      <div class="diamond"></div>
+      <span class="eyebrow">§ 1.1 — Three palette directions</span>
+      <div class="diamond"></div>
+    </div>
+
+    <div class="grid grid-3">
+      <!-- Palette A -->
+      <article class="palette-card glass">
+        <div class="pal-head">
+          <div>
+            <div class="eyebrow">Palette A</div>
+            <h3>Ink &amp; Starlight</h3>
+          </div>
+          <div class="chip gold"><span class="dot"></span>Default</div>
+        </div>
+        <div class="pal-sub">Deep ink-blue night sky shot through with pale gold filaments and ash-silver. The painterly castle reference, distilled.</div>
+        <div class="pal-strip">
+          <div class="swatch" style="background:#0b1424"><span class="label" style="color:#c8d2e3">Ink Deep</span><span class="hex" style="color:#c8d2e3">#0B1424</span></div>
+          <div class="swatch" style="background:#1c2a47"><span class="label" style="color:#c8d2e3">Ink</span><span class="hex" style="color:#c8d2e3">#1C2A47</span></div>
+          <div class="swatch" style="background:#4a6a8e"><span class="label" style="color:#eef1f6">Water</span><span class="hex" style="color:#eef1f6">#4A6A8E</span></div>
+          <div class="swatch" style="background:#c8d2e3"><span class="label" style="color:#142039">Ash</span><span class="hex" style="color:#142039">#C8D2E3</span></div>
+          <div class="swatch" style="background:#d4b87a"><span class="label" style="color:#2a2418">Gold</span><span class="hex" style="color:#2a2418">#D4B87A</span></div>
+          <div class="swatch" style="background:#f5f1e6"><span class="label" style="color:#2a2418">Vellum</span><span class="hex" style="color:#2a2418">#F5F1E6</span></div>
+        </div>
+      </article>
+
+      <!-- Palette B -->
+      <article class="palette-card glass">
+        <div class="pal-head">
+          <div>
+            <div class="eyebrow">Palette B</div>
+            <h3>Frosted Glacier</h3>
+          </div>
+          <div class="chip water"><span class="dot"></span>Cool</div>
+        </div>
+        <div class="pal-sub">An icy thaw — pale blues, frost-whites, the faintest aurora. Lighter than A; reads almost like dawn through glass.</div>
+        <div class="pal-strip">
+          <div class="swatch" style="background:#1a2a40"><span class="label" style="color:#dde6f1">Glacier</span><span class="hex" style="color:#dde6f1">#1A2A40</span></div>
+          <div class="swatch" style="background:#3d5a7a"><span class="label" style="color:#eef4fb">Slate</span><span class="hex" style="color:#eef4fb">#3D5A7A</span></div>
+          <div class="swatch" style="background:#7ea3c9"><span class="label" style="color:#0e1828">Frost</span><span class="hex" style="color:#0e1828">#7EA3C9</span></div>
+          <div class="swatch" style="background:#b8d4e5"><span class="label" style="color:#0e1828">Mist</span><span class="hex" style="color:#0e1828">#B8D4E5</span></div>
+          <div class="swatch" style="background:#a89bc4"><span class="label" style="color:#1a1a2e">Aurora</span><span class="hex" style="color:#1a1a2e">#A89BC4</span></div>
+          <div class="swatch" style="background:#f0f4f9"><span class="label" style="color:#0e1828">Ice</span><span class="hex" style="color:#0e1828">#F0F4F9</span></div>
+        </div>
+      </article>
+
+      <!-- Palette C -->
+      <article class="palette-card glass">
+        <div class="pal-head">
+          <div>
+            <div class="eyebrow">Palette C</div>
+            <h3>Pine Resin</h3>
+          </div>
+          <div class="chip" style="border-color: rgba(212,184,122,0.3); color:#e7d3a3"><span class="dot"></span>Warm</div>
+        </div>
+        <div class="pal-sub">Atmospheric pine resin light — warmer creams, amber gold, deep teal, rust. The redwood study after the candle is lit.</div>
+        <div class="pal-strip">
+          <div class="swatch" style="background:#1a2a26"><span class="label" style="color:#e7d3a3">Pine</span><span class="hex" style="color:#e7d3a3">#1A2A26</span></div>
+          <div class="swatch" style="background:#2d4a4a"><span class="label" style="color:#e7d3a3">Teal</span><span class="hex" style="color:#e7d3a3">#2D4A4A</span></div>
+          <div class="swatch" style="background:#8a5a3a"><span class="label" style="color:#f5f1e6">Rust</span><span class="hex" style="color:#f5f1e6">#8A5A3A</span></div>
+          <div class="swatch" style="background:#c89858"><span class="label" style="color:#2a1a0a">Amber</span><span class="hex" style="color:#2a1a0a">#C89858</span></div>
+          <div class="swatch" style="background:#e7d3a3"><span class="label" style="color:#2a1a0a">Resin</span><span class="hex" style="color:#2a1a0a">#E7D3A3</span></div>
+          <div class="swatch" style="background:#f5ebd3"><span class="label" style="color:#2a1a0a">Cream</span><span class="hex" style="color:#2a1a0a">#F5EBD3</span></div>
+        </div>
+      </article>
+    </div>
+
+    <p class="body-serif" style="margin-top: 24px; font-style: italic; color: var(--aurora-3); font-size: 15px;">
+      All component examples in this kit use Palette A. Tokens for B &amp; C are provided so the system can be re-skinned by swapping a single CSS file.
+    </p>
+  </section>
+
+  <!-- ============= TYPE ============= -->
+  <section style="margin-top: 96px;">
+    <div class="rule-diamond" style="margin-bottom: 32px;">
+      <div class="diamond"></div>
+      <span class="eyebrow">§ 1.2 — The manuscript type system</span>
+      <div class="diamond"></div>
+    </div>
+
+    <div class="grid" style="grid-template-columns: 1fr;">
+      <article class="type-specimen glass">
+        <div class="ts-meta">
+          Display Serif
+          <span>Cormorant Garamond</span>
+          <span>300 · 400i · 500</span>
+          <span>Tracking −1.5%</span>
+        </div>
+        <div class="ts-sample">
+          <div style="font-family: var(--serif); font-size: 124px; line-height: 0.95; letter-spacing: -0.02em;">A river <em style="color:var(--gold-glow);font-weight:300">remembers</em></div>
+          <div style="font-family: var(--serif); font-size: 56px; line-height: 1.05; margin-top: 24px;">Heavy metals in the Pilcomayo</div>
+          <div style="font-family: var(--serif); font-style: italic; font-size: 28px; color: var(--ash); margin-top: 16px;">— a manuscript in preparation, with Dr. Arturo Keller</div>
+        </div>
+      </article>
+
+      <article class="type-specimen glass">
+        <div class="ts-meta">
+          Body Serif
+          <span>Cormorant Garamond</span>
+          <span>400 · 400i</span>
+          <span>1.55 leading</span>
+        </div>
+        <div class="ts-sample">
+          <p class="body-serif" style="margin: 0; max-width: 720px;">
+            Where the watershed bends, sediment settles. Working at the intersection
+            of environmental science, field research, and data analytics —
+            turning complex environmental data into <em>actionable</em> insight for
+            water quality, watershed health, and pollution remediation.
+          </p>
+        </div>
+      </article>
+
+      <article class="type-specimen glass">
+        <div class="ts-meta">
+          Spec / Caption
+          <span>JetBrains Mono</span>
+          <span>300 · 400 · 500</span>
+          <span>Tracking +20%</span>
+        </div>
+        <div class="ts-sample">
+          <div class="eyebrow" style="font-size: 13px;">§ 04.2 — Field log · 13.iv.2026</div>
+          <div class="spec" style="margin-top: 14px; font-size: 12px; opacity: 0.9;">Lat 19.4326° S · Lon 65.4536° W · Elev 2,810 m · pH 6.8 · Cd 0.014 mg/L</div>
+          <div style="font-family: var(--mono); font-size: 14px; color: var(--ash-soft); margin-top: 16px; max-width: 540px; line-height: 1.65;">// caption text. used for image legends, data callouts, dates, coordinates, and the cartographer's notes that accompany every map.</div>
+        </div>
+      </article>
+
+      <article class="type-specimen glass">
+        <div class="ts-meta">
+          Type Scale
+          <span>Modular · 1.250</span>
+          <span>Base 14px (mono)</span>
+          <span>Display 96–124px</span>
+        </div>
+        <div class="ts-sample" style="width: 100%;">
+          <div class="scale-row"><div class="name">Display</div><div style="font-family: var(--serif); font-size: 96px; line-height:1;">Aa Bb 36</div><div class="meta">96 / 88 · serif · −2%</div></div>
+          <div class="scale-row"><div class="name">H1</div><div style="font-family: var(--serif); font-size: 72px; line-height:1;">Aa Bb 36</div><div class="meta">72 / 72 · serif · −1.5%</div></div>
+          <div class="scale-row"><div class="name">H2</div><div style="font-family: var(--serif); font-size: 48px; line-height:1.05;">Aa Bb 36</div><div class="meta">48 / 50</div></div>
+          <div class="scale-row"><div class="name">H3</div><div style="font-family: var(--serif); font-size: 32px;">Aa Bb 36</div><div class="meta">32 / 40</div></div>
+          <div class="scale-row"><div class="name">H4 Italic</div><div style="font-family: var(--serif); font-style: italic; font-size: 22px; color: var(--ash);">Aa Bb 36 — italics</div><div class="meta">22 / 32 · italic</div></div>
+          <div class="scale-row"><div class="name">Body</div><div style="font-family: var(--serif); font-size: 18px; color: var(--ash-soft);">Aa Bb 36 — reading body</div><div class="meta">18 / 28 · serif</div></div>
+          <div class="scale-row"><div class="name">Mono</div><div style="font-family: var(--mono); font-size: 13px; color: var(--ash);">Aa Bb 36 — caption</div><div class="meta">13 / 22 · mono · +12%</div></div>
+          <div class="scale-row"><div class="name">Eyebrow</div><div class="eyebrow" style="font-size: 11px;">§ Eyebrow text — uppercase</div><div class="meta">11 / 16 · mono · +28%</div></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============= MATERIALS ============= -->
+  <section style="margin-top: 96px;">
+    <div class="rule-diamond" style="margin-bottom: 32px;">
+      <div class="diamond"></div>
+      <span class="eyebrow">§ 1.3 — Materials &amp; surface</span>
+      <div class="diamond"></div>
+    </div>
+
+    <div class="mat-grid">
+      <article class="mat-card glass mat-bg-1">
+        <div>
+          <div class="eyebrow">Material 01</div>
+          <div class="name">Liquid glass</div>
+        </div>
+        <div class="desc">// 18px backdrop blur with conic iridescent rim. The primary surface — used for nav, cards, dialogs.</div>
+      </article>
+      <article class="mat-card glass glass-strong mat-bg-2">
+        <div>
+          <div class="eyebrow">Material 02</div>
+          <div class="name">Glass · pronounced</div>
+        </div>
+        <div class="desc">// stronger fill + thicker rim. Reserved for hero containers and modal-weight surfaces.</div>
+      </article>
+      <article class="mat-card parchment parchment-mat">
+        <div>
+          <div class="eyebrow" style="color:#9b7d3a">Material 03</div>
+          <div class="name">Vellum</div>
+        </div>
+        <div class="desc">// warm cream paper. For long reading passages, manuscripts, printable case-study sheets.</div>
+      </article>
+      <article class="mat-card mat-bg-3" style="border:1px solid rgba(212,184,122,0.3);">
+        <div>
+          <div class="eyebrow">Material 04</div>
+          <div class="name">Aurora field</div>
+        </div>
+        <div class="desc">// radial gold + ink gradient. Hero backdrops only — sets the celestial mood without competing for attention.</div>
+      </article>
+      <article class="mat-card glass" style="background: linear-gradient(135deg, rgba(212,184,122,0.18), rgba(255,255,255,0.04));">
+        <div>
+          <div class="eyebrow">Material 05</div>
+          <div class="name">Gilt edge</div>
+        </div>
+        <div class="desc">// gold-tinted glass for emphasis. CTAs, featured tags, the moment of arrival.</div>
+      </article>
+      <article class="mat-card" style="border:1px dashed rgba(255,255,255,0.18); background: rgba(255,255,255,0.02);">
+        <div>
+          <div class="eyebrow">Material 06</div>
+          <div class="name">Dry hairline</div>
+        </div>
+        <div class="desc">// no fill, dashed stroke. Empty states, placeholders, draft frames before the panorama loads.</div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============= SHADOW & ELEVATION ============= -->
+  <section style="margin-top: 96px;">
+    <div class="rule-diamond" style="margin-bottom: 32px;">
+      <div class="diamond"></div>
+      <span class="eyebrow">§ 1.4 — Elevation</span>
+      <div class="diamond"></div>
+    </div>
+    <div class="shadow-grid">
+      <div class="shadow-card sh-1">01 · resting</div>
+      <div class="shadow-card sh-2">02 · hover</div>
+      <div class="shadow-card sh-3">03 · floating</div>
+      <div class="shadow-card sh-4">04 · gilt glow</div>
+    </div>
+  </section>
+
+  <!-- ============= SPACE ============= -->
+  <section style="margin-top: 96px;">
+    <div class="rule-diamond" style="margin-bottom: 32px;">
+      <div class="diamond"></div>
+      <span class="eyebrow">§ 1.5 — Spacing scale &amp; radii</span>
+      <div class="diamond"></div>
+    </div>
+    <div class="grid grid-2">
+      <div class="glass" style="padding: 32px;">
+        <div class="eyebrow" style="margin-bottom: 16px;">Spacing · base 8</div>
+        <div class="space-row"><div class="label">xs</div><div class="bar" style="width: 4px;"></div><div class="px">4 · 0.25rem</div></div>
+        <div class="space-row"><div class="label">sm</div><div class="bar" style="width: 8px;"></div><div class="px">8 · 0.5rem</div></div>
+        <div class="space-row"><div class="label">md</div><div class="bar" style="width: 16px;"></div><div class="px">16 · 1rem</div></div>
+        <div class="space-row"><div class="label">lg</div><div class="bar" style="width: 24px;"></div><div class="px">24 · 1.5rem</div></div>
+        <div class="space-row"><div class="label">xl</div><div class="bar" style="width: 48px;"></div><div class="px">48 · 3rem</div></div>
+        <div class="space-row"><div class="label">2xl</div><div class="bar" style="width: 80px;"></div><div class="px">80 · 5rem</div></div>
+        <div class="space-row"><div class="label">3xl</div><div class="bar" style="width: 128px;"></div><div class="px">128 · 8rem</div></div>
+      </div>
+      <div class="glass" style="padding: 32px;">
+        <div class="eyebrow" style="margin-bottom: 16px;">Radii</div>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
+          <div style="aspect-ratio:1; border-radius:4px; background: rgba(255,255,255,0.10); border:1px solid rgba(255,255,255,0.2); display:flex; align-items:flex-end; padding:10px; font-family:var(--mono); font-size:10px; color:var(--gold);">XS · 4</div>
+          <div style="aspect-ratio:1; border-radius:8px; background: rgba(255,255,255,0.10); border:1px solid rgba(255,255,255,0.2); display:flex; align-items:flex-end; padding:10px; font-family:var(--mono); font-size:10px; color:var(--gold);">SM · 8</div>
+          <div style="aspect-ratio:1; border-radius:14px; background: rgba(255,255,255,0.10); border:1px solid rgba(255,255,255,0.2); display:flex; align-items:flex-end; padding:10px; font-family:var(--mono); font-size:10px; color:var(--gold);">MD · 14</div>
+          <div style="aspect-ratio:1; border-radius:22px; background: rgba(255,255,255,0.10); border:1px solid rgba(255,255,255,0.2); display:flex; align-items:flex-end; padding:10px; font-family:var(--mono); font-size:10px; color:var(--gold);">LG · 22</div>
+          <div style="aspect-ratio:1; border-radius:36px; background: rgba(255,255,255,0.10); border:1px solid rgba(255,255,255,0.2); display:flex; align-items:flex-end; padding:10px; font-family:var(--mono); font-size:10px; color:var(--gold);">XL · 36</div>
+          <div style="aspect-ratio:1; border-radius:50%; background: rgba(255,255,255,0.10); border:1px solid rgba(255,255,255,0.2); display:flex; align-items:flex-end; padding:10px; font-family:var(--mono); font-size:10px; color:var(--gold);">∞ · pill</div>
+        </div>
+        <div class="eyebrow" style="margin-top: 32px; margin-bottom: 16px;">Hairlines</div>
+        <div style="display:flex; flex-direction:column; gap:18px;">
+          <div style="height:1px; background: linear-gradient(90deg, transparent, var(--gold), transparent);"></div>
+          <div style="height:1px; background: rgba(255,255,255,0.18);"></div>
+          <div style="height:1px; border-top: 1px dashed rgba(255,255,255,0.3); background:transparent;"></div>
+          <div class="rule-diamond"><div class="diamond"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============= ICONOGRAPHY ============= -->
+  <section style="margin-top: 96px;">
+    <div class="rule-diamond" style="margin-bottom: 32px;">
+      <div class="diamond"></div>
+      <span class="eyebrow">§ 1.6 — Iconography · cartographer's marks</span>
+      <div class="diamond"></div>
+    </div>
+    <p class="body-serif" style="margin-bottom: 28px; max-width: 700px; font-style: italic; color: var(--ash);">
+      Linework only — 1.25px stroke, rounded ends. Drawn from cartography, hydrology, and the night sky. Filled glyphs are reserved for the active state.
+    </p>
+    <div class="icon-grid">
+      <div class="icon-tile">
+        <svg viewBox="0 0 24 24"><path d="M3 14c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M3 18c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M3 10c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/></svg>
+        Water
+      </div>
+      <div class="icon-tile">
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4z"/></svg>
+        Star
+      </div>
+      <div class="icon-tile">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg>
+        Globe
+      </div>
+      <div class="icon-tile">
+        <svg viewBox="0 0 24 24"><path d="M4 4l5 2 6-2 5 2v14l-5-2-6 2-5-2z"/><path d="M9 6v14M15 4v14"/></svg>
+        Map
+      </div>
+      <div class="icon-tile">
+        <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/><circle cx="19" cy="17" r="2"/></svg>
+        Field log
+      </div>
+      <div class="icon-tile">
+        <svg viewBox="0 0 24 24"><path d="M4 18l5-12 4 8 3-4 4 8z"/></svg>
+        Range
+      </div>
+      <div class="icon-tile">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="4"/><path d="M5 21c1-4 4-6 7-6s6 2 7 6"/></svg>
+        Author
+      </div>
+      <div class="icon-tile">
+        <svg viewBox="0 0 24 24"><path d="M3 6h18M5 6v13a1 1 0 001 1h12a1 1 0 001-1V6"/><path d="M9 6V3h6v3"/></svg>
+        Archive
+      </div>
+      <div class="icon-tile">
+        <svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/><path d="M3 17l9 5 9-5"/></svg>
+        Strata
+      </div>
+      <div class="icon-tile">
+        <svg viewBox="0 0 24 24"><path d="M5 12c4-6 10-6 14 0M5 12c4 6 10 6 14 0"/><circle cx="12" cy="12" r="2.5"/></svg>
+        Lens
+      </div>
+      <div class="icon-tile">
+        <svg viewBox="0 0 24 24"><path d="M3 3l8 8M3 3v18M3 3h18M11 11l3-3M11 11v6"/><circle cx="20" cy="6" r="2"/></svg>
+        Coord
+      </div>
+      <div class="icon-tile">
+        <svg viewBox="0 0 24 24"><path d="M12 3v18M5 7l14 10M5 17l14-10"/></svg>
+        Compass
+      </div>
+    </div>
+  </section>
+
+  <footer style="margin-top: 120px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.10); display:flex; justify-content: space-between; align-items: center;">
+    <div class="spec">End of Chapter I — Foundations</div>
+    <a href="components.html" class="btn btn-primary">Chapter II · Components <span class="arrow">→</span></a>
+  </footer>
+
+</main>
+</body>
+</html>

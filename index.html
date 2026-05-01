@@ -4,362 +4,855 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Katerina Bischel | Environmental Scientist</title>
-  <meta name="description" content="Portfolio of Katerina Bischel — Environmental Scientist at Applied Marine Sciences. M.E.S.M. 2026, UC Santa Barbara Bren School. Water Resources · Pollution Remediation · Data Science." />
+  <meta name="description" content="Portfolio of Katerina Bischel — Environmental Scientist, Applied Marine Sciences. M.E.S.M. UCSB Bren. Water resources · pollution remediation · data science." />
   <meta property="og:title"       content="Katerina Bischel | Environmental Scientist" />
   <meta property="og:description" content="Environmental Scientist · Applied Marine Sciences | Water Resources · Pollution Remediation · Data Science" />
   <meta property="og:image"       content="panorama_4.jpeg" />
   <meta property="og:type"        content="website" />
-  <link rel="stylesheet" href="styles.css" />
+  <!-- styles.css retired in favor of ui_kit/shared.css + inline page styles -->
+  <link rel="stylesheet" href="ui_kit/shared.css" />
   <style>
-    .hero-greeting {
-      font-size: clamp(0.85rem, 2vw, 1rem);
-      color: var(--accent-teal-light);
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      margin-bottom: 0.75rem;
-      font-weight: 500;
-    }
-    .quick-intro {
-      padding: 4.5rem 2rem;
-      background: var(--bg-secondary);
-    }
-    .quick-intro-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      text-align: center;
-    }
-    .quick-intro p {
-      font-size: 1.1rem;
-      color: var(--text-secondary);
-      max-width: 680px;
-      margin: 0 auto 2.5rem;
-      line-height: 1.85;
-    }
-
-    /* ── 3D Scene orbs ── */
-    @keyframes bowl-bob {
-      0%, 100% { transform: translateY(0px); }
-      50%       { transform: translateY(-7px); }
-    }
-
-    .interactive-orbs-section {
-      padding: 4rem 2rem 5rem;
-      text-align: center;
-      background: var(--bg-secondary);
-    }
-
-    .orbs-row {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      gap: 3.5rem;
-      margin-top: 2.5rem;
-      flex-wrap: wrap;
-    }
-
-    .portal-orb-wrap {
-      text-decoration: none;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-      animation: bowl-bob 4s ease-in-out infinite;
-    }
-
-    .portal-orb-wrap:nth-child(2) {
-      animation-delay: 0.6s;
-    }
-
-    .portal-orb {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      overflow: hidden;
-      transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
-      background: rgba(5,13,26,0.6);
-      backdrop-filter: blur(8px);
-    }
-
-    .portal-orb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0.88;
-      transition: opacity 0.35s ease, transform 0.35s ease;
-    }
-
-    .portal-orb-label {
-      font-size: 0.62rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
+    /* ── Reveal on scroll ─────────────────────────────── */
+    .reveal {
       opacity: 0;
-      transform: translateY(4px);
-      transition: all 0.3s ease;
-      white-space: nowrap;
+      transform: translateY(22px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
     }
-
-    /* Teal — fishbowl */
-    .portal-orb--teal {
-      border: 1.5px solid rgba(0,212,255,0.45);
-      box-shadow:
-        0 0 0 4px rgba(0,212,255,0.08),
-        0 0 22px rgba(0,212,255,0.30),
-        0 0 50px rgba(0,212,255,0.12),
-        inset 0 0 18px rgba(0,212,255,0.10);
-    }
-    .portal-orb-wrap--teal .portal-orb-label {
-      color: rgba(0,212,255,0.65);
-      text-shadow: 0 0 12px rgba(0,212,255,0.6);
-    }
-    .portal-orb-wrap--teal:hover .portal-orb--teal {
-      border-color: rgba(0,212,255,0.85);
-      box-shadow:
-        0 0 0 6px rgba(0,212,255,0.12),
-        0 0 32px rgba(0,212,255,0.55),
-        0 0 70px rgba(0,212,255,0.22),
-        inset 0 0 24px rgba(0,212,255,0.18);
-      transform: scale(1.1);
-    }
-
-    /* Warm gold — donut */
-    .portal-orb--warm {
-      border: 1.5px solid rgba(255,185,55,0.50);
-      box-shadow:
-        0 0 0 4px rgba(255,185,55,0.08),
-        0 0 22px rgba(255,185,55,0.30),
-        0 0 50px rgba(255,185,55,0.12),
-        inset 0 0 18px rgba(255,185,55,0.10);
-    }
-    .portal-orb-wrap--warm .portal-orb-label {
-      color: rgba(255,185,55,0.75);
-      text-shadow: 0 0 12px rgba(255,185,55,0.6);
-    }
-    .portal-orb-wrap--warm:hover .portal-orb--warm {
-      border-color: rgba(255,185,55,0.90);
-      box-shadow:
-        0 0 0 6px rgba(255,185,55,0.12),
-        0 0 32px rgba(255,185,55,0.55),
-        0 0 70px rgba(255,185,55,0.22),
-        inset 0 0 24px rgba(255,185,55,0.18);
-      transform: scale(1.1);
-    }
-
-    .portal-orb-wrap:hover .portal-orb img {
-      opacity: 1;
-      transform: scale(1.06);
-    }
-    .portal-orb-wrap:hover .portal-orb-label {
+    .reveal.visible {
       opacity: 1;
       transform: translateY(0);
     }
 
+    /* ── Hamburger button ─────────────────────────────── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 6px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--ash);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── Nav ──────────────────────────────────────────── */
+    nav.site-nav {
+      position: sticky;
+      top: 16px;
+      z-index: 100;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+    }
+    .nav-brand {
+      font-family: var(--serif);
+      font-size: 20px;
+      color: var(--paper);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2px;
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .nav-links a {
+      padding: 8px 13px;
+      border-radius: 999px;
+      color: var(--ash);
+      transition: color 0.3s, background 0.3s;
+    }
+    .nav-links a.active {
+      color: var(--gold-glow);
+      background: rgba(212,184,122,0.12);
+    }
+    .nav-links a:hover { color: var(--paper); }
+
+    /* ── Hero ─────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('panorama_4.jpeg');
+      background-size: cover;
+      background-position: center;
+      z-index: 0;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(11,20,36,0.82), rgba(20,30,52,0.76));
+    }
+    /* vignette */
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 40%, rgba(8,14,28,0.55) 100%);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 120px 56px 100px;
+      display: flex;
+      align-items: center;
+      gap: 72px;
+      width: 100%;
+    }
+    .hero-portrait {
+      flex-shrink: 0;
+    }
+    .portrait-frame {
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2.5px solid var(--gold);
+      box-shadow: 0 0 0 6px rgba(212,184,122,0.15), 0 0 40px rgba(212,184,122,0.25), 0 30px 60px rgba(8,14,28,0.6);
+    }
+    .portrait-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .hero-text {
+      max-width: 700px;
+    }
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(72px, 8vw, 116px);
+      line-height: 0.92;
+      letter-spacing: -0.015em;
+      color: var(--paper);
+      font-weight: 400;
+      margin-bottom: 28px;
+    }
+    .hero-title em {
+      color: var(--gold-glow);
+      font-style: italic;
+    }
+    .hero-subline {
+      font-family: var(--serif);
+      font-size: 20px;
+      line-height: 1.55;
+      color: var(--ash-soft);
+      font-style: italic;
+      max-width: 620px;
+      margin-bottom: 20px;
+    }
+    .hero-byline {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold-soft);
+      opacity: 0.85;
+      margin-bottom: 36px;
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* ── Press strip ──────────────────────────────────── */
+    .press-strip-wrap {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 56px;
+      position: relative;
+      z-index: 2;
+      margin-top: -1px;
+    }
+    .press-strip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 28px;
+      height: 60px;
+      text-decoration: none;
+      border-radius: var(--r-xl);
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ash);
+      transition: border-color 0.4s, box-shadow 0.4s, color 0.3s;
+    }
+    .press-strip:hover {
+      border-color: rgba(212,184,122,0.55);
+      box-shadow: 0 0 24px rgba(212,184,122,0.2), var(--glass-shadow);
+      color: var(--gold-glow);
+    }
+    .press-strip .press-arrow {
+      color: var(--gold);
+      font-size: 13px;
+    }
+
+    /* ── Section padding ──────────────────────────────── */
+    .section-pad {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 80px 56px;
+    }
+
+    /* ── Currently card ───────────────────────────────── */
+    .currently-card {
+      padding: 48px 52px;
+      margin-top: 56px;
+    }
+    .live-indicator {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 12px rgba(212,184,122,0.7);
+      animation: pulse-glow 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 1; box-shadow: 0 0 12px rgba(212,184,122,0.7); }
+      50%       { opacity: 0.55; box-shadow: 0 0 4px rgba(212,184,122,0.3); }
+    }
+    .currently-card h3 {
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+    .currently-card h4 {
+      font-size: 17px;
+      margin-bottom: 20px;
+    }
+    .currently-body {
+      font-family: var(--serif);
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--ash);
+      max-width: 640px;
+      margin-bottom: 28px;
+    }
+    .arrow-link {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold-glow);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: gap 0.3s, color 0.3s;
+    }
+    .arrow-link:hover { color: var(--paper); gap: 12px; }
+
+    /* ── Panorama dividers ────────────────────────────── */
+    .pano-divider {
+      width: 100%;
+      height: 320px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pano-divider-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+    .pano-divider-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(11,20,36,0.58);
+    }
+    .pano-divider-quote {
+      position: relative;
+      z-index: 1;
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(20px, 2.5vw, 28px);
+      color: var(--paper);
+      text-align: center;
+      max-width: 720px;
+      padding: 0 40px;
+      line-height: 1.45;
+    }
+    .pano-divider-quote .emph {
+      color: var(--gold-glow);
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    /* ── What I Do (eyebrow-only after prose removal) ── */
+    .what-i-do {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 72px 40px 24px;
+    }
+
+    /* ── Domains grid ─────────────────────────────────── */
+    .domains-section {
+      padding: 0 56px 72px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .domains-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border: 1px solid var(--glass-stroke);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+    }
+    .domain-cell {
+      padding: 40px 32px;
+      position: relative;
+      background: var(--glass-fill);
+    }
+    .domain-cell + .domain-cell::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 20%; bottom: 20%;
+      width: 1px;
+      background: linear-gradient(180deg, transparent, rgba(212,184,122,0.35), transparent);
+    }
+    .domain-numeral {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 36px;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .domain-name {
+      font-family: var(--serif);
+      font-size: 28px;
+      color: var(--paper);
+      font-weight: 400;
+      margin-top: 12px;
+      margin-bottom: 0;
+    }
+    .domain-desc {
+      font-family: var(--mono);
+      font-style: italic;
+      font-size: 12px;
+      color: var(--ash);
+      letter-spacing: 0.02em;
+      line-height: 1.55;
+      margin-top: 10px;
+      max-width: 220px;
+    }
+
+    /* ── Featured work tiles ──────────────────────────── */
+    .featured-section {
+      padding: 0 56px 80px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .featured-rule {
+      margin-bottom: 48px;
+    }
+    .chapter-tile {
+      padding: 40px 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .chapter-numeral {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 36px;
+      color: var(--gold-glow);
+      line-height: 1;
+    }
+    .chapter-tile h3 {
+      font-size: 28px;
+    }
+    .chapter-desc {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--ash);
+      flex: 1;
+    }
+    .chapter-link {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold-glow);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+      transition: gap 0.3s, color 0.3s;
+    }
+    .chapter-link:hover { color: var(--paper); gap: 12px; }
+
+    /* ── Footer ───────────────────────────────────────── */
+    .footer {
+      border-top: 1px solid var(--glass-stroke);
+      padding: 72px 56px 56px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1.5fr 1.5fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+    .footer-brand {
+      font-family: var(--serif);
+      font-size: 26px;
+      color: var(--paper);
+      margin-bottom: 14px;
+    }
+    .footer-tagline {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--ash);
+      max-width: 340px;
+      margin-bottom: 24px;
+    }
+    .footer-colophon-spec {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      letter-spacing: 0.14em;
+      color: var(--aurora-3);
+      opacity: 0.6;
+      margin-top: 16px;
+    }
+    .footer-col-head {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-links a {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.14em;
+      color: var(--ash);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--gold-glow); }
+    .footer-copyright {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      letter-spacing: 0.18em;
+      color: var(--aurora-3);
+      opacity: 0.55;
+      margin-top: 12px;
+    }
+
+    /* ── Back to top ──────────────────────────────────── */
+    #back-to-top {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 200;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--glass-stroke);
+      background: linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.03));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--ash);
+      font-family: var(--mono);
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s, border-color 0.3s, box-shadow 0.3s;
+    }
+    #back-to-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    #back-to-top:hover {
+      border-color: rgba(212,184,122,0.5);
+      box-shadow: 0 0 18px rgba(212,184,122,0.25);
+      color: var(--gold-glow);
+    }
+
+    /* ── Mobile ───────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .hamburger { display: flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 16px;
+        right: 16px;
+        flex-direction: column;
+        padding: 16px;
+        background: linear-gradient(135deg, rgba(20,32,57,0.96), rgba(11,20,36,0.98));
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-stroke);
+        border-radius: var(--r-md);
+        gap: 4px;
+      }
+      .nav-links.open { display: flex; }
+      .nav-inner { position: relative; }
+
+      .hero-content {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 100px 32px 80px;
+        gap: 40px;
+      }
+      .portrait-frame { width: 180px; height: 180px; }
+      .hero-title { font-size: clamp(52px, 12vw, 72px); }
+
+      .press-strip-wrap { padding: 0 32px; }
+      .press-strip { font-size: 9.5px; text-align: center; height: auto; padding: 14px 20px; }
+
+      .section-pad { padding: 60px 32px; }
+      .what-i-do { padding: 48px 24px 16px; }
+      .domains-section { padding: 0 32px 60px; }
+      .domains-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .domain-cell + .domain-cell::before { display: none; }
+      .domain-cell:nth-child(n+3) {
+        border-top: 1px solid var(--glass-stroke);
+      }
+
+      .featured-section { padding: 0 32px 60px; }
+      .grid-3 { grid-template-columns: 1fr; }
+
+      .footer { padding: 56px 32px 48px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+
+      .pano-divider { height: 220px; }
+      .pano-divider-bg { background-attachment: scroll; }
+    }
+
     @media (max-width: 480px) {
-      .portal-orb { width: 50px; height: 50px; }
-      .orbs-row { gap: 2rem; }
+      .domains-grid { grid-template-columns: 1fr; }
+      .domain-cell:nth-child(n+2) { border-top: 1px solid var(--glass-stroke); }
+      .domain-cell + .domain-cell::before { display: none; }
+      .hero-ctas { flex-direction: column; }
     }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="navbar">
-  <div class="nav-container">
-    <a href="index.html" class="nav-logo">KB</a>
+<div class="starfield"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     BLOCK 1 — Sticky nav
+═══════════════════════════════════════════════════════════ -->
+<nav class="site-nav">
+  <div class="nav-inner glass">
+    <a href="index.html" class="nav-brand">Katerina Bischel</a>
     <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
       <span></span><span></span><span></span>
     </button>
-    <ul class="nav-links" id="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="resume.html">Resume</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="research.html">Research</a></li>
-      <li><a href="writing.html">Writing</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="about.html">About</a>
+      <a href="resume.html">Resume</a>
+      <a href="projects.html">Projects</a>
+      <a href="research.html">Research</a>
+      <a href="writing.html">Writing</a>
+      <a href="contact.html">Contact</a>
+    </div>
   </div>
 </nav>
 
-<!-- HERO -->
+<!-- ═══════════════════════════════════════════════════════════
+     BLOCK 2 — Hero
+═══════════════════════════════════════════════════════════ -->
 <section class="hero">
-  <div class="hero-bg" style="background-image: url('panorama_4.jpeg');"></div>
-  <div class="hero-overlay"></div>
-  <canvas id="particle-canvas"></canvas>
-
+  <div class="hero-bg"></div>
   <div class="hero-content">
-    <div class="profile-photo-wrap">
-      <img src="profile_photo.PNG" alt="Katerina Bischel" class="profile-photo" />
-    </div>
-
-    <!-- Employment Badge -->
-
-    <p class="hero-greeting">Welcome to my portfolio</p>
-
-    <div class="typewriter-wrap">
-      <span id="typewriter" class="typewriter-text" data-text="Hi, I'm Katerina Bischel">Hi, I'm Katerina Bischel</span>
-    </div>
-
-    <p class="hero-subtitle">
-      Environmental Scientist · Applied Marine Sciences&nbsp;&nbsp;|&nbsp;&nbsp;M.E.S.M. 2026, UC Santa Barbara Bren School&nbsp;&nbsp;|&nbsp;&nbsp;Water Resources · Pollution Remediation · Data Science
-    </p>
-
-    <div class="btn-group">
-      <a href="projects.html" class="btn btn-primary">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        View My Work
-      </a>
-      <a href="Bischel_resume_AMS_format_2pp.docx" download class="btn btn-ghost">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Download Resume
-      </a>
-    </div>
-  </div>
-
-
-</section>
-
-<!-- PRESS STRIP -->
-<div class="press-strip">
-  <div class="press-inner">
-    <span class="press-label">📰 Featured In</span>
-    <a href="https://us15.campaign-archive.com/?e=__test_email__&u=05cf4db23a15975cb832e2846&id=3d0ad0cae9"
-       target="_blank" rel="noopener noreferrer" class="press-item">
-      Pollinator Monitoring Research · UCSB Cheadle Center Newsletter · 2025
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-    </a>
-  </div>
-</div>
-
-<!-- CURRENTLY WORKING ON -->
-<div class="current-work-wrap">
-  <div class="current-work-inner">
-    <div class="current-work-card reveal">
-      <div class="cw-label">
-        📄&nbsp; Currently: Research in Preparation
+    <div class="hero-portrait">
+      <div class="portrait-frame">
+        <img src="portfolio_profile_pic.png" alt="Katerina Bischel" />
       </div>
-      <h3 class="cw-title">Heavy Metal Contamination in the Pilcomayo River Basin</h3>
-      <p class="cw-desc">
-        Co-authoring a manuscript on heavy metal contamination in the Pilcomayo River Basin —
-        spatiotemporal dynamics, sediment-water partitioning, and geochemically targeted
-        remediation strategies, with Dr. Arturo Keller, UCSB.
+    </div>
+    <div class="hero-text reveal">
+      <h1 class="hero-title">Katerina <em>Bischel.</em></h1>
+      <p class="hero-subline">
+        An environmental scientist working at the intersection of field research, data analytics, and scientific storytelling — across hydrochemistry, computer vision for conservation, watershed planning, and interactive data communication.
       </p>
-      <a href="research.html" class="cw-link">
-        View Research
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
+      <p class="hero-byline">M.E.S.M. UCSB Bren &nbsp;·&nbsp; Environmental Scientist, Applied Marine Sciences</p>
+      <div class="hero-ctas">
+        <a href="projects.html" class="btn btn-primary">View My Work <span class="arrow">→</span></a>
+        <a href="Bischel_resume_AMS_format_2pp.docx" class="btn btn-ghost" download>Download Resume <span class="arrow">↓</span></a>
+      </div>
     </div>
   </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     BLOCK 3 — Press strip
+═══════════════════════════════════════════════════════════ -->
+<div class="press-strip-wrap reveal">
+  <a
+    href="https://us15.campaign-archive.com/?e=__test_email__&u=05cf4db23a15975cb832e2846&id=3d0ad0cae9"
+    class="press-strip glass"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <span style="color:var(--gold);font-family:var(--mono);font-size:11px;">§</span>
+    <span>Featured &nbsp;·&nbsp; Pollinator Monitoring Research &nbsp;·&nbsp; UCSB Cheadle Center Restoration Register · July 2025</span>
+    <span class="press-arrow">↗</span>
+  </a>
 </div>
 
-<!-- QUICK INTRO -->
-<section class="quick-intro">
-  <div class="quick-intro-inner">
-    <h2 class="section-title reveal">What I Do</h2>
-    <p class="reveal reveal-d1">
-      I work at the intersection of environmental science, field research, and data analytics —
-      turning complex environmental data into actionable insights for water quality,
-      watershed health, and pollution remediation. Now bringing those skills to
-      Applied Marine Sciences full-time.
+<!-- ═══════════════════════════════════════════════════════════
+     BLOCK 4 — "Currently" card
+═══════════════════════════════════════════════════════════ -->
+<div class="section-pad">
+  <div class="currently-card glass reveal">
+    <div class="live-indicator">
+      <span class="pulse-dot"></span>
+      Currently &nbsp;·&nbsp; Manuscript in preparation
+    </div>
+    <h3>Heavy Metal Contamination in the Pilcomayo River Basin</h3>
+    <h4>Spatiotemporal dynamics, sediment-water partitioning, and geochemically targeted remediation strategies.</h4>
+    <p class="currently-body">
+      A solo extension of the River Remedy master's thesis report — co-authored with Dr. Arturo Keller of the UCSB Bren School. Companion to the public-facing analytical site (River Remedy) and a Zenodo-archived release.
     </p>
-
-    <div class="stats-row">
-      <div class="stat-item reveal reveal-d1">
-        <div class="stat-num">4+</div>
-        <div class="stat-label">Major Projects</div>
-      </div>
-      <div class="stat-item reveal reveal-d2">
-        <div class="stat-num">2</div>
-        <div class="stat-label">Degrees · UCSB</div>
-      </div>
-      <div class="stat-item reveal reveal-d3">
-        <div class="stat-num">AI</div>
-        <div class="stat-label">Computer Vision</div>
-      </div>
-      <div class="stat-item reveal reveal-d4">
-        <div class="stat-num">R, Python, ClaudeCode</div>
-        <div class="stat-label">Data Science</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PANORAMA DIVIDER 9 -->
-<div class="pano-divider" style="background-image: url('panorama_9.jpeg');">
-  <div class="pano-divider-content reveal">
-    <p class="pano-divider-quote">"Where environmental complexity meets analytical clarity: engineering a future for <span>resilient water systems</span>."</p>
+    <a href="research.html" class="arrow-link">View Research <span>→</span></a>
   </div>
 </div>
 
-<!-- FEATURED WORK PREVIEW -->
-<section class="section">
-  <h2 class="section-title reveal">Featured Work</h2>
-  <div class="card-grid">
+<!-- ═══════════════════════════════════════════════════════════
+     DIVIDER A — panorama_8 · Resilient water systems
+═══════════════════════════════════════════════════════════ -->
+<div class="pano-divider">
+  <div class="pano-divider-bg" style="background-image: url('panorama_8.jpeg');"></div>
+  <p class="pano-divider-quote">
+    "Where environmental complexity meets analytical clarity — engineering a future for <span class="emph">resilient water systems</span>."
+  </p>
+</div>
 
-    <a href="projects.html" class="glass-card card-flex reveal reveal-d1" style="text-decoration:none;">
-      <span class="card-icon">🌊</span>
-      <h3 class="card-title">Projects</h3>
-      <p class="card-desc">River remediation capstone, interactive R Shiny dashboards, watershed management plans, and machine learning for conservation.</p>
-      <span class="card-link">Explore Projects <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-    </a>
+<!-- ═══════════════════════════════════════════════════════════
+     BLOCK 5 — What I Do + stats
+═══════════════════════════════════════════════════════════ -->
+<div class="what-i-do reveal">
+  <p class="eyebrow" style="margin-bottom:16px;">§ 1.1 &nbsp;·&nbsp; Field practice</p>
+</div>
 
-    <a href="research.html" class="glass-card card-flex reveal reveal-d2" style="text-decoration:none;">
-      <span class="card-icon">🔬</span>
-      <h3 class="card-title">Research</h3>
-      <p class="card-desc">Pilcomayo River heavy metals manuscript (in prep), YOLOv8 pollinator AI, and graduate & undergraduate theses in environmental science.</p>
-      <span class="card-link">View Research <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-    </a>
+<div class="rule-diamond" style="max-width:1280px;margin:0 auto;padding:0 56px 40px;">
+  <span class="diamond"></span>
+</div>
 
-    <a href="writing.html" class="glass-card card-flex reveal reveal-d3" style="text-decoration:none;">
-      <span class="card-icon">✍️</span>
-      <h3 class="card-title">Writing</h3>
-      <p class="card-desc">Technical scientific writing samples demonstrating rigorous environmental communication across hydrology, remediation, and marine science.</p>
-      <span class="card-link">Read Samples <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-    </a>
-
+<div class="domains-section reveal">
+  <div class="domains-grid">
+    <div class="domain-cell">
+      <span class="domain-numeral">i.</span>
+      <h3 class="domain-name">Field Research</h3>
+      <p class="domain-desc">Camera-trap fieldwork, microscopy, water and sediment sampling, species identification.</p>
+    </div>
+    <div class="domain-cell">
+      <span class="domain-numeral">ii.</span>
+      <h3 class="domain-name">Data Science</h3>
+      <p class="domain-desc">R, Python, GIS, R Shiny, statistical modeling, environmental data pipelines.</p>
+    </div>
+    <div class="domain-cell">
+      <span class="domain-numeral">iii.</span>
+      <h3 class="domain-name">Computer Vision</h3>
+      <p class="domain-desc">YOLOv8 object detection for endangered-species monitoring and conservation.</p>
+    </div>
+    <div class="domain-cell">
+      <span class="domain-numeral">iv.</span>
+      <h3 class="domain-name">Scientific Communication</h3>
+      <p class="domain-desc">Bilingual analytical sites, manuscripts, dashboards, technical writing, watershed plans.</p>
+    </div>
   </div>
-</section>
+</div>
 
-<!-- 3D INTERACTIVE SCENES -->
-<section class="interactive-orbs-section">
-  <h2 class="section-title reveal">3D Interactive Scenes</h2>
-  <div class="orbs-row">
+<!-- ═══════════════════════════════════════════════════════════
+     DIVIDER B — panorama_9 · Fieldwork / data science
+═══════════════════════════════════════════════════════════ -->
+<div class="pano-divider">
+  <div class="pano-divider-bg" style="background-image: url('panorama_9.jpeg');"></div>
+  <p class="pano-divider-quote">
+    "Bridging <span class="emph">fieldwork</span> and <span class="emph">data science</span> to protect our water systems."
+  </p>
+</div>
 
-    <a href="fishbowl.html" class="portal-orb-wrap portal-orb-wrap--teal" aria-label="Explore 3D fishbowl scene">
-      <div class="portal-orb portal-orb--teal">
-        <img src="fishbowl_pic.png" alt="3D fishbowl" />
-      </div>
-      <span class="portal-orb-label">Fishbowl →</span>
-    </a>
-
-    <a href="donut.html" class="portal-orb-wrap portal-orb-wrap--warm" aria-label="View 3D donut">
-      <div class="portal-orb portal-orb--warm">
-        <img src="donut.png" alt="3D donut" />
-      </div>
-      <span class="portal-orb-label">Donut →</span>
-    </a>
-
+<!-- ═══════════════════════════════════════════════════════════
+     BLOCK 6 — Featured Work tiles
+═══════════════════════════════════════════════════════════ -->
+<div class="featured-section">
+  <div class="featured-rule reveal">
+    <div class="rule-diamond">
+      <span class="diamond"></span>
+    </div>
+    <p class="eyebrow" style="text-align:center;margin-top:20px;margin-bottom:40px;">§ 1.2 &nbsp;·&nbsp; Three chapters</p>
   </div>
-</section>
+  <div class="grid grid-3 reveal">
+    <!-- Tile I — Projects -->
+    <article class="chapter-tile glass">
+      <div class="chapter-numeral">I.</div>
+      <h3>Projects</h3>
+      <p class="chapter-desc">
+        The River Remedy live site, the Whitewater Watershed Plan, the CalCOFI Shiny dashboard, and the YOLOv8 pollinator detection pipeline — artifacts you can open and use.
+      </p>
+      <a href="projects.html" class="chapter-link">Open chapter <span>→</span></a>
+    </article>
+    <!-- Tile II — Research -->
+    <article class="chapter-tile glass">
+      <div class="chapter-numeral">II.</div>
+      <h3>Research</h3>
+      <p class="chapter-desc">
+        The Pilcomayo manuscript in preparation, the YOLOv8 pollinator study at the Cheadle Center, the River Remedy master's thesis report, and the senior thesis on calcium-carbonate ocean alkalinity enhancement.
+      </p>
+      <a href="research.html" class="chapter-link">Open chapter <span>→</span></a>
+    </article>
+    <!-- Tile III — Writing -->
+    <article class="chapter-tile glass">
+      <div class="chapter-numeral">III.</div>
+      <h3>Writing</h3>
+      <p class="chapter-desc">
+        Two writing samples paired across registers — a formal academic paper on pharmaceutical contamination and a public-facing science article on biological waste treatment, alongside the Whitewater plan and the River Remedy report.
+      </p>
+      <a href="writing.html" class="chapter-link">Open chapter <span>→</span></a>
+    </article>
+  </div>
+</div>
 
-<!-- FOOTER -->
+<!-- ═══════════════════════════════════════════════════════════
+     DIVIDER C — panorama_1 · Instruments quote
+═══════════════════════════════════════════════════════════ -->
+<div class="pano-divider">
+  <div class="pano-divider-bg" style="background-image: url('panorama_1.jpeg');"></div>
+  <p class="pano-divider-quote">
+    "The instruments are R, Python, GIS, and computer vision. The throughline is what the <span class="emph">data</span> actually means."
+  </p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     BLOCK 7 — Footer / colophon
+═══════════════════════════════════════════════════════════ -->
 <footer>
-  <div class="footer-inner">
-    <p class="footer-copy">© 2026 Katerina Bischel · Environmental Scientist · Applied Marine Sciences · M.E.S.M., UC Santa Barbara Bren School</p>
-    <div class="footer-links">
-      <a href="https://www.linkedin.com/in/katerina-bischel/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-      </a>
-      <a href="https://github.com/katerinabischell" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-      </a>
+  <div class="footer reveal">
+    <div class="footer-grid">
+      <!-- Col 1 -->
+      <div>
+        <div class="footer-brand">Katerina Bischel</div>
+        <p class="footer-tagline">
+          A portfolio of watersheds, pollinators, and the quiet science of how water moves — and what it carries with it.
+        </p>
+        <div class="rule-diamond">
+          <span class="diamond"></span>
+        </div>
+        <p class="footer-colophon-spec">Set in Cormorant Garamond &amp; JetBrains Mono.</p>
+      </div>
+      <!-- Col 2 — § Pages -->
+      <div>
+        <p class="footer-col-head">§ Pages</p>
+        <nav class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="resume.html">Resume</a>
+          <a href="projects.html">Projects</a>
+          <a href="research.html">Research</a>
+          <a href="writing.html">Writing</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+      <!-- Col 3 — § Field -->
+      <div>
+        <p class="footer-col-head">§ Field</p>
+        <nav class="footer-links">
+          <a href="research.html">Pilcomayo manuscript</a>
+          <a href="https://katerinabischel.github.io/River_Remedy/" target="_blank" rel="noopener noreferrer">River Remedy site ↗</a>
+          <a href="research.html">YOLOv8 pollinators</a>
+          <a href="projects.html">Whitewater plan</a>
+          <a href="https://katerinabischel.shinyapps.io/my-calcofi-app/" target="_blank" rel="noopener noreferrer">CalCOFI dashboard ↗</a>
+        </nav>
+      </div>
+      <!-- Col 4 — § Elsewhere -->
+      <div>
+        <p class="footer-col-head">§ Elsewhere</p>
+        <nav class="footer-links">
+          <a href="mailto:katerinabischel@amarine.com">Email</a>
+          <a href="https://www.linkedin.com/in/katerina-bischel/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+          <a href="https://github.com/katerinabischel" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          <a href="https://orcid.org/0009-0005-4168-9726" target="_blank" rel="noopener noreferrer">ORCID ↗</a>
+        </nav>
+        <p class="footer-copyright">© MMXXVI · K. Bischel</p>
+      </div>
     </div>
   </div>
 </footer>
 
-<button class="back-to-top" id="back-to-top" aria-label="Back to top">
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 15l-6-6-6 6"/></svg>
-</button>
+<!-- Back to top -->
+<button id="back-to-top" aria-label="Back to top">↑</button>
 
 <script src="main.js"></script>
 </body>

@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>UI Kit · 03 Templates</title>
+<meta name="viewport" content="width=1280">
+<link rel="stylesheet" href="shared.css">
+<style>
+  /* Template thumbnail frame — desktop preview */
+  .tpl-frame {
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.18);
+    background:
+      radial-gradient(800px 400px at 80% 0%, rgba(212,184,122,0.08), transparent 60%),
+      radial-gradient(900px 600px at 10% 100%, rgba(111,143,184,0.16), transparent 60%),
+      linear-gradient(180deg, #0e1828 0%, #0b1424 100%);
+    position: relative;
+    box-shadow: 0 40px 80px -40px rgba(8,14,28,0.8);
+  }
+  .tpl-chrome {
+    display: flex; align-items: center; gap: 8px;
+    padding: 12px 16px;
+    background: rgba(11,20,36,0.7);
+    border-bottom: 1px solid rgba(255,255,255,0.10);
+  }
+  .tpl-chrome .dots { display: flex; gap: 6px; }
+  .tpl-chrome .dots span { width: 11px; height: 11px; border-radius: 50%; background: rgba(255,255,255,0.18); }
+  .tpl-chrome .url {
+    flex: 1; text-align: center;
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; color: var(--ash); opacity: 0.7;
+  }
+  .tpl-chrome .badge { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.22em; color: var(--gold); padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(212,184,122,0.35); }
+
+  .tpl-stage { padding: 28px 28px 36px; }
+
+  /* === HOME === */
+  .tpl-nav-mini {
+    display:flex; align-items:center; justify-content: space-between;
+    padding: 12px 18px; border-radius: 999px;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.14);
+    backdrop-filter: blur(12px);
+    margin-bottom: 28px;
+  }
+  .tpl-nav-mini .b { font-family: var(--serif); font-size: 16px; color: var(--paper); }
+  .tpl-nav-mini nav { display:flex; gap: 4px; font-family: var(--mono); font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; }
+  .tpl-nav-mini nav a { padding: 6px 10px; border-radius: 999px; color: var(--ash); }
+  .tpl-nav-mini nav a.on { background: rgba(212,184,122,0.16); color: var(--gold-glow); }
+
+  .home-hero { display:grid; grid-template-columns: 1.4fr 1fr; gap: 28px; align-items: end; min-height: 360px; }
+  .home-hero h1 { font-size: 76px; line-height: 0.95; letter-spacing: -0.015em; }
+  .home-hero h1 em { font-style: italic; color: var(--gold-glow); font-weight: 300; }
+  .home-portrait {
+    aspect-ratio: 4/5;
+    border-radius: var(--r-lg);
+    background:
+      radial-gradient(circle at 50% 25%, #6a8aaa 0%, #2a4a6a 60%, #0e1828 100%);
+    border: 1px solid rgba(212,184,122,0.4);
+    position: relative;
+    overflow: hidden;
+  }
+  .home-portrait::after {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(2px 2px at 30% 20%, rgba(255,255,255,0.6), transparent 50%),
+      radial-gradient(1.5px 1.5px at 70% 60%, rgba(240,220,168,0.6), transparent 50%);
+  }
+  .home-portrait .frame-cap {
+    position: absolute; left: 14px; bottom: 14px;
+    font-family: var(--mono); font-size: 9px; letter-spacing: 0.22em; color: var(--gold); text-transform: uppercase;
+  }
+
+  .stat-strip { display:grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 28px 0; }
+  .stat-card { padding: 16px; border-radius: var(--r-md); background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.10); }
+  .stat-card .num { font-family: var(--serif); font-size: 36px; color: var(--gold-glow); line-height: 1; }
+  .stat-card .lbl { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; color: var(--ash); text-transform: uppercase; margin-top: 8px; opacity: 0.8; }
+
+  .feat-grid { display:grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+  .feat-tile {
+    padding: 22px; border-radius: var(--r-md);
+    background: linear-gradient(135deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.12);
+    min-height: 180px; display:flex; flex-direction: column; gap: 10px;
+  }
+  .feat-tile .glyph { font-family: var(--serif); font-style: italic; color: var(--gold); font-size: 28px; line-height: 1; }
+  .feat-tile h4 { font-style: normal; color: var(--paper); font-size: 19px; }
+  .feat-tile p { font-family: var(--serif); font-size: 14px; color: var(--ash); line-height: 1.4; margin: 0; }
+  .feat-tile .lnk { margin-top: auto; font-family: var(--mono); font-size: 9px; letter-spacing: 0.22em; color: var(--gold-glow); text-transform: uppercase; }
+
+  /* === PROJECTS INDEX === */
+  .pix-toolbar {
+    display:flex; align-items: center; justify-content: space-between;
+    padding: 12px 18px; border-radius: 999px;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.14);
+    margin-bottom: 24px;
+  }
+  .pix-toolbar .left { display:flex; gap: 6px; flex-wrap: wrap; }
+  .pix-toolbar .left .chip { padding: 4px 10px; font-size: 9px; }
+  .pix-toolbar .right { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.2em; color: var(--ash); text-transform: uppercase; }
+  .pix-toolbar .right select { background: transparent; border: none; color: var(--gold); font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase; outline: none; }
+
+  .pix-row {
+    display: grid; grid-template-columns: 60px 1.6fr 1fr 1fr 80px;
+    gap: 14px; align-items: center;
+    padding: 14px 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    font-family: var(--mono); font-size: 11.5px; color: var(--ash);
+  }
+  .pix-row.head { color: var(--gold); letter-spacing: 0.2em; text-transform: uppercase; font-size: 10px; border-bottom: 1px solid rgba(212,184,122,0.3); }
+  .pix-row .title { font-family: var(--serif); font-size: 18px; color: var(--paper); font-style: italic; }
+  .pix-row .title small { display: block; font-style: normal; font-family: var(--mono); font-size: 10px; color: var(--ash); letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.7; margin-top: 2px; }
+  .pix-row .arr { text-align: right; color: var(--gold-glow); }
+  .pix-row .num { font-family: var(--mono); color: var(--gold); }
+  .pix-card {
+    padding: 14px; border-radius: var(--r-md);
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.10);
+    margin-bottom: 14px;
+  }
+  .pix-thumb { aspect-ratio: 4/3; border-radius: 8px; overflow: hidden; background: linear-gradient(110deg, #1a3a5a, #4a7a9a 50%, #0e1828); margin-bottom: 12px; position: relative; }
+  .pix-thumb::after { content:""; position:absolute; inset:0; background: radial-gradient(1.5px 1.5px at 30% 30%, rgba(255,255,255,0.7), transparent 50%), radial-gradient(1px 1px at 70% 60%, rgba(240,220,168,0.7), transparent 50%); }
+
+  /* === CASE STUDY === */
+  .cs-hero { aspect-ratio: 21/8; border-radius: var(--r-lg); background: linear-gradient(110deg, #1a3a5a, #4a7a9a 50%, #0e1828); position: relative; overflow: hidden; margin-bottom: 28px; }
+  .cs-hero::after { content:""; position:absolute; inset:0; background: radial-gradient(2px 2px at 22% 30%, rgba(255,255,255,0.7), transparent 50%), radial-gradient(1.5px 1.5px at 78% 60%, rgba(240,220,168,0.7), transparent 50%); }
+  .cs-hero .cs-cap { position: absolute; left: 24px; right: 24px; bottom: 22px; display: flex; justify-content: space-between; align-items: flex-end; z-index: 2; }
+  .cs-hero .cs-title { font-family: var(--serif); font-size: 36px; color: var(--paper); font-style: italic; line-height: 1; }
+  .cs-hero .cs-coord { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; color: var(--gold); text-transform: uppercase; }
+
+  .cs-meta {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+    padding: 18px 0; margin-bottom: 24px;
+    border-top: 1px solid rgba(255,255,255,0.10);
+    border-bottom: 1px solid rgba(255,255,255,0.10);
+  }
+  .cs-meta > div { padding: 0 18px; border-right: 1px solid rgba(255,255,255,0.08); }
+  .cs-meta > div:last-child { border-right: none; }
+  .cs-meta .k { font-family: var(--mono); font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); }
+  .cs-meta .v { font-family: var(--serif); font-size: 17px; color: var(--paper); margin-top: 6px; line-height: 1.2; }
+
+  .cs-body { display: grid; grid-template-columns: 1fr 240px; gap: 36px; align-items: start; }
+  .cs-prose p { font-family: var(--serif); font-size: 16px; line-height: 1.6; color: var(--ash-soft); margin: 0 0 18px; }
+  .cs-prose p::first-letter { font-size: 48px; font-style: italic; color: var(--gold); float: left; line-height: 0.9; padding: 4px 8px 0 0; }
+  .cs-prose h3 { font-size: 22px; margin-top: 28px; margin-bottom: 10px; }
+  .cs-side { position: sticky; top: 24px; padding: 22px; border-radius: var(--r-md); background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.10); }
+  .cs-side .side-h { font-family: var(--mono); font-size: 9px; letter-spacing: 0.22em; color: var(--gold); text-transform: uppercase; }
+  .cs-side .side-list { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; font-family: var(--mono); font-size: 11px; color: var(--ash); letter-spacing: 0.04em; }
+  .cs-side .side-list a { color: var(--ash); display: flex; justify-content: space-between; }
+  .cs-side .side-list a.on { color: var(--gold-glow); }
+
+  /* === ABOUT === */
+  .ab-grid { display: grid; grid-template-columns: 320px 1fr; gap: 32px; align-items: start; }
+  .ab-portrait { aspect-ratio: 3/4; border-radius: var(--r-lg); background: radial-gradient(circle at 50% 30%, #6a8aaa, #0e1828); position: relative; overflow: hidden; border: 1px solid rgba(212,184,122,0.3); }
+  .ab-portrait .cap { position:absolute; left: 12px; bottom: 12px; font-family: var(--mono); font-size: 9px; letter-spacing: 0.22em; color: var(--gold); text-transform: uppercase; }
+
+  .timeline { display: flex; flex-direction: column; gap: 0; margin-top: 18px; }
+  .tl-row { display: grid; grid-template-columns: 90px 24px 1fr; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.08); align-items: baseline; }
+  .tl-year { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.22em; color: var(--gold); text-transform: uppercase; }
+  .tl-mark { width: 8px; height: 8px; transform: rotate(45deg); background: var(--gold); margin: 6px auto 0; box-shadow: 0 0 12px rgba(212,184,122,0.5); }
+  .tl-body strong { font-family: var(--serif); font-size: 19px; font-style: italic; font-weight: 400; color: var(--paper); display:block; }
+  .tl-body small { font-family: var(--mono); font-size: 11px; color: var(--ash); letter-spacing: 0.04em; }
+
+  /* === CONTACT === */
+  .ct-grid { display: grid; grid-template-columns: 1fr 360px; gap: 28px; align-items: start; }
+  .ct-side { padding: 24px; border-radius: var(--r-md); background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.10); }
+  .ct-line { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed rgba(255,255,255,0.10); font-family: var(--mono); font-size: 11px; color: var(--ash); letter-spacing: 0.04em; }
+  .ct-line .k { color: var(--gold); letter-spacing: 0.2em; text-transform: uppercase; font-size: 10px; }
+  .ct-line:last-child { border-bottom: none; }
+</style>
+</head>
+<body>
+<div class="starfield"></div>
+
+<header class="kit-nav glass">
+  <div class="brand">Bischel <span class="amp">&</span> Co. <span class="spec" style="margin-left:12px">UI KIT v1</span></div>
+  <nav class="links">
+    <a href="index.html">Cover</a>
+    <a href="foundations.html">01 · Foundations</a>
+    <a href="components.html">02 · Components</a>
+    <a href="templates.html" class="active">03 · Templates</a>
+  </nav>
+</header>
+
+<main class="kit-shell">
+
+  <header class="section-head">
+    <div class="index">Chapter III</div>
+    <div class="title iridescent-text">Page templates</div>
+    <div class="meta">5 plates · composed pages</div>
+  </header>
+
+  <p class="body-serif" style="max-width: 760px; font-style: italic; color: var(--ash);">
+    Five composed page layouts showing the system in motion. Each template is rendered
+    inside a desktop browser frame and uses real bio + project content. Treat them as
+    starting points — section order is flexible.
+  </p>
+
+  <!-- ============ HOME ============ -->
+  <div style="margin-top: 64px;">
+    <div class="rule-diamond" style="margin-bottom: 24px;">
+      <div class="diamond"></div>
+      <span class="eyebrow">§ Template 01 — Home / Landing</span>
+      <div class="diamond"></div>
+    </div>
+    <div class="tpl-frame">
+      <div class="tpl-chrome">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <div class="url">katerinabischel.github.io / portfolio · home</div>
+        <div class="badge">01 · HOME</div>
+      </div>
+      <div class="tpl-stage">
+        <div class="tpl-nav-mini">
+          <div class="b">Katerina <em style="color:var(--gold);font-style:italic;">&amp;</em> the river</div>
+          <nav><a class="on">Home</a><a>About</a><a>Projects</a><a>Research</a><a>Writing</a><a>Contact</a></nav>
+          <span class="spec" style="font-size:9px;">resume ↓</span>
+        </div>
+
+        <section class="home-hero">
+          <div>
+            <div class="eyebrow">§ Welcome to my portfolio · MMXXVI</div>
+            <h1 style="margin-top: 14px;">Hi, I'm <em>Katerina</em><br>Bischel</h1>
+            <p class="body-serif" style="max-width: 480px; margin-top: 16px; font-style: italic; color: var(--ash); font-size: 16px;">Environmental scientist · Applied Marine Sciences. M.E.S.M. 2026, UC Santa Barbara Bren School. Water Resources · Pollution Remediation · Data Science.</p>
+            <div style="display:flex; gap: 10px; margin-top: 22px;">
+              <button class="btn btn-primary" style="padding: 10px 18px; font-size: 10px;">View My Work <span class="arrow">→</span></button>
+              <button class="btn" style="padding: 10px 18px; font-size: 10px;">Download Resume <span class="arrow">↓</span></button>
+            </div>
+          </div>
+          <div class="home-portrait">
+            <div class="frame-cap">⌖ portrait · santa barbara · '26</div>
+          </div>
+        </section>
+
+        <!-- ripple divider -->
+        <div style="height: 60px; margin-top: 40px;">
+          <svg viewBox="0 0 1200 60" preserveAspectRatio="none" style="width:100%; height:100%;">
+            <path d="M0,30 Q150,5 300,30 T600,30 T900,30 T1200,30" stroke="rgba(212,184,122,0.4)" fill="none" stroke-width="1"/>
+            <path d="M0,40 Q150,15 300,40 T600,40 T900,40 T1200,40" stroke="rgba(255,255,255,0.14)" fill="none" stroke-width="1"/>
+          </svg>
+        </div>
+
+        <!-- featured in -->
+        <div class="glass" style="padding: 18px 22px; display:flex; justify-content: space-between; align-items: center; margin-top: 8px;">
+          <div>
+            <div class="eyebrow">📰 Featured in</div>
+            <div style="font-family: var(--serif); font-style: italic; font-size: 18px; color: var(--paper); margin-top: 4px;">Pollinator Monitoring Research · UCSB Cheadle Center Newsletter · 2025</div>
+          </div>
+          <span class="spec" style="color: var(--gold-glow);">read →</span>
+        </div>
+
+        <!-- in prep manuscript -->
+        <div style="margin-top: 24px; display:grid; grid-template-columns: 1fr 220px; gap: 24px; padding: 22px; border-radius: var(--r-md); background: linear-gradient(135deg, rgba(212,184,122,0.10), rgba(255,255,255,0.02)); border: 1px solid rgba(212,184,122,0.3);">
+          <div>
+            <div class="eyebrow" style="color: var(--gold);">📄 Currently · Research in Preparation</div>
+            <h3 style="margin-top: 8px; font-size: 26px;">Heavy Metal Contamination in the Pilcomayo River Basin</h3>
+            <p style="font-family: var(--serif); font-size: 15px; color: var(--ash); margin: 10px 0 0; line-height: 1.5;">Co-authoring a manuscript on spatiotemporal dynamics, sediment-water partitioning, and geochemically targeted remediation strategies, with Dr. Arturo Keller, UCSB.</p>
+          </div>
+          <div style="display:flex; align-items: flex-end; justify-content: flex-end;">
+            <button class="btn btn-primary" style="padding: 10px 16px; font-size: 10px;">View Research <span class="arrow">→</span></button>
+          </div>
+        </div>
+
+        <!-- WHAT I DO -->
+        <h3 style="font-size: 28px; margin-top: 40px; margin-bottom: 16px;">What I Do</h3>
+        <p class="body-serif" style="max-width: 640px; font-size: 15px; color: var(--ash); font-style: italic;">I work at the intersection of environmental science, field research, and data analytics — turning complex environmental data into actionable insight for water quality, watershed health, and pollution remediation.</p>
+
+        <div class="stat-strip">
+          <div class="stat-card"><div class="num">4+</div><div class="lbl">Major projects</div></div>
+          <div class="stat-card"><div class="num">2</div><div class="lbl">Degrees · UCSB</div></div>
+          <div class="stat-card"><div class="num">AI</div><div class="lbl">Computer vision</div></div>
+          <div class="stat-card"><div class="num">R · Py</div><div class="lbl">Data science</div></div>
+        </div>
+
+        <!-- Pull quote -->
+        <div class="glass" style="padding: 28px; margin-top: 14px;">
+          <p style="font-family: var(--serif); font-style: italic; font-size: 22px; line-height: 1.4; margin: 0; color: var(--paper); text-align: center;">“Where environmental complexity meets analytical clarity — engineering a future for resilient water systems.”</p>
+        </div>
+
+        <!-- Featured Work -->
+        <h3 style="font-size: 28px; margin-top: 40px; margin-bottom: 16px;">Featured Work</h3>
+        <div class="feat-grid">
+          <a class="feat-tile">
+            <div class="glyph">🜄</div>
+            <h4>Projects</h4>
+            <p>River remediation capstone, R Shiny dashboards, watershed plans, ML for conservation.</p>
+            <span class="lnk">Explore →</span>
+          </a>
+          <a class="feat-tile">
+            <div class="glyph">🜍</div>
+            <h4>Research</h4>
+            <p>Pilcomayo manuscript (in prep), YOLOv8 pollinator AI, graduate &amp; undergraduate theses.</p>
+            <span class="lnk">View →</span>
+          </a>
+          <a class="feat-tile">
+            <div class="glyph">✑</div>
+            <h4>Writing</h4>
+            <p>Technical scientific writing across hydrology, remediation, and marine science.</p>
+            <span class="lnk">Read →</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PROJECTS INDEX ============ -->
+  <div style="margin-top: 80px;">
+    <div class="rule-diamond" style="margin-bottom: 24px;">
+      <div class="diamond"></div>
+      <span class="eyebrow">§ Template 02 — Projects index</span>
+      <div class="diamond"></div>
+    </div>
+    <div class="tpl-frame">
+      <div class="tpl-chrome">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <div class="url">/ projects · index of works</div>
+        <div class="badge">02 · PROJECTS</div>
+      </div>
+      <div class="tpl-stage">
+        <div class="tpl-nav-mini">
+          <div class="b">Katerina <em style="color:var(--gold);font-style:italic;">&amp;</em> the river</div>
+          <nav><a>Home</a><a>About</a><a class="on">Projects</a><a>Research</a><a>Writing</a><a>Contact</a></nav>
+          <span class="spec" style="font-size:9px;">resume ↓</span>
+        </div>
+
+        <div class="eyebrow" style="margin-top: 16px;">§ The catalogue · MMXXII — MMXXVI</div>
+        <h1 style="font-size: 64px; margin-top: 8px;">Projects</h1>
+        <p class="body-serif" style="max-width: 640px; font-style: italic; color: var(--ash); font-size: 16px; margin-top: 12px;">An annotated index — capstones, dashboards, fieldwork, and machine-learning experiments. Filter by discipline, sort by year. Selected work opens to a full case study.</p>
+
+        <!-- toolbar -->
+        <div class="pix-toolbar" style="margin-top: 24px;">
+          <div class="left">
+            <span class="chip gold"><span class="dot"></span>All · 12</span>
+            <span class="chip"><span class="dot"></span>Hydrology</span>
+            <span class="chip"><span class="dot"></span>Marine</span>
+            <span class="chip"><span class="dot"></span>Data Science</span>
+            <span class="chip"><span class="dot"></span>AI</span>
+            <span class="chip"><span class="dot"></span>Field</span>
+          </div>
+          <div class="right">
+            sort · <select><option>year ↓</option><option>title</option></select>
+            <span style="margin-left: 16px;">view · ▦ list</span>
+          </div>
+        </div>
+
+        <!-- tabular index -->
+        <div class="pix-row head">
+          <span>№</span><span>Title</span><span>Discipline</span><span>Year</span><span></span>
+        </div>
+        <div class="pix-row">
+          <span class="num">04</span>
+          <div class="title">— Pilcomayo Basin remediation<small>capstone · co-authored manuscript</small></div>
+          <span>Hydrology · GIS</span>
+          <span>2026</span>
+          <span class="arr">→</span>
+        </div>
+        <div class="pix-row">
+          <span class="num">03</span>
+          <div class="title">— Watershed health · R Shiny<small>interactive monitoring dashboard</small></div>
+          <span>Data Science</span>
+          <span>2025</span>
+          <span class="arr">→</span>
+        </div>
+        <div class="pix-row">
+          <span class="num">02</span>
+          <div class="title">— YOLOv8 pollinator AI<small>computer vision · UCSB Cheadle</small></div>
+          <span>AI · Field</span>
+          <span>2025</span>
+          <span class="arr">→</span>
+        </div>
+        <div class="pix-row">
+          <span class="num">01</span>
+          <div class="title">— Carpinteria saltmarsh transects<small>field study · sediment pH gradient</small></div>
+          <span>Marine · Field</span>
+          <span>2024</span>
+          <span class="arr">→</span>
+        </div>
+
+        <!-- featured tiles below -->
+        <h3 style="margin-top: 32px; margin-bottom: 14px; font-size: 24px;">Featured plates</h3>
+        <div class="grid grid-3">
+          <article class="pix-card">
+            <div class="pix-thumb"></div>
+            <div class="eyebrow">§ 04 · 2026</div>
+            <div style="font-family: var(--serif); font-size: 18px; color: var(--paper); margin-top: 6px;">Pilcomayo Basin</div>
+          </article>
+          <article class="pix-card">
+            <div class="pix-thumb" style="background: linear-gradient(110deg, #2a4a3a, #6a9a8a 50%, #1a2a26);"></div>
+            <div class="eyebrow">§ 02 · 2025</div>
+            <div style="font-family: var(--serif); font-size: 18px; color: var(--paper); margin-top: 6px;">Pollinator AI</div>
+          </article>
+          <article class="pix-card">
+            <div class="pix-thumb" style="background: linear-gradient(110deg, #4a3a5a, #6a7aaa 50%, #1a2a4a);"></div>
+            <div class="eyebrow">§ 03 · 2025</div>
+            <div style="font-family: var(--serif); font-size: 18px; color: var(--paper); margin-top: 6px;">Watershed Shiny</div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ CASE STUDY ============ -->
+  <div style="margin-top: 80px;">
+    <div class="rule-diamond" style="margin-bottom: 24px;">
+      <div class="diamond"></div>
+      <span class="eyebrow">§ Template 03 — Single case study</span>
+      <div class="diamond"></div>
+    </div>
+    <div class="tpl-frame">
+      <div class="tpl-chrome">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <div class="url">/ projects / pilcomayo-basin</div>
+        <div class="badge">03 · CASE</div>
+      </div>
+      <div class="tpl-stage">
+        <div class="tpl-nav-mini">
+          <div class="b">Katerina <em style="color:var(--gold);font-style:italic;">&amp;</em> the river</div>
+          <nav><a>Home</a><a>About</a><a class="on">Projects</a><a>Research</a><a>Writing</a><a>Contact</a></nav>
+          <span class="spec" style="font-size:9px;">resume ↓</span>
+        </div>
+
+        <div class="cs-hero">
+          <div class="cs-cap">
+            <div>
+              <div class="cs-coord">§ Plate 04 · Capstone · 2026</div>
+              <div class="cs-title">Where the watershed bends</div>
+            </div>
+            <div class="cs-coord">⌖ 19.4326° S · 65.4536° W</div>
+          </div>
+        </div>
+
+        <div class="cs-meta">
+          <div><div class="k">Project</div><div class="v">Pilcomayo Basin · heavy metals</div></div>
+          <div><div class="k">Role</div><div class="v">Co-author · field analyst</div></div>
+          <div><div class="k">Advisor</div><div class="v">Dr. Arturo Keller · UCSB</div></div>
+          <div><div class="k">Status</div><div class="v">Manuscript in preparation</div></div>
+        </div>
+
+        <div class="cs-body">
+          <div class="cs-prose">
+            <p>The Pilcomayo descends 1,500 kilometres from the Andes into the Gran Chaco, gathering sediment, silver, and a long historical load of cadmium, lead, and zinc along the way. Our work tracks how those metals partition between dissolved phase, suspended sediment, and the river bed across seasons.</p>
+            <p>Sampling was conducted across thirty-two stations over fourteen months, paired with discharge gauges and a bench-top XRF for sediment cores. Geochemically targeted remediation strategies were modelled against three flow regimes.</p>
+            <h3>Method</h3>
+            <p>Spatiotemporal partitioning was modelled using a coupled hydrological-geochemical framework. Field data was processed in R; sediment cores were imaged and indexed in Python with a small ResNet for grain classification.</p>
+            <h3>Findings</h3>
+            <p>Cadmium concentrations in the lower transect exceeded baseline by 3.2σ during low-flow months. A staged remediation plan — wetland buffer reactivation paired with targeted sediment capping — reduced modelled exposure by 41%.</p>
+          </div>
+          <aside class="cs-side">
+            <div class="side-h">§ Contents</div>
+            <div class="side-list">
+              <a class="on">Method <span>→</span></a>
+              <a>Findings <span>→</span></a>
+              <a>Field log <span>→</span></a>
+              <a>Appendices <span>→</span></a>
+              <a>References <span>→</span></a>
+            </div>
+            <div class="side-h" style="margin-top: 24px;">§ Tools</div>
+            <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top: 10px;">
+              <span class="chip" style="font-size:9px;"><span class="dot"></span>R</span>
+              <span class="chip" style="font-size:9px;"><span class="dot"></span>Python</span>
+              <span class="chip" style="font-size:9px;"><span class="dot"></span>QGIS</span>
+              <span class="chip water" style="font-size:9px;"><span class="dot"></span>XRF</span>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ ABOUT ============ -->
+  <div style="margin-top: 80px;">
+    <div class="rule-diamond" style="margin-bottom: 24px;">
+      <div class="diamond"></div>
+      <span class="eyebrow">§ Template 04 — About</span>
+      <div class="diamond"></div>
+    </div>
+    <div class="tpl-frame">
+      <div class="tpl-chrome">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <div class="url">/ about · the cartographer</div>
+        <div class="badge">04 · ABOUT</div>
+      </div>
+      <div class="tpl-stage">
+        <div class="tpl-nav-mini">
+          <div class="b">Katerina <em style="color:var(--gold);font-style:italic;">&amp;</em> the river</div>
+          <nav><a>Home</a><a class="on">About</a><a>Projects</a><a>Research</a><a>Writing</a><a>Contact</a></nav>
+          <span class="spec" style="font-size:9px;">resume ↓</span>
+        </div>
+
+        <div class="ab-grid" style="margin-top: 24px;">
+          <div>
+            <div class="ab-portrait"><div class="cap">⌖ portrait</div></div>
+            <div style="margin-top: 16px; padding: 18px; border-radius: var(--r-md); background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.10);">
+              <div class="eyebrow">§ At a glance</div>
+              <div style="font-family: var(--mono); font-size: 11px; color: var(--ash); margin-top: 12px; display: flex; flex-direction: column; gap: 8px;">
+                <div>⌖ Santa Barbara, CA</div>
+                <div>✦ M.E.S.M. ’26, UCSB Bren</div>
+                <div>🜄 Water · Pollution · Data</div>
+                <div>📜 Languages · EN · RU · ES</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="eyebrow">§ The cartographer</div>
+            <h1 style="font-size: 64px; margin-top: 8px;">A scientist with a soft spot for rivers that <em style="color:var(--gold-glow);font-weight:300;">remember</em>.</h1>
+            <p class="body-serif" style="margin-top: 18px; font-size: 17px; color: var(--ash-soft);">I work at the intersection of environmental science, field research, and data analytics. My capstone tracks heavy metals across the Pilcomayo Basin; my side-projects teach computer vision to count native bees. I am most at home in waders, a notebook, and a dataset.</p>
+            <p class="body-serif" style="font-size: 17px; color: var(--ash-soft);">Formerly Russian, now Californian; a lover of redwood forests, frost-edged windows, and the meticulous craft of a well-formatted figure.</p>
+
+            <h3 style="margin-top: 32px; font-size: 22px;">Timeline</h3>
+            <div class="timeline">
+              <div class="tl-row">
+                <span class="tl-year">2026</span>
+                <div class="tl-mark"></div>
+                <div class="tl-body"><strong>M.E.S.M. — UCSB Bren</strong><small>Applied Marine Sciences · capstone in Pilcomayo Basin remediation</small></div>
+              </div>
+              <div class="tl-row">
+                <span class="tl-year">2025</span>
+                <div class="tl-mark"></div>
+                <div class="tl-body"><strong>Featured · Cheadle Center</strong><small>Pollinator monitoring research published in UCSB newsletter</small></div>
+              </div>
+              <div class="tl-row">
+                <span class="tl-year">2024</span>
+                <div class="tl-mark"></div>
+                <div class="tl-body"><strong>Field season — Carpinteria</strong><small>Saltmarsh transect work · sediment-pH gradient study</small></div>
+              </div>
+              <div class="tl-row">
+                <span class="tl-year">2023</span>
+                <div class="tl-mark"></div>
+                <div class="tl-body"><strong>B.S. — UC Santa Barbara</strong><small>Environmental Studies · honours thesis on watershed restoration</small></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ CONTACT ============ -->
+  <div style="margin-top: 80px;">
+    <div class="rule-diamond" style="margin-bottom: 24px;">
+      <div class="diamond"></div>
+      <span class="eyebrow">§ Template 05 — Contact</span>
+      <div class="diamond"></div>
+    </div>
+    <div class="tpl-frame">
+      <div class="tpl-chrome">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <div class="url">/ contact · write a letter</div>
+        <div class="badge">05 · CONTACT</div>
+      </div>
+      <div class="tpl-stage">
+        <div class="tpl-nav-mini">
+          <div class="b">Katerina <em style="color:var(--gold);font-style:italic;">&amp;</em> the river</div>
+          <nav><a>Home</a><a>About</a><a>Projects</a><a>Research</a><a>Writing</a><a class="on">Contact</a></nav>
+          <span class="spec" style="font-size:9px;">resume ↓</span>
+        </div>
+
+        <div class="eyebrow" style="margin-top: 24px;">§ Correspondence · MMXXVI</div>
+        <h1 style="font-size: 64px; margin-top: 8px;">Write a <em style="color:var(--gold-glow);font-weight:300;font-style:italic;">letter</em></h1>
+        <p class="body-serif" style="max-width: 560px; font-style: italic; color: var(--ash); font-size: 16px; margin-top: 12px;">For collaborations, field research, technical writing commissions, or simply a note about the river. I read every letter and reply within a tide cycle.</p>
+
+        <div class="ct-grid" style="margin-top: 28px;">
+          <div class="glass" style="padding: 32px;">
+            <div class="form-grid" style="display:grid; grid-template-columns: 1fr 1fr; gap: 18px;">
+              <div class="field"><label>§ Name</label><input type="text" placeholder="A name to write to"></div>
+              <div class="field"><label>§ Reply to</label><input type="email" placeholder="hello@yourdomain.com"></div>
+              <div class="field" style="grid-column:1/-1;"><label>§ Subject</label><select><option>Collaboration · field research</option><option>Writing commission</option><option>A note</option></select></div>
+              <div class="field" style="grid-column:1/-1;"><label>§ Letter</label><textarea rows="6" placeholder="Begin where the watershed bends —"></textarea></div>
+              <div style="grid-column:1/-1; display:flex; justify-content: space-between; align-items: center; padding-top: 4px;">
+                <div class="spec">// signed at sea level</div>
+                <button class="btn btn-primary">Send <span class="arrow">→</span></button>
+              </div>
+            </div>
+          </div>
+          <aside class="ct-side">
+            <div class="eyebrow">§ Direct lines</div>
+            <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 14px;">
+              <div class="ct-line"><span class="k">Email</span><span>hello@katerina.dev</span></div>
+              <div class="ct-line"><span class="k">LinkedIn</span><span>/in/katerinabischel</span></div>
+              <div class="ct-line"><span class="k">GitHub</span><span>katerinabischel</span></div>
+              <div class="ct-line"><span class="k">ORCID</span><span>0000-0000-0000-0000</span></div>
+              <div class="ct-line"><span class="k">Office</span><span>Bren · UCSB</span></div>
+            </div>
+            <div class="rule-diamond" style="margin: 22px 0;"><div class="diamond"></div></div>
+            <div class="eyebrow">§ Currently</div>
+            <p style="font-family: var(--serif); font-style: italic; font-size: 15px; color: var(--ash); margin: 10px 0 0; line-height: 1.5;">Reading: a Pilcomayo sediment core from station 14. Replying within ~48 hours.</p>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer style="margin-top: 96px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.10); display:flex; justify-content: space-between; align-items: center;">
+    <a href="components.html" class="btn btn-ghost"><span class="arrow" style="transform: rotate(180deg);">→</span> Chapter II · Components</a>
+    <div class="spec">End of Chapter III — Templates</div>
+    <a href="index.html" class="btn btn-primary">Return to cover <span class="arrow">↺</span></a>
+  </footer>
+
+</main>
+</body>
+</html>
