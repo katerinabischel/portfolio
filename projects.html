@@ -4,232 +4,720 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Projects | Katerina Bischel</title>
-  <meta name="description" content="Environmental science projects by Katerina Bischel — River Remedy capstone, California Water Quality Dashboard, watershed plans, and YOLOv8 pollinator AI." />
+  <meta name="description" content="A working catalogue of artifacts by Katerina Bischel — the River Remedy bilingual analytical site, the YOLOv8 pollinator detection model, the Whitewater River watershed plan, and the CalCOFI water-quality dashboard." />
   <meta property="og:title"       content="Projects | Katerina Bischel" />
-  <meta property="og:description" content="River Remedy capstone, CalCOFI Dashboard, Whitewater Watershed Plan, Pollinator AI." />
-  <meta property="og:image"       content="panorama_4.jpeg" />
-  <link rel="stylesheet" href="styles.css" />
+  <meta property="og:description" content="River Remedy site · River Remedy report · YOLOv8 pollinator model · Whitewater watershed plan · CalCOFI dashboard." />
+  <meta property="og:image"       content="acid_mine_drainage.png" />
+  <meta property="og:type"        content="website" />
+  <!-- styles.css retired in favor of ui_kit/shared.css + inline page styles -->
+  <link rel="stylesheet" href="ui_kit/shared.css" />
   <style>
-    .project-card {
+    /* ── Reveal on scroll ─────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Hamburger button ─────────────────────────────── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 6px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--ash);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── Nav ──────────────────────────────────────────── */
+    nav.site-nav {
+      position: sticky;
+      top: 16px;
+      z-index: 100;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+    }
+    .nav-brand {
+      font-family: var(--serif);
+      font-size: 20px;
+      color: var(--paper);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2px;
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .nav-links a {
+      padding: 8px 13px;
+      border-radius: 999px;
+      color: var(--ash);
+      transition: color 0.3s, background 0.3s;
+    }
+    .nav-links a.active {
+      color: var(--gold-glow);
+      background: rgba(212,184,122,0.12);
+    }
+    .nav-links a:hover { color: var(--paper); }
+
+    /* ── Page hero ────────────────────────────────────── */
+    .page-hero {
+      position: relative;
+      min-height: 54vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .page-hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('panorama_3.jpeg');
+      background-size: cover;
+      background-position: center;
+      z-index: 0;
+    }
+    .page-hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(11,20,36,0.84), rgba(20,30,52,0.78));
+    }
+    .page-hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 40%, rgba(8,14,28,0.55) 100%);
+      z-index: 1;
+    }
+    .page-hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 120px 56px 100px;
+      width: 100%;
+    }
+    .page-hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .page-hero-h1 {
+      font-family: var(--serif);
+      font-size: clamp(72px, 8vw, 116px);
+      line-height: 0.92;
+      letter-spacing: -0.015em;
+      color: var(--paper);
+      font-weight: 400;
+      margin-bottom: 28px;
+    }
+    .page-hero-intro {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 19px;
+      line-height: 1.6;
+      color: var(--ash-soft);
+      max-width: 640px;
+      margin: 0;
+    }
+
+    /* ── Section rule ─────────────────────────────────── */
+    .section-rule {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 64px 56px 48px;
+    }
+
+    /* ── Card grid ────────────────────────────────────── */
+    .cards-section {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 56px 80px;
+    }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+
+    /* ── Project card (pcard) ─────────────────────────── */
+    .pcard {
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.5s ease;
+    }
+    .pcard:hover { transform: translateY(-4px); }
+    .pcard .media {
+      aspect-ratio: 16/9;
+      position: relative;
+      overflow: hidden;
+    }
+    .pcard .media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .pcard .media::after {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 50%;
+      background: linear-gradient(180deg, transparent, rgba(11,20,36,0.7));
+      pointer-events: none;
+    }
+    /* panorama-gradient placeholder for CalCOFI (no photo) */
+    .media-placeholder {
+      aspect-ratio: 16/9;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(212,184,122,0.05), transparent 40%),
+        radial-gradient(circle at 30% 70%, #2a4a6a, #0e1828 80%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .media-placeholder::after {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 50%;
+      background: linear-gradient(180deg, transparent, rgba(11,20,36,0.7));
+      pointer-events: none;
+    }
+    .media-glyph {
+      font-size: 36px;
+      color: var(--gold);
+      position: relative;
+      z-index: 1;
+      font-family: var(--serif);
+      line-height: 1;
+      filter: drop-shadow(0 0 14px rgba(212,184,122,0.55));
+    }
+    .pcard .body {
+      padding: 24px 24px 28px;
+      background: linear-gradient(180deg, rgba(20,32,57,0.7), rgba(11,20,36,0.95));
+      border-top: 1px solid rgba(255,255,255,0.10);
+      flex: 1;
       display: flex;
       flex-direction: column;
     }
-    .project-tag {
-      display: inline-block;
-      padding: 0.22rem 0.75rem;
-      border-radius: 50px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      margin-bottom: 1rem;
+    .pcard .body .meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
     }
-    .tag-remediation { background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.3); color: #f87171; }
-    .tag-data        { background: rgba(0,212,255,0.10); border: 1px solid rgba(0,212,255,0.3); color: var(--accent-cyan); }
-    .tag-watershed   { background: rgba(16,185,129,0.10); border: 1px solid rgba(16,185,129,0.3); color: var(--accent-green); }
-    .tag-ml          { background: rgba(139,92,246,0.12); border: 1px solid rgba(139,92,246,0.3); color: #c4b5fd; }
-    .capstone-banner {
+    .pcard h4 {
+      color: var(--paper);
+      font-style: normal;
+      font-size: 22px;
+      line-height: 1.2;
+    }
+    .pcard p {
+      font-family: var(--serif);
+      font-size: 16px;
+      color: var(--ash);
+      margin: 10px 0 16px;
+      line-height: 1.6;
+      flex: 1;
+    }
+    .pcard .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .pcard .ctas {
+      margin-top: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .arrow-link {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold-glow);
+      text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      padding: 0.25rem 0.75rem;
-      border-radius: 50px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      background: rgba(239,68,68,0.1);
-      border: 1px solid rgba(239,68,68,0.3);
-      color: #f87171;
-      margin-bottom: 0.6rem;
+      gap: 8px;
+      transition: gap 0.3s, color 0.3s;
     }
-    .card-multi-links {
+    .arrow-link:hover { color: var(--paper); gap: 12px; }
+    .arrow-link .arrow { display: inline-block; }
+
+    /* ── Panorama dividers ────────────────────────────── */
+    .pano-divider {
+      width: 100%;
+      height: 320px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pano-divider-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+    .pano-divider-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(11,20,36,0.58);
+    }
+    .pano-divider-quote {
+      position: relative;
+      z-index: 1;
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(20px, 2.5vw, 28px);
+      color: var(--paper);
+      text-align: center;
+      max-width: 720px;
+      padding: 0 40px;
+      line-height: 1.45;
+    }
+    .pano-divider-quote .emph {
+      color: var(--gold-glow);
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    /* ── Footer ───────────────────────────────────────── */
+    .footer {
+      border-top: 1px solid var(--glass-stroke);
+      padding: 72px 56px 56px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1.5fr 1.5fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+    .footer-brand {
+      font-family: var(--serif);
+      font-size: 26px;
+      color: var(--paper);
+      margin-bottom: 14px;
+    }
+    .footer-tagline {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--ash);
+      max-width: 340px;
+      margin-bottom: 24px;
+    }
+    .footer-colophon-spec {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      letter-spacing: 0.14em;
+      color: var(--aurora-3);
+      opacity: 0.6;
+      margin-top: 16px;
+    }
+    .footer-col-head {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .footer-links {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
-      margin-top: auto;
-    .project-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* This centers everything inside the card horizontally */
-  text-align: center;  /* This centers the text (title and description) */
-}
+      gap: 10px;
+    }
+    .footer-links a {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.14em;
+      color: var(--ash);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--gold-glow); }
+    .footer-copyright {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      letter-spacing: 0.18em;
+      color: var(--aurora-3);
+      opacity: 0.55;
+      margin-top: 12px;
+    }
 
-.card-image-header {
-  width: 90%;          /* Reduced from 100% to create a centered look */
-  max-width: 400px;    /* Prevents the image from getting too huge on big screens */
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  margin-bottom: 1.25rem;
-  display: block;
-  /* margin: 0 auto;  <- This is the secret for centering block elements */
-  margin-left: auto;
-  margin-right: auto;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
+    /* ── Back to top ──────────────────────────────────── */
+    #back-to-top {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 200;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--glass-stroke);
+      background: linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.03));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--ash);
+      font-family: var(--mono);
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s, border-color 0.3s, box-shadow 0.3s;
+    }
+    #back-to-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    #back-to-top:hover {
+      border-color: rgba(212,184,122,0.5);
+      box-shadow: 0 0 18px rgba(212,184,122,0.25);
+      color: var(--gold-glow);
+    }
 
-    /* Centers the emojis for cards without images */
-    .card-icon {
-      display: block;
-      text-align: center;
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
+    /* ── Mobile ───────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .hamburger { display: flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 16px;
+        right: 16px;
+        flex-direction: column;
+        padding: 16px;
+        background: linear-gradient(135deg, rgba(20,32,57,0.96), rgba(11,20,36,0.98));
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-stroke);
+        border-radius: var(--r-md);
+        gap: 4px;
+      }
+      .nav-links.open { display: flex; }
+      .nav-inner { position: relative; }
+
+      .page-hero-content {
+        padding: 100px 32px 72px;
+      }
+      .page-hero-intro { font-size: 17px; }
+
+      .section-rule { padding: 48px 32px 36px; }
+
+      .cards-section { padding: 0 32px 60px; }
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+      .pcard[style*="grid-column"] {
+        grid-column: auto !important;
+        max-width: none !important;
+        justify-self: stretch !important;
+      }
+
+      .footer { padding: 56px 32px 48px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+
+      .pano-divider { height: 220px; }
+      .pano-divider-bg { background-attachment: scroll; }
+    }
+
+    @media (max-width: 480px) {
+      .page-hero-h1 { font-size: clamp(52px, 14vw, 72px); }
     }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="navbar">
-  <div class="nav-container">
-    <a href="index.html" class="nav-logo">KB</a>
+<div class="starfield"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     NAV
+═══════════════════════════════════════════════════════════ -->
+<nav class="site-nav">
+  <div class="nav-inner glass">
+    <a href="index.html" class="nav-brand">Katerina Bischel</a>
     <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
       <span></span><span></span><span></span>
     </button>
-    <ul class="nav-links" id="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="resume.html">Resume</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="research.html">Research</a></li>
-      <li><a href="writing.html">Writing</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="resume.html">Resume</a>
+      <a href="projects.html" class="active">Projects</a>
+      <a href="research.html">Research</a>
+      <a href="writing.html">Writing</a>
+      <a href="contact.html">Contact</a>
+    </div>
   </div>
 </nav>
 
-<!-- PAGE HERO -->
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE HERO — panorama_3 background
+═══════════════════════════════════════════════════════════ -->
 <section class="page-hero">
-  <div class="hero-bg" style="background-image: url('panorama_3.jpeg');"></div>
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <h1 class="page-hero-title">Projects</h1>
-    <p class="page-hero-subtitle">Applied environmental science · Data visualization · Watershed planning · Machine learning</p>
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-content reveal">
+    <p class="page-hero-eyebrow">§ Chapter II · The catalogue · MMXXII — MMXXVI</p>
+    <h1 class="page-hero-h1">Projects</h1>
+    <p class="page-hero-intro">A working catalogue of artifacts I have built — analytical sites, trained models, watershed plans, and dashboards. Each plate is something one can open. The science behind these works is catalogued separately on Research; the writing craft is on Writing.</p>
   </div>
 </section>
 
-<!-- PROJECTS GRID -->
-<section class="section">
-  <h2 class="section-title reveal">Featured Projects</h2>
-  <div class="card-grid">
-
-    <!-- Card 1: River Remedy — Graduate Capstone -->
-   <div class="glass-card project-card reveal reveal-d1">
-      <img src="acid_mine_drainage.png" class="card-image-header" />
-      <div class="capstone-banner">🎓 Master's Capstone · Pollution Remediation</div>
-      <h3 class="card-title">River Remedy : Graduate Capstone Project</h3>
-      <p class="card-desc">
-        A comprehensive graduate-level environmental assessment examining river health,
-        pollution sources, contaminant transport pathways, and evidence-based pollution
-        remediation strategies for long-term river restoration. Produced as a master's-level
-        capstone deliverable at the UC Santa Barbara Bren School.
-      </p>
-      <a href="https://bren.ucsb.edu/sites/default/files/2026-04/GP%20River%20Remedy%20Final%20Report%20compressed.pdf" target="_blank" rel="noopener noreferrer" class="card-link">
-        View Full Report
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-    </div>
-
-        <!-- Card 2: Pollinator AI-->
-    <div class="glass-card project-card reveal reveal-d4">
-      <img src="bee_model.png" alt="YOLOv8 bee pollinator detection model output" class="card-image-header" />
-      <div class="project-tag tag-ml">Machine Learning · Field Research · Conservation</div>
-      <h3 class="card-title">Pollinator AI: YOLOv8 Endangered Species Monitoring</h3>
-      <p class="card-desc">
-        Developed and trained YOLOv8 deep learning object detection models to automate
-        pollinator monitoring for two federally endangered coastal plant species at UCSB's
-        North Campus Open Space restoration site in Goleta, CA. Integrated with HyDaT
-        tracking to quantify pollinator visitation events, timing, and duration.
-      </p>
-      <div class="card-multi-links">
-        <a href="research.html" class="card-link">
-          View Research
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </a>
-        <a href="https://us15.campaign-archive.com/?e=__test_email__&u=05cf4db23a15975cb832e2846&id=3d0ad0cae9"
-           target="_blank" rel="noopener noreferrer" class="card-link" style="color: #fcd34d;">
-          📰 Read Feature Article
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        </a>
-      </div>
-    </div>
-
-    <!-- Card 3: Whitewater River -->
-    <div class="glass-card project-card reveal reveal-d3">
-      <img src="whitewater_river.png" class="card-image-header" />
-      <span class="project-tag tag-watershed">Watershed Management</span>
-      <h3 class="card-title">Whitewater River Watershed Management Plan</h3>
-      <p class="card-desc">
-        A detailed watershed management plan for the Whitewater River addressing
-        land use, hydrology, water quality, and long-term conservation strategies.
-        Policy and science integrated throughout.
-      </p>
-      <a href="whitewater_river_watershed_management_plan.pdf" target="_blank" rel="noopener noreferrer" class="card-link">
-        View Plan
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-    </div>
-
-        <!-- Card 4: CalCOFI -->
-    <div class="glass-card project-card reveal reveal-d2">
-      <span class="card-icon">📊</span>
-      <span class="project-tag tag-data">Data Science · R Shiny</span>
-      <h3 class="card-title">California Water Quality Dashboard</h3>
-      <p class="card-desc">
-        An interactive R Shiny web application built on real NOAA CalCOFI
-        oceanographic survey data, visualizing California coastal water quality trends,
-        marine chemistry, and environmental indicators across decades of monitoring data.
-      </p>
-      <a href="https://katerinabischel.shinyapps.io/my-calcofi-app/" target="_blank" rel="noopener noreferrer" class="card-link">
-        Launch App
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-      </a>
-    </div>
-
-    <!-- Card 5: Senior Thesis -->
-    <div class="glass-card project-card reveal reveal-d5">
-      <span class="card-icon">📑</span>
-      <span class="project-tag tag-watershed">Environmental Science</span>
-      <h3 class="card-title">🎓Undergraduate Senior Thesis</h3>
-      <p class="card-desc">
-        A study conducted at Reef tanks at UC Santa Barbara exploring the use of calcium carbonate from discarded bivalve shells to enhance ocean alkalinity. This project partnered with a local seafood restaurant to assess benefits of recycling discarded bivalve shells. 
-      </p>
-      <a href="senior_thesis.pdf" target="_blank" rel="noopener noreferrer" class="card-link">
-        Read Thesis
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-    </div>
-
-  </div>
-</section>
-
-<!-- PANORAMA DIVIDER -->
-<div class="pano-divider" style="background-image: url('panorama_8.jpeg');">
-  <div class="pano-divider-content reveal">
-    <p class="pano-divider-quote">Translating <span>science into strategy</span> for a healthier planet</p>
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION RULE — § 2.1 · Five plates
+═══════════════════════════════════════════════════════════ -->
+<div class="section-rule reveal">
+  <div class="rule-diamond">
+    <div class="diamond"></div>
+    <span class="eyebrow">§ 2.1 · Five plates</span>
+    <div class="diamond"></div>
   </div>
 </div>
 
-<!-- FOOTER -->
+<!-- ═══════════════════════════════════════════════════════════
+     CARD GRID — Five glass project cards
+═══════════════════════════════════════════════════════════ -->
+<div class="cards-section">
+  <div class="cards-grid">
+
+    <!-- ── § Plate 01 — River Remedy (live site, solo build) ── -->
+    <article class="pcard glass reveal">
+      <div class="media">
+        <img src="acid_mine_drainage.png" alt="Acid mine drainage — acid-orange river water characteristic of heavy-metal contamination" />
+      </div>
+      <div class="body">
+        <div class="meta">
+          <span class="spec">§ Plate 01 · Build artifact</span>
+          <span class="chip gold"><span class="dot"></span>Live · 2026</span>
+        </div>
+        <h4>River Remedy — contaminant migration site</h4>
+        <p>A six-chapter, bilingual analytical site I designed and built solo as the public-facing extension of the River Remedy master's thesis. Interactive 3D surfaces, mapped sampling stations, and English/Spanish parallel narration — deployed to GitHub Pages from a single codebase I authored end-to-end.</p>
+        <div class="tags">
+          <span class="chip"><span class="dot"></span>HTML / CSS · JS</span>
+          <span class="chip"><span class="dot"></span>Bilingual UI</span>
+          <span class="chip"><span class="dot"></span>3D</span>
+          <span class="chip"><span class="dot"></span>GitHub Pages</span>
+        </div>
+        <div class="ctas">
+          <a class="arrow-link" href="https://katerinabischel.github.io/River_Remedy/" target="_blank" rel="noopener noreferrer">Open the site <span class="arrow">↗</span></a>
+        </div>
+      </div>
+    </article>
+
+    <!-- ── § Plate 02 — River Remedy master's thesis report ── -->
+    <article class="pcard glass reveal">
+      <div class="media">
+        <img src="river_projects_masters.png" alt="River Remedy master's thesis report" />
+      </div>
+      <div class="body">
+        <div class="meta">
+          <span class="spec">§ Plate 02 · Group deliverable</span>
+          <span class="chip gold"><span class="dot"></span>PDF · 141 pp · 2026</span>
+        </div>
+        <h4>River Remedy — master's thesis report</h4>
+        <p>The 141-page final report submitted as a master's group capstone at the UC Santa Barbara Bren School, co-authored with my project team. My contribution centered on the heavy-metals hydrochemistry chapters, spatial figures, and the technical-writing voice carried across the report. Group authorship is attributed inside the document.</p>
+        <div class="tags">
+          <span class="chip"><span class="dot"></span>Master's capstone</span>
+          <span class="chip"><span class="dot"></span>Group authorship</span>
+          <span class="chip"><span class="dot"></span>UCSB Bren</span>
+          <span class="chip"><span class="dot"></span>2026</span>
+        </div>
+        <div class="ctas">
+          <a class="arrow-link" href="https://bren.ucsb.edu/sites/default/files/2026-04/GP%20River%20Remedy%20Final%20Report%20compressed.pdf" target="_blank" rel="noopener noreferrer">View Report (PDF) <span class="arrow">→</span></a>
+        </div>
+      </div>
+    </article>
+
+    <!-- ── § Plate 03 — Pollinator AI · YOLOv8 detection model ── -->
+    <article class="pcard glass reveal">
+      <div class="media">
+        <img src="bee_model.png" alt="YOLOv8 pollinator detection model — bounding box inference on native bee" />
+      </div>
+      <div class="body">
+        <div class="meta">
+          <span class="spec">§ Plate 03 · Build artifact</span>
+          <span class="chip water"><span class="dot"></span>Model · 2025</span>
+        </div>
+        <h4>Pollinator AI — YOLOv8 detection model</h4>
+        <p>A trained YOLOv8 object-detection model and the accompanying camera-trap → inference field protocol, built for pollinator monitoring at UCSB's North Campus Open Space restoration site. The deliverable is the trained weights, a labeled training set, and a documented pipeline from raw video through detected visitation events. The scientific framing — what the model was used to ask, and what it found — lives on Research.</p>
+        <div class="tags">
+          <span class="chip"><span class="dot"></span>Python</span>
+          <span class="chip water"><span class="dot"></span>YOLOv8</span>
+          <span class="chip water"><span class="dot"></span>OpenCV</span>
+          <span class="chip"><span class="dot"></span>UCSB Cheadle Center</span>
+        </div>
+        <div class="ctas">
+          <a class="arrow-link" href="research.html">View on Research <span class="arrow">→</span></a>
+          <a class="arrow-link" href="https://us15.campaign-archive.com/?e=__test_email__&u=05cf4db23a15975cb832e2846&id=3d0ad0cae9" target="_blank" rel="noopener noreferrer">Read feature article <span class="arrow">↗</span></a>
+        </div>
+      </div>
+    </article>
+
+    <!-- ── § Plate 04 — Whitewater River Subbasin Watershed Management Plan ── -->
+    <article class="pcard glass reveal">
+      <div class="media">
+        <img src="whitewater_river.png" alt="Whitewater River subbasin — desert wash and alluvial fan landscape" />
+      </div>
+      <div class="body">
+        <div class="meta">
+          <span class="spec">§ Plate 04 · Group deliverable</span>
+          <span class="chip gold"><span class="dot"></span>PDF · 77 pp · 2024</span>
+        </div>
+        <h4>Whitewater River Subbasin — Preliminary Watershed Management Plan</h4>
+        <p>A 77-page preliminary watershed management plan for the Whitewater River Subbasin, produced with two groupmates for ESM 224 at the UC Santa Barbara Bren School. Covers land use, hydrology, water-quality stressors, and a layered set of long-term conservation strategies, with policy and science integrated throughout. The writing-craft lens on this document lives on Writing.</p>
+        <div class="tags">
+          <span class="chip"><span class="dot"></span>Watershed planning</span>
+          <span class="chip"><span class="dot"></span>Group authorship</span>
+          <span class="chip"><span class="dot"></span>ESM 224</span>
+          <span class="chip"><span class="dot"></span>UCSB Bren</span>
+        </div>
+        <div class="ctas">
+          <a class="arrow-link" href="whitewater_river_watershed_management_plan.pdf" target="_blank" rel="noopener noreferrer">View Plan (PDF) <span class="arrow">→</span></a>
+        </div>
+      </div>
+    </article>
+
+    <!-- ── § Plate 05 — California Water Quality Dashboard (CalCOFI R Shiny) ── -->
+    <article class="pcard glass reveal" style="grid-column: 1 / -1; max-width: 640px; justify-self: center; width: 100%;">
+      <div class="media">
+        <img src="calcofi_pic.png" alt="California coastal water — CalCOFI oceanographic survey" />
+      </div>
+      <div class="body">
+        <div class="meta">
+          <span class="spec">§ Plate 05 · Live application</span>
+          <span class="chip water"><span class="dot"></span>R · Shiny</span>
+        </div>
+        <h4>California Water Quality Dashboard</h4>
+        <p>An interactive R Shiny application built on NOAA CalCOFI oceanographic survey data, visualizing California coastal water-quality trends, marine chemistry, and environmental indicators across decades of monitoring. Designed for exploratory use by anyone curious about the long arc of California coastal monitoring, not just specialists.</p>
+        <div class="tags">
+          <span class="chip water"><span class="dot"></span>R</span>
+          <span class="chip water"><span class="dot"></span>Shiny</span>
+          <span class="chip"><span class="dot"></span>ggplot2</span>
+          <span class="chip"><span class="dot"></span>NOAA CalCOFI</span>
+        </div>
+        <div class="ctas">
+          <a class="arrow-link" href="https://katerinabischel.shinyapps.io/my-calcofi-app/" target="_blank" rel="noopener noreferrer">Launch App <span class="arrow">↗</span></a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PANORAMA DIVIDER — panorama_8 · each plate is a working artifact
+═══════════════════════════════════════════════════════════ -->
+<div class="pano-divider">
+  <div class="pano-divider-bg" style="background-image: url('panorama_8.jpeg');"></div>
+  <p class="pano-divider-quote">
+    "Each plate is a working artifact — something one can <span class="emph">open, use, or carry into the field</span>."
+  </p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     FOOTER / COLOPHON
+═══════════════════════════════════════════════════════════ -->
 <footer>
-  <div class="footer-inner">
-    <p class="footer-copy">© 2026 Katerina Bischel · Environmental Scientist · Applied Marine Sciences · M.E.S.M., UC Santa Barbara Bren School</p>
-    <div class="footer-links">
-      <a href="https://www.linkedin.com/in/katerina-bischel/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-      </a>
-      <a href="https://github.com/katerinabischell" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-      </a>
+  <div class="footer reveal">
+    <div class="footer-grid">
+      <!-- Col 1 — brand + colophon -->
+      <div>
+        <div class="footer-brand">Katerina Bischel</div>
+        <p class="footer-tagline">
+          A portfolio of watersheds, pollinators, and the quiet science of how water moves — and what it carries with it.
+        </p>
+        <div class="rule-diamond">
+          <span class="diamond"></span>
+        </div>
+        <p class="footer-colophon-spec">Set in Cormorant Garamond &amp; JetBrains Mono.</p>
+      </div>
+      <!-- Col 2 — § Pages -->
+      <div>
+        <p class="footer-col-head">§ Pages</p>
+        <nav class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="resume.html">Resume</a>
+          <a href="projects.html">Projects</a>
+          <a href="research.html">Research</a>
+          <a href="writing.html">Writing</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+      <!-- Col 3 — § Field -->
+      <div>
+        <p class="footer-col-head">§ Field</p>
+        <nav class="footer-links">
+          <a href="research.html">Pilcomayo manuscript</a>
+          <a href="https://katerinabischel.github.io/River_Remedy/" target="_blank" rel="noopener noreferrer">River Remedy site ↗</a>
+          <a href="research.html">YOLOv8 pollinators</a>
+          <a href="projects.html">Whitewater plan</a>
+          <a href="https://katerinabischel.shinyapps.io/my-calcofi-app/" target="_blank" rel="noopener noreferrer">CalCOFI dashboard ↗</a>
+        </nav>
+      </div>
+      <!-- Col 4 — § Elsewhere -->
+      <div>
+        <p class="footer-col-head">§ Elsewhere</p>
+        <nav class="footer-links">
+          <a href="mailto:katerinabischel@amarine.com">Email</a>
+          <a href="https://www.linkedin.com/in/katerina-bischel/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+          <a href="https://github.com/katerinabischel" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          <a href="https://orcid.org/0009-0005-4168-9726" target="_blank" rel="noopener noreferrer">ORCID ↗</a>
+        </nav>
+        <p class="footer-copyright">© MMXXVI · K. Bischel</p>
+      </div>
     </div>
   </div>
 </footer>
 
-<button class="back-to-top" id="back-to-top" aria-label="Back to top">
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 15l-6-6-6 6"/></svg>
-</button>
+<!-- Back to top -->
+<button id="back-to-top" aria-label="Back to top">↑</button>
 
 <script src="main.js"></script>
 </body>

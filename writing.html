@@ -4,187 +4,916 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Writing | Katerina Bischel</title>
-  <meta name="description" content="Technical scientific writing samples by Katerina Bischel — biodegradation, watershed management, and graduate environmental reporting." />
-  <meta property="og:title"       content="Writing Samples | Katerina Bischel" />
-  <meta property="og:description" content="Technical scientific writing samples — environmental science, hydrology, remediation." />
-  <meta property="og:image"       content="panorama_4.jpeg" />
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="description" content="A chapbook of selected writing by Katerina Bischel — biodegradation of nicotine, pharmaceutical contamination &amp; constructed wetlands, biological waste treatment for LinkedIn, the Whitewater watershed plan, and the River Remedy master's thesis report. Five samples across formal academic, technical-policy, and public-facing registers." />
+  <meta property="og:title" content="Writing | Katerina Bischel" />
+  <meta property="og:description" content="Five writing samples across three registers — formal academic, technical-policy, and public-facing science communication." />
+  <meta property="og:image" content="panorama_6.jpeg" />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="ui_kit/shared.css" />
   <style>
-    .writing-card {
-      display: flex;
+
+    /* ── Reveal on scroll ─────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Hamburger button ─────────────────────────────── */
+    .hamburger {
+      display: none;
       flex-direction: column;
-      max-width: 740px;
-      margin: 0 auto 2rem;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 6px;
     }
-    .writing-meta {
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--ash);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── Nav ──────────────────────────────────────────── */
+    nav.site-nav {
+      position: sticky;
+      top: 16px;
+      z-index: 100;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+    .nav-inner {
       display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      margin-bottom: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
     }
-    .meta-tag {
-      display: inline-block;
-      padding: 0.2rem 0.65rem;
-      border-radius: 50px;
-      font-size: 0.73rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
+    .nav-brand {
+      font-family: var(--serif);
+      font-size: 20px;
+      color: var(--paper);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2px;
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
     }
-    .tag-sci      { background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3); color: var(--accent-green); }
-    .tag-tech     { background: rgba(0,212,255,0.10);  border: 1px solid rgba(0,212,255,0.3);  color: var(--accent-cyan); }
-    .tag-policy   { background: rgba(139,92,246,0.10); border: 1px solid rgba(139,92,246,0.3); color: #c4b5fd; }
-    .tag-capstone { background: rgba(239,68,68,0.10);  border: 1px solid rgba(239,68,68,0.3);  color: #f87171; }
-    .writing-intro {
-      text-align: center;
-      max-width: 680px;
-      margin: 0 auto 3rem;
-      color: var(--text-secondary);
-      font-size: 1.05rem;
-      line-height: 1.8;
+    .nav-links a {
+      padding: 8px 13px;
+      border-radius: 999px;
+      color: var(--ash);
+      transition: color 0.3s, background 0.3s;
     }
+    .nav-links a.active {
+      color: var(--gold-glow);
+      background: rgba(212,184,122,0.12);
+    }
+    .nav-links a:hover { color: var(--paper); }
+
+    /* ── Page hero ────────────────────────────────────── */
+    .page-hero {
+      position: relative;
+      min-height: 62vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .page-hero-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      z-index: 0;
+    }
+    .page-hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(11,20,36,0.85), rgba(20,30,52,0.78));
+    }
+    .page-hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 40%, rgba(8,14,28,0.50) 100%);
+      z-index: 1;
+    }
+    .page-hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 130px 56px 100px;
+      width: 100%;
+    }
+    .page-hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .page-hero-h1 {
+      font-family: var(--serif);
+      font-size: clamp(72px, 8vw, 110px);
+      line-height: 0.93;
+      letter-spacing: -0.015em;
+      color: var(--paper);
+      font-weight: 400;
+      margin-bottom: 32px;
+    }
+    .page-hero-intro {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--ash-soft);
+      max-width: 640px;
+      margin: 0;
+    }
+
+    /* ── Writing section container ────────────────────── */
+    .writing-section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 64px 32px 0;
+    }
+
+    /* ── Writing card (glass anatomy) ────────────────── */
+    .writing-card {
+      max-width: 860px;
+      margin: 0 auto 48px;
+      padding: 40px;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .writing-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 36px 72px -36px rgba(8,14,28,0.65), 0 1px 0 rgba(255,255,255,0.14) inset;
+    }
+
+    /* ── Status row ───────────────────────────────────── */
+    .wc-status-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    /* ── Card title + subtitle ────────────────────────── */
+    .wc-title {
+      font-family: var(--serif);
+      font-size: 26px;
+      line-height: 1.15;
+      color: var(--paper);
+      font-weight: 400;
+      margin: 0 0 10px;
+    }
+    .wc-subtitle {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 16px;
+      color: var(--ash);
+      margin: 0 0 4px;
+    }
+
+    /* ── Spec strip (4-cell, from cs-meta Template 03) ── */
+    .wc-spec-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin: 22px 0;
+      padding: 18px 0;
+      border-top: 1px solid rgba(255,255,255,0.10);
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+    }
+    .wc-spec-strip > div {
+      padding: 0 16px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+    }
+    .wc-spec-strip > div:first-child { padding-left: 0; }
+    .wc-spec-strip > div:last-child  { border-right: none; }
+    .wc-spec-strip .k {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .wc-spec-strip .v {
+      font-family: var(--serif);
+      font-size: 16px;
+      color: var(--paper);
+      margin-top: 6px;
+      line-height: 1.25;
+    }
+
+    /* ── Editorial blurb ──────────────────────────────── */
+    .wc-blurb {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 17px;
+      line-height: 1.68;
+      color: var(--ash-soft);
+      margin: 20px 0;
+    }
+    .wc-blurb p { margin: 0 0 14px; }
+    .wc-blurb p:last-child { margin-bottom: 0; }
+
+    /* ── Action links ─────────────────────────────────── */
+    .wc-actions {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .arrow-link {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold-glow);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: gap 0.3s, color 0.3s;
+    }
+    .arrow-link:hover { color: var(--paper); gap: 12px; }
+    .arrow-link .arrow { display: inline-block; transition: transform 0.3s; }
+    .arrow-link:hover .arrow { transform: translateX(3px); }
+
+    /* ── Paired block wrapper ─────────────────────────── */
+    .paired-wrapper {
+      max-width: 960px;
+      margin: 0 auto 64px;
+      padding: 0 32px;
+    }
+    .paired-header {
+      margin-bottom: 28px;
+    }
+    .paired-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    .paired-inner .writing-card {
+      max-width: none;
+      margin: 0;
+    }
+
+    /* ── Rule-diamond section helper ─────────────────── */
+    .rd-section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 32px 48px;
+    }
+
+    /* ── Panorama dividers ────────────────────────────── */
+    .pano-divider {
+      width: 100%;
+      height: 320px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pano-divider-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+    .pano-divider-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(11,20,36,0.58);
+    }
+    .pano-divider-quote {
+      position: relative;
+      z-index: 1;
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(20px, 2.5vw, 28px);
+      color: var(--paper);
+      text-align: center;
+      max-width: 720px;
+      padding: 0 40px;
+      line-height: 1.45;
+    }
+    .pano-divider-quote .emph {
+      color: var(--gold-glow);
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    /* ── PDF preview pair ─────────────────────────────── */
+    .preview-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 32px 80px;
+    }
+    .preview-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 28px;
+    }
+    .preview-frame {
+      padding: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .preview-frame figcaption {
+      padding: 14px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+    }
+    .preview-frame iframe {
+      width: 100%;
+      height: 520px;
+      border: none;
+      display: block;
+      background: #111;
+      flex: 1;
+    }
+    .preview-fallback {
+      padding: 10px 20px;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      color: rgba(200,210,227,0.45);
+    }
+    .preview-fallback a { color: var(--gold); }
+
+    /* ── Footer ───────────────────────────────────────── */
+    .footer {
+      border-top: 1px solid var(--glass-stroke);
+      padding: 72px 56px 56px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1.5fr 1.5fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+    .footer-brand {
+      font-family: var(--serif);
+      font-size: 26px;
+      color: var(--paper);
+      margin-bottom: 14px;
+    }
+    .footer-tagline {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--ash);
+      max-width: 340px;
+      margin-bottom: 24px;
+    }
+    .footer-colophon-spec {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      letter-spacing: 0.14em;
+      color: var(--aurora-3);
+      opacity: 0.6;
+      margin-top: 16px;
+    }
+    .footer-col-head {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-links a {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.14em;
+      color: var(--ash);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--gold-glow); }
+    .footer-copyright {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      letter-spacing: 0.18em;
+      color: var(--aurora-3);
+      opacity: 0.55;
+      margin-top: 12px;
+    }
+
+    /* ── Back to top ──────────────────────────────────── */
+    #back-to-top {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 200;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--glass-stroke);
+      background: linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.03));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--ash);
+      font-family: var(--mono);
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s, border-color 0.3s, box-shadow 0.3s;
+    }
+    #back-to-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    #back-to-top:hover {
+      border-color: rgba(212,184,122,0.5);
+      box-shadow: 0 0 18px rgba(212,184,122,0.25);
+      color: var(--gold-glow);
+    }
+
+    /* ── Mobile ───────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .hamburger { display: flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 16px;
+        right: 16px;
+        flex-direction: column;
+        padding: 16px;
+        background: linear-gradient(135deg, rgba(20,32,57,0.96), rgba(11,20,36,0.98));
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-stroke);
+        border-radius: var(--r-md);
+        gap: 4px;
+      }
+      .nav-links.open { display: flex; }
+      .nav-inner { position: relative; }
+
+      .page-hero-content { padding: 100px 32px 80px; }
+      .page-hero-h1 { font-size: clamp(54px, 14vw, 78px); }
+
+      .writing-section { padding: 48px 24px 0; }
+      .writing-card { padding: 28px 24px; }
+
+      .wc-spec-strip { grid-template-columns: repeat(2, 1fr); }
+      .wc-spec-strip > div:nth-child(2) { border-right: none; }
+      .wc-spec-strip > div:nth-child(n+3) {
+        padding-top: 14px;
+        border-top: 1px solid rgba(255,255,255,0.08);
+        border-right: none;
+      }
+      .wc-spec-strip > div:nth-child(3) { padding-left: 0; }
+
+      .paired-wrapper { padding: 0 24px 48px; }
+      .paired-inner { grid-template-columns: 1fr; }
+
+      .rd-section { padding: 0 24px 36px; }
+
+      .preview-section { padding: 0 24px 60px; }
+      .preview-pair { grid-template-columns: 1fr; }
+      .preview-frame iframe { height: 400px; }
+
+      .footer { padding: 56px 32px 48px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+
+      .pano-divider { height: 220px; }
+      .pano-divider-bg { background-attachment: scroll; }
+    }
+
+    @media (max-width: 600px) {
+      .wc-spec-strip { grid-template-columns: 1fr; }
+      .wc-spec-strip > div {
+        padding: 10px 0;
+        border-right: none;
+        border-top: 1px solid rgba(255,255,255,0.08);
+      }
+      .wc-spec-strip > div:first-child { border-top: none; padding-top: 0; }
+    }
+
   </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="navbar">
-  <div class="nav-container">
-    <a href="index.html" class="nav-logo">KB</a>
+<div class="starfield"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     BLOCK 1 — Sticky nav
+═══════════════════════════════════════════════════════════ -->
+<nav class="site-nav">
+  <div class="nav-inner glass">
+    <a href="index.html" class="nav-brand">Katerina Bischel</a>
     <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
       <span></span><span></span><span></span>
     </button>
-    <ul class="nav-links" id="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="resume.html">Resume</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="research.html">Research</a></li>
-      <li><a href="writing.html">Writing</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="resume.html">Resume</a>
+      <a href="projects.html">Projects</a>
+      <a href="research.html">Research</a>
+      <a href="writing.html" class="active">Writing</a>
+      <a href="contact.html">Contact</a>
+    </div>
   </div>
 </nav>
 
-<!-- PAGE HERO -->
+<!-- ═══════════════════════════════════════════════════════════
+     BLOCK 2 — Page hero (panorama_6.jpeg)
+═══════════════════════════════════════════════════════════ -->
 <section class="page-hero">
-  <div class="hero-bg" style="background-image: url('panorama_6.jpeg');"></div>
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <h1 class="page-hero-title">Writing Samples</h1>
-    <p class="page-hero-subtitle">Technical communication · Scientific writing · Environmental analysis</p>
+  <div class="page-hero-bg" style="background-image: url('panorama_6.jpeg');"></div>
+  <div class="page-hero-content">
+    <p class="page-hero-eyebrow reveal">§ Chapter V · A chapbook of selected writing · MMXXIV — MMXXVI</p>
+    <h1 class="page-hero-h1 reveal">Writing</h1>
+    <p class="page-hero-intro reveal">
+      Five samples across three registers — formal academic, technical-policy, and public-facing science communication. Two of them treat the same subject in two voices, side by side. This chapter is about how the writing is built, not what it concludes; the science behind these documents lives on Research, and the build/deliverable view lives on Projects.
+    </p>
   </div>
 </section>
 
-<!-- INTRO -->
-<section class="section" style="padding-bottom: 2rem;">
-  <p class="writing-intro reveal">
-    Scientific communication is a core competency in environmental work. Below are
-    selected technical writing samples demonstrating rigor, clarity, and depth
-    across environmental science topics.
+<!-- ═══════════════════════════════════════════════════════════
+     DIVIDER — § 5.1 · Five samples
+═══════════════════════════════════════════════════════════ -->
+<div class="rd-section" style="padding-top: 64px;">
+  <div class="rule-diamond">
+    <span class="diamond"></span>
+    <span class="eyebrow">§ 5.1 · Five samples</span>
+    <span class="diamond"></span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     CARD 01 — Biodegradation of Nicotine by Microorganisms
+═══════════════════════════════════════════════════════════ -->
+<div class="writing-section">
+  <article class="glass writing-card reveal">
+    <div class="wc-status-row">
+      <span class="spec">§ Plate 01 · Formal academic · solo</span>
+      <span class="chip gold"><span class="dot"></span>2024</span>
+    </div>
+
+    <h3 class="wc-title">Biodegradation of Nicotine by Microorganisms</h3>
+    <p class="wc-subtitle">Pathways, environmental fate, and bioremediation potential.</p>
+
+    <div class="wc-spec-strip">
+      <div>
+        <div class="k">Register</div>
+        <div class="v">Formal academic · sole-authored review paper</div>
+      </div>
+      <div>
+        <div class="k">Length</div>
+        <div class="v">10 pages · structured abstract → mechanisms → discussion</div>
+      </div>
+      <div>
+        <div class="k">Audience</div>
+        <div class="v">Specialist scientific reader · advanced undergraduate / graduate</div>
+      </div>
+      <div>
+        <div class="k">Source</div>
+        <div class="v">UCSB coursework writing portfolio · Bischel</div>
+      </div>
+    </div>
+
+    <div class="wc-blurb">
+      <p>A sole-authored review of how environmental microorganisms degrade nicotine — a chemical that persists in soil and water long after the cigarette is gone. The piece moves from the abstract into pathways and mechanism, then into the bioremediation question, in the structure a specialist reader expects: declare what the literature says, then say where the literature stops.</p>
+      <p>Read it for the structural craft — how the abstract sets the four-part promise the body of the paper actually delivers, and how the citations are deployed to support claims rather than to decorate them.</p>
+    </div>
+
+    <div class="wc-actions">
+      <a class="arrow-link" href="biodegradation_writing_sample.pdf" target="_blank" rel="noopener noreferrer">View sample (PDF) <span class="arrow">→</span></a>
+      <a class="arrow-link" href="biodegradation_writing_sample.pdf" download>Download <span class="arrow">↓</span></a>
+    </div>
+  </article>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PAIRED BLOCK — § Two registers · one source · ESM 214
+     Cards 02 + 03
+═══════════════════════════════════════════════════════════ -->
+<div class="paired-wrapper">
+  <div class="paired-header reveal">
+    <div class="rule-diamond">
+      <span class="diamond"></span>
+      <span class="eyebrow">§ Two registers · one source · ESM 214 coursework · 2024–2025</span>
+      <span class="diamond"></span>
+    </div>
+  </div>
+
+  <div class="paired-inner">
+
+    <!-- CARD 02 — Pharmaceutical Contamination (academic) -->
+    <article class="glass writing-card reveal">
+      <div class="wc-status-row">
+        <span class="spec">§ Plate 02 · Formal academic · solo · ESM 214</span>
+        <span class="chip gold"><span class="dot"></span>2025</span>
+      </div>
+
+      <h3 class="wc-title">Navigating Pharmaceutical Contamination: The Role of Constructed Wetlands in Mitigating Emerging Aquatic Pollutants</h3>
+      <p class="wc-subtitle">A formal academic treatment for a specialist reader.</p>
+
+      <div class="wc-spec-strip">
+        <div>
+          <div class="k">Register</div>
+          <div class="v">Formal academic · sole-authored review paper</div>
+        </div>
+        <div>
+          <div class="k">Length</div>
+          <div class="v">4 pages · abstract → CECs framing → CW mechanisms → variables (pH · temperature · HRT) → opportunities</div>
+        </div>
+        <div>
+          <div class="k">Audience</div>
+          <div class="v">Specialist scientific reader</div>
+        </div>
+        <div>
+          <div class="k">Source</div>
+          <div class="v">ESM 214 · Bren School of Environmental Science &amp; Management · UCSB</div>
+        </div>
+      </div>
+
+      <div class="wc-blurb">
+        <p>A compact academic review of constructed wetlands as a mitigation strategy for pharmaceuticals in aquatic environments — the contaminants of emerging concern that conventional wastewater treatment plants are not engineered to remove. The argument moves through the CEC framing into how constructed wetlands work, then narrows to the three environmental variables (pH, temperature, hydraulic retention time) the literature treats as decisive.</p>
+        <p>This is the academic-register treatment of a subject that also exists, in this same chapter, in a public-facing register — see Card 03 for the Plain-English LinkedIn version of the same coursework.</p>
+      </div>
+
+      <div class="wc-actions">
+        <a class="arrow-link" href="pharm_contamination.pdf" target="_blank" rel="noopener noreferrer">View sample (PDF) <span class="arrow">→</span></a>
+        <a class="arrow-link" href="pharm_contamination.pdf" download>Download <span class="arrow">↓</span></a>
+      </div>
+    </article>
+
+    <!-- CARD 03 — Biological Waste Treatment · LinkedIn (public register) -->
+    <article class="glass writing-card reveal">
+      <div class="wc-status-row">
+        <span class="spec">§ Plate 03 · Public-facing science communication · solo</span>
+        <span class="chip water"><span class="dot"></span>January 2025</span>
+      </div>
+
+      <h3 class="wc-title">Biological Waste Treatment: Wastewater, Solid Waste, and Nature-Based Solutions</h3>
+      <p class="wc-subtitle">Same scientific territory, written for a general professional audience on LinkedIn.</p>
+
+      <div class="wc-spec-strip">
+        <div>
+          <div class="k">Register</div>
+          <div class="v">Public-facing · long-form social article · sole-authored</div>
+        </div>
+        <div>
+          <div class="k">Length</div>
+          <div class="v">~1,200–1,800 words · headline → setup → mechanism in plain English → why it matters → close</div>
+        </div>
+        <div>
+          <div class="k">Audience</div>
+          <div class="v">General professional readership · environmental practitioners outside academia</div>
+        </div>
+        <div>
+          <div class="k">Source</div>
+          <div class="v">ESM 214 coursework, restaged for LinkedIn publication · 2025</div>
+        </div>
+      </div>
+
+      <div class="wc-blurb">
+        <p>The same scientific subject as the pharmaceutical-contamination paper next door, rewritten for the general professional reader. Where the academic paper opens with a four-part abstract, this opens with a hook; where the academic paper deploys hydraulic retention time as a technical variable, this translates the same mechanism into the plain language a non-specialist needs to follow why nature-based treatment systems matter.</p>
+        <p>Read the two together to see the same author working two different audiences without losing the science.</p>
+      </div>
+
+      <div class="wc-actions">
+        <!-- TODO: replace with actual LinkedIn article URL — biological waste treatment, January 2025 -->
+        <a class="arrow-link" href="#" target="_blank" rel="noopener noreferrer">Read on LinkedIn <span class="arrow">↗</span></a>
+      </div>
+    </article>
+
+  </div><!-- /.paired-inner -->
+</div><!-- /.paired-wrapper -->
+
+<!-- ═══════════════════════════════════════════════════════════
+     CARD 04 — Whitewater River Watershed Management Plan
+═══════════════════════════════════════════════════════════ -->
+<div class="writing-section">
+  <article class="glass writing-card reveal">
+    <div class="wc-status-row">
+      <span class="spec">§ Plate 04 · Technical-policy · long-form · group · ESM 224</span>
+      <span class="chip gold"><span class="dot"></span>2024</span>
+    </div>
+
+    <h3 class="wc-title">Whitewater River Subbasin — Preliminary Watershed Management Plan</h3>
+    <p class="wc-subtitle">Technical-policy writing across hydrology, land use, water quality, and conservation strategy.</p>
+
+    <div class="wc-spec-strip">
+      <div>
+        <div class="k">Register</div>
+        <div class="v">Technical-policy · long-form · group-authored</div>
+      </div>
+      <div>
+        <div class="k">Length</div>
+        <div class="v">77 pages · executive summary → setting → analysis → strategy → recommendations</div>
+      </div>
+      <div>
+        <div class="k">Audience</div>
+        <div class="v">Watershed managers · planners · technical reviewers</div>
+      </div>
+      <div>
+        <div class="k">Source</div>
+        <div class="v">ESM 224 · Bren School · UCSB · 2024 · with two co-authors</div>
+      </div>
+    </div>
+
+    <div class="wc-blurb">
+      <p>A 77-page management plan written in the document register decision-makers actually consume — executive summary forward, recommendations grounded in the analysis section that supports them. The challenge for this kind of writing is integrating policy and science without letting either drown the other; this document keeps both audible.</p>
+      <p>The deliverable view of this same document — what the plan was for, who it was made with — lives on Projects.</p>
+    </div>
+
+    <div class="wc-actions">
+      <a class="arrow-link" href="whitewater_river_watershed_management_plan.pdf" target="_blank" rel="noopener noreferrer">View plan (PDF) <span class="arrow">→</span></a>
+      <a class="arrow-link" href="whitewater_river_watershed_management_plan.pdf" download>Download <span class="arrow">↓</span></a>
+    </div>
+  </article>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     CARD 05 — River Remedy · master's thesis report
+═══════════════════════════════════════════════════════════ -->
+<div class="writing-section" style="padding-bottom: 80px;">
+  <article class="glass writing-card reveal">
+    <div class="wc-status-row">
+      <span class="spec">§ Plate 05 · Long-form group technical writing</span>
+      <span class="chip gold"><span class="dot"></span>2026 · 141 pp</span>
+    </div>
+
+    <h3 class="wc-title">River Remedy — master's thesis report</h3>
+    <p class="wc-subtitle">Long-form environmental reporting at the master's level.</p>
+
+    <div class="wc-spec-strip">
+      <div>
+        <div class="k">Register</div>
+        <div class="v">Long-form group technical writing · master's thesis report</div>
+      </div>
+      <div>
+        <div class="k">Length</div>
+        <div class="v">141 pages · multi-chapter structure across pollution sources, transport, remediation strategy</div>
+      </div>
+      <div>
+        <div class="k">Audience</div>
+        <div class="v">Bren faculty review committee · graduate-level environmental practitioners</div>
+      </div>
+      <div>
+        <div class="k">Source</div>
+        <div class="v">UCSB Bren School · 2026 · group authorship; my contribution centered on the heavy-metals chapters and the technical-writing voice across the report</div>
+      </div>
+    </div>
+
+    <div class="wc-blurb">
+      <p>A 141-page group capstone report whose writing challenge was holding a single technical voice across multiple co-authors and many chapters. The chapters I led on heavy-metals hydrochemistry are where the writing-craft choices show most: how a finding is staged, how a figure is captioned to do half the explanatory work, how a methods section names what was done without padding.</p>
+      <p>The science view of this same report — questions, methods, findings — lives on Research. The deliverable view — group authorship, what it shipped — lives on Projects.</p>
+    </div>
+
+    <div class="wc-actions">
+      <a class="arrow-link" href="https://bren.ucsb.edu/sites/default/files/2026-04/GP%20River%20Remedy%20Final%20Report%20compressed.pdf" target="_blank" rel="noopener noreferrer">View report (Bren PDF) <span class="arrow">↗</span></a>
+      <a class="arrow-link" href="River Remedy Final Report.pdf" download>Download local copy <span class="arrow">↓</span></a>
+    </div>
+  </article>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     BLOCK — § 5.2 · Sample previews (Cards 1 + 2 only)
+═══════════════════════════════════════════════════════════ -->
+<div class="preview-section">
+  <div class="rule-diamond reveal">
+    <span class="diamond"></span>
+    <span class="eyebrow">§ 5.2 · Sample previews</span>
+    <span class="diamond"></span>
+  </div>
+
+  <div class="preview-pair reveal">
+
+    <figure class="preview-frame glass">
+      <figcaption class="spec">§ Sample · Biodegradation of Nicotine</figcaption>
+      <iframe src="biodegradation_writing_sample.pdf"
+              title="Biodegradation of Nicotine — sample preview"
+              aria-label="Biodegradation of Nicotine writing sample PDF viewer"></iframe>
+      <p class="preview-fallback">If the preview doesn't load, <a href="biodegradation_writing_sample.pdf" download>click to download</a>.</p>
+    </figure>
+
+    <figure class="preview-frame glass">
+      <figcaption class="spec">§ Sample · Navigating Pharmaceutical Contamination</figcaption>
+      <iframe src="pharm_contamination.pdf"
+              title="Navigating Pharmaceutical Contamination — sample preview"
+              aria-label="Navigating Pharmaceutical Contamination writing sample PDF viewer"></iframe>
+      <p class="preview-fallback">If the preview doesn't load, <a href="pharm_contamination.pdf" download>click to download</a>.</p>
+    </figure>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PANORAMA DIVIDER — panorama_2.jpeg · registers quote
+═══════════════════════════════════════════════════════════ -->
+<div class="pano-divider">
+  <div class="pano-divider-bg" style="background-image: url('panorama_2.jpeg');"></div>
+  <p class="pano-divider-quote">
+    "The same science can be told three ways — formally, technically, plainly — and the <span class="emph">reader decides</span> which voice they need."
   </p>
-</section>
+</div>
 
-<!-- WRITING CARDS -->
-<section class="section" style="padding-top: 1rem;">
-  <div>
-
-    <!-- Card 1: Biodegradation -->
-    <div class="glass-card writing-card reveal reveal-d1">
-      <span class="card-icon">🧫</span>
-      <div class="writing-meta">
-        <span class="meta-tag tag-sci">Scientific Writing</span>
-        <span class="meta-tag tag-tech">Biodegradation</span>
-      </div>
-      <h3 class="card-title">Biodegradation Writing Sample</h3>
-      <p class="card-desc">
-        A technical scientific writing sample examining biodegradation processes,
-        mechanisms, and environmental applications — demonstrating rigorous scientific
-        communication skills.
-      </p>
-      <a href="biodegradation_writing_sample.pdf" target="_blank" rel="noopener noreferrer" class="card-link">
-        View Sample
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-    </div>
-
-    <!-- Card 2: Whitewater River Watershed Management Plan -->
-    <div class="glass-card writing-card reveal reveal-d2">
-      <span class="card-icon">🏔️</span>
-      <div class="writing-meta">
-        <span class="meta-tag tag-tech">Technical Writing</span>
-        <span class="meta-tag tag-policy">Policy &amp; Science</span>
-      </div>
-      <h3 class="card-title">Whitewater River Watershed Management Plan</h3>
-      <p class="card-desc">
-        A policy and science-integrated watershed management plan demonstrating technical
-        writing across hydrology, land use, water quality analysis, and long-term
-        conservation planning.
-      </p>
-      <a href="whitewater_river_watershed_management_plan.pdf" target="_blank" rel="noopener noreferrer" class="card-link">
-        View Plan
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-    </div>
-
-    <!-- Card 3: River Remedy Report -->
-    <div class="glass-card writing-card reveal reveal-d3">
-      <span class="card-icon">🌊</span>
-      <div class="writing-meta">
-        <span class="meta-tag tag-capstone">Graduate Capstone</span>
-        <span class="meta-tag tag-tech">Environmental Reporting</span>
-      </div>
-      <h3 class="card-title">River Remedy — Graduate Capstone Report</h3>
-      <p class="card-desc">
-        Graduate capstone environmental assessment — a long-form technical document
-        demonstrating scientific investigation, data synthesis, and professional
-        environmental reporting at the master's level.
-      </p>
-      <a href="River Remedy Final Report.pdf" target="_blank" rel="noopener noreferrer" class="card-link">
-        View Report
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-    </div>
-
-  </div>
-</section>
-
-<!-- PDF PREVIEW — Biodegradation sample -->
-<section class="section" style="padding-top: 1rem;">
-  <h2 class="section-title reveal">Biodegradation Sample Preview</h2>
-  <div class="pdf-wrapper reveal reveal-d1">
-    <iframe
-      src="biodegradation_writing_sample.pdf"
-      title="Biodegradation Writing Sample PDF"
-      aria-label="Writing sample PDF viewer">
-    </iframe>
-  </div>
-  <div class="pdf-actions reveal">
-    <a href="biodegradation_writing_sample.pdf" download class="btn btn-primary">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Download Writing Sample
-    </a>
-  </div>
-</section>
-
-<!-- FOOTER -->
+<!-- ═══════════════════════════════════════════════════════════
+     BLOCK — Footer / colophon
+═══════════════════════════════════════════════════════════ -->
 <footer>
-  <div class="footer-inner">
-    <p class="footer-copy">© 2026 Katerina Bischel · Environmental Scientist · Applied Marine Sciences · M.E.S.M., UC Santa Barbara Bren School</p>
-    <div class="footer-links">
-      <a href="https://www.linkedin.com/in/katerina-bischel/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-      </a>
-      <a href="https://github.com/katerinabischell" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-      </a>
+  <div class="footer reveal">
+    <div class="footer-grid">
+      <!-- Col 1 -->
+      <div>
+        <div class="footer-brand">Katerina Bischel</div>
+        <p class="footer-tagline">
+          A portfolio of watersheds, pollinators, and the quiet science of how water moves — and what it carries with it.
+        </p>
+        <div class="rule-diamond">
+          <span class="diamond"></span>
+        </div>
+        <p class="footer-colophon-spec">Set in Cormorant Garamond &amp; JetBrains Mono.</p>
+      </div>
+      <!-- Col 2 — § Pages -->
+      <div>
+        <p class="footer-col-head">§ Pages</p>
+        <nav class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="resume.html">Resume</a>
+          <a href="projects.html">Projects</a>
+          <a href="research.html">Research</a>
+          <a href="writing.html">Writing</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+      <!-- Col 3 — § Field -->
+      <div>
+        <p class="footer-col-head">§ Field</p>
+        <nav class="footer-links">
+          <a href="research.html">Pilcomayo manuscript</a>
+          <a href="https://katerinabischel.github.io/River_Remedy/" target="_blank" rel="noopener noreferrer">River Remedy site ↗</a>
+          <a href="research.html">YOLOv8 pollinators</a>
+          <a href="projects.html">Whitewater plan</a>
+          <a href="https://katerinabischel.shinyapps.io/my-calcofi-app/" target="_blank" rel="noopener noreferrer">CalCOFI dashboard ↗</a>
+        </nav>
+      </div>
+      <!-- Col 4 — § Elsewhere -->
+      <div>
+        <p class="footer-col-head">§ Elsewhere</p>
+        <nav class="footer-links">
+          <a href="mailto:katerinabischel@amarine.com">Email</a>
+          <a href="https://www.linkedin.com/in/katerina-bischel/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+          <a href="https://github.com/katerinabischel" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          <a href="https://orcid.org/0009-0005-4168-9726" target="_blank" rel="noopener noreferrer">ORCID ↗</a>
+        </nav>
+        <p class="footer-copyright">© MMXXVI · K. Bischel</p>
+      </div>
     </div>
   </div>
 </footer>
 
-<button class="back-to-top" id="back-to-top" aria-label="Back to top">
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 15l-6-6-6 6"/></svg>
-</button>
+<!-- Back to top -->
+<button id="back-to-top" aria-label="Back to top">↑</button>
 
 <script src="main.js"></script>
 </body>

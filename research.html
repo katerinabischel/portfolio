@@ -4,475 +4,865 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Research | Katerina Bischel</title>
-  <meta name="description" content="Research by Katerina Bischel — Pilcomayo River heavy metals manuscript (in prep), YOLOv8 pollinator AI, River Remedy capstone, and senior thesis." />
-  <meta property="og:title"       content="Research | Katerina Bischel" />
-  <meta property="og:description" content="Heavy metals research, pollinator computer vision, and graduate environmental science research." />
-  <meta property="og:image"       content="panorama_4.jpeg" />
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="description" content="Research by Katerina Bischel — Pilcomayo Basin heavy-metals manuscript (Bischel & Keller, in prep), YOLOv8 pollinator visitation study at UCSB NCOS, River Remedy master's thesis report, and senior thesis on bivalve-shell ocean alkalinity enhancement." />
+  <meta property="og:title" content="Research | Katerina Bischel" />
+  <meta property="og:description" content="Pilcomayo manuscript · NCOS pollinator AI · River Remedy thesis · bivalve calcium carbonate alkalinity." />
+  <meta property="og:image" content="bee_model.png" />
+  <meta property="og:type" content="website" />
+  <!-- styles.css retired in favor of ui_kit/shared.css + inline page styles -->
+  <link rel="stylesheet" href="ui_kit/shared.css" />
   <style>
-    /* ── Centered page container ── */
-    .research-main {
-      padding: 80px 0 80px;
-      background: var(--bg-base);
+    /* ── Reveal on scroll ─────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    .research-container {
-      max-width: 900px;
+    /* ── Hamburger button ─────────────────────────────── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 6px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--ash);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── Nav ──────────────────────────────────────────── */
+    nav.site-nav {
+      position: sticky;
+      top: 16px;
+      z-index: 100;
+      max-width: 1280px;
       margin: 0 auto;
       padding: 0 32px;
     }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+    }
+    .nav-brand {
+      font-family: var(--serif);
+      font-size: 20px;
+      color: var(--paper);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2px;
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .nav-links a {
+      padding: 8px 13px;
+      border-radius: 999px;
+      color: var(--ash);
+      transition: color 0.3s, background 0.3s;
+    }
+    .nav-links a.active {
+      color: var(--gold-glow);
+      background: rgba(212,184,122,0.12);
+    }
+    .nav-links a:hover { color: var(--paper); }
 
-    /* ── Glass card — identical for all 4 cards ── */
-    .research-card {
-      background: rgba(255, 255, 255, 0.07);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 16px;
-      padding: 40px;
-      margin-bottom: 48px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      display: block;
+    /* ── Page hero ────────────────────────────────────── */
+    .page-hero {
+      position: relative;
+      min-height: 54vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .page-hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('panorama_5.jpeg');
+      background-size: cover;
+      background-position: center;
+      z-index: 0;
+    }
+    .page-hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(11,20,36,0.84), rgba(20,30,52,0.78));
+    }
+    .page-hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 40%, rgba(8,14,28,0.55) 100%);
+      z-index: 1;
+    }
+    .page-hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 120px 56px 100px;
       width: 100%;
-      box-sizing: border-box;
+    }
+    .page-hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .page-hero-h1 {
+      font-family: var(--serif);
+      font-size: clamp(72px, 8vw, 116px);
+      line-height: 0.92;
+      letter-spacing: -0.015em;
+      color: var(--paper);
+      font-weight: 400;
+      margin-bottom: 28px;
+    }
+    .page-hero-intro {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 19px;
+      line-height: 1.6;
+      color: var(--ash-soft);
+      max-width: 640px;
+      margin: 0 0 20px;
+    }
+    .orcid-badge {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin: 0;
+    }
+    .orcid-badge a {
+      color: var(--gold);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .orcid-badge a:hover { color: var(--gold-glow); }
+
+    /* ── Section rule ─────────────────────────────────── */
+    .section-rule {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 64px 56px 48px;
     }
 
-    .research-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 48px rgba(0, 200, 200, 0.15);
+    /* ── Research card stack ──────────────────────────── */
+    .cards-section {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 40px 80px;
     }
 
-    /* Image at top of bee card */
-    .card-top-image {
+    .research-card {
+      padding: 40px;
+      margin-bottom: 52px;
+      transition: transform 0.5s ease;
+    }
+    .research-card:hover { transform: translateY(-4px); }
+
+    /* Top image — Card 02 only */
+    .rc-media {
       width: calc(100% + 80px);
       margin: -40px -40px 32px;
       display: block;
       max-height: 280px;
       object-fit: cover;
-      border-radius: 16px 16px 0 0;
+      border-radius: var(--r-lg) var(--r-lg) 0 0;
     }
 
-    /* ── Badge pills ── */
-    .rc-badge {
-      display: inline-block;
-      background: rgba(0, 200, 200, 0.15);
-      border: 1px solid rgba(0, 200, 200, 0.4);
-      color: #00e5e5;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      letter-spacing: 0.05em;
-      margin-right: 8px;
+    /* Status row */
+    .rc-status-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
       margin-bottom: 12px;
     }
 
-    .rc-badge-collab {
-      background: rgba(139, 92, 246, 0.15);
-      border-color: rgba(139, 92, 246, 0.4);
-      color: #c4b5fd;
-    }
-
-    .rc-badge-field {
-      background: rgba(16, 185, 129, 0.15);
-      border-color: rgba(16, 185, 129, 0.4);
-      color: #6ee7b7;
-    }
-
-    .rc-badge-capstone {
-      background: rgba(239, 68, 68, 0.12);
-      border-color: rgba(239, 68, 68, 0.35);
-      color: #f87171;
-    }
-
-    .rc-badge-undergrad {
-      background: rgba(139, 92, 246, 0.12);
-      border-color: rgba(139, 92, 246, 0.35);
-      color: #a78bfa;
-    }
-
-    .rc-badge-press {
-      background: rgba(251, 191, 36, 0.12);
-      border-color: rgba(251, 191, 36, 0.35);
-      color: #fcd34d;
-      text-decoration: none;
-    }
-
-    /* Live indicator */
-    .rc-live-indicator {
-      display: inline-flex;
+    /* Live indicator — Card 01 only */
+    .live-indicator {
+      display: flex;
       align-items: center;
-      gap: 6px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.26em;
       text-transform: uppercase;
-      color: var(--accent-cyan);
-      margin-bottom: 14px;
-    }
-
-    .rc-live-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--accent-cyan);
-      box-shadow: 0 0 8px var(--accent-cyan);
-      animation: dot-pulse 2.8s ease-in-out infinite;
-    }
-
-    /* ── Card heading ── */
-    .rc-title {
-      font-family: var(--font-heading);
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: var(--accent-teal-light);
-      margin-bottom: 6px;
-      line-height: 1.25;
-    }
-
-    .rc-subtitle {
-      color: rgba(255, 255, 255, 0.65);
-      font-size: 0.97rem;
-      font-style: italic;
+      color: var(--gold);
       margin-bottom: 16px;
+    }
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 12px rgba(212,184,122,0.7);
+      animation: pulse-glow 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 1; box-shadow: 0 0 12px rgba(212,184,122,0.7); }
+      50%       { opacity: 0.55; box-shadow: 0 0 4px rgba(212,184,122,0.3); }
+    }
+
+    /* Card title and subtitle */
+    .rc-title {
+      font-family: var(--serif);
+      font-size: 30px;
+      line-height: 1.15;
+      color: var(--paper);
+      margin-bottom: 8px;
+    }
+    .rc-subtitle {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 17px;
+      color: var(--ash);
+      margin-bottom: 24px;
       line-height: 1.5;
     }
 
-    /* ── Citation block ── */
+    /* Citation block — parchment variant with gold left rule */
     .rc-citation {
-      background: rgba(0, 212, 255, 0.05);
-      border-left: 3px solid rgba(0, 212, 255, 0.5);
-      padding: 14px 18px;
-      border-radius: 0 8px 8px 0;
-      margin-bottom: 18px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(212,184,122,0.05), transparent 60%),
+        linear-gradient(180deg, #f5f1e6, #ece4cf);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 var(--r-sm) var(--r-sm) 0;
+      padding: 16px 20px;
+      margin-bottom: 24px;
     }
-
+    .rc-citation .eyebrow {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: #9b7d3a;
+      margin-bottom: 6px;
+    }
     .rc-citation p {
-      color: rgba(255, 255, 255, 0.75);
-      font-size: 0.92rem;
-      line-height: 1.75;
+      font-family: var(--serif);
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: #2a2418;
+      margin: 0;
       font-style: italic;
     }
-
     .rc-citation strong {
-      color: rgba(255, 255, 255, 0.95);
+      color: #2a2418;
       font-style: normal;
     }
 
-    /* ── Collaborator line ── */
-    .rc-collab {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      color: rgba(255, 255, 255, 0.5);
-      font-size: 0.87rem;
+    /* Meta strip — cs-meta pattern from Template 03 */
+    .rc-meta-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      padding: 14px 0;
+      margin-bottom: 28px;
+      border-top: 1px solid rgba(255,255,255,0.10);
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+    }
+    .rc-meta-strip > div {
+      padding: 0 16px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+    }
+    .rc-meta-strip > div:first-child { padding-left: 0; }
+    .rc-meta-strip > div:last-child { border-right: none; }
+    .rc-meta-strip .k {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .rc-meta-strip .v {
+      font-family: var(--serif);
+      font-size: 15px;
+      color: var(--paper);
+      margin-top: 6px;
+      line-height: 1.3;
+    }
+
+    /* Science prose */
+    .rc-prose p {
+      font-family: var(--serif);
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--ash-soft);
+      margin: 0 0 18px;
+    }
+    .rc-prose p:last-child { margin-bottom: 0; }
+    /* Drop-cap — Card 01 showpiece only */
+    .rc-prose.has-dropcap p:first-of-type::first-letter {
+      font-size: 52px;
       font-style: italic;
-      margin-bottom: 18px;
+      color: var(--gold);
+      float: left;
+      line-height: 0.9;
+      padding: 4px 8px 0 0;
     }
 
-    /* ── Body text ── */
-    .rc-body {
-      color: rgba(255, 255, 255, 0.82);
-      font-size: 0.97rem;
-      line-height: 1.8;
-    }
-
-    .rc-body p { margin-bottom: 1rem; }
-    .rc-body p:last-child { margin-bottom: 0; }
-
-    /* ── CTA button row ── */
-    .rc-links {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      margin-top: 22px;
-    }
-
-    /* PDF embed inside card */
-    .rc-pdf-wrap {
+    /* Action links */
+    .rc-actions {
       margin-top: 24px;
-      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .arrow-link {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold-glow);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: gap 0.3s, color 0.3s;
+    }
+    .arrow-link:hover { color: var(--paper); gap: 12px; }
+
+    /* PDF embeds */
+    .rc-pdf {
+      margin-top: 24px;
+      border-radius: var(--r-md);
       overflow: hidden;
       border: 1px solid rgba(255,255,255,0.12);
     }
-
-    .rc-pdf-wrap iframe {
+    .rc-pdf iframe {
       width: 100%;
       height: 560px;
       border: none;
       display: block;
       background: #111;
     }
-
     .rc-pdf-fallback {
       margin-top: 8px;
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.45);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.10em;
+      color: var(--ash);
+      opacity: 0.7;
+    }
+    .rc-pdf-fallback a { color: var(--gold); }
+
+    /* ── Panorama dividers ────────────────────────────── */
+    .pano-divider {
+      width: 100%;
+      height: 320px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pano-divider-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+    .pano-divider-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(11,20,36,0.58);
+    }
+    .pano-divider-quote {
+      position: relative;
+      z-index: 1;
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(20px, 2.5vw, 28px);
+      color: var(--paper);
+      text-align: center;
+      max-width: 720px;
+      padding: 0 40px;
+      line-height: 1.45;
+    }
+    .pano-divider-quote .emph {
+      color: var(--gold-glow);
+      font-style: normal;
+      font-weight: 500;
     }
 
-    .rc-pdf-fallback a {
-      color: var(--accent-cyan);
+    /* ── Footer ───────────────────────────────────────── */
+    .footer {
+      border-top: 1px solid var(--glass-stroke);
+      padding: 72px 56px 56px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1.5fr 1.5fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+    .footer-brand {
+      font-family: var(--serif);
+      font-size: 26px;
+      color: var(--paper);
+      margin-bottom: 14px;
+    }
+    .footer-tagline {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--ash);
+      max-width: 340px;
+      margin-bottom: 24px;
+    }
+    .footer-colophon-spec {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      letter-spacing: 0.14em;
+      color: var(--aurora-3);
+      opacity: 0.6;
+      margin-top: 16px;
+    }
+    .footer-col-head {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-links a {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.14em;
+      color: var(--ash);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--gold-glow); }
+    .footer-copyright {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      letter-spacing: 0.18em;
+      color: var(--aurora-3);
+      opacity: 0.55;
+      margin-top: 12px;
     }
 
-    @media (max-width: 600px) {
-      .research-container { padding: 0 18px; }
-      .research-card { padding: 24px 20px; }
-      .card-top-image { width: calc(100% + 40px); margin: -24px -20px 24px; }
-      .rc-title { font-size: 1.3rem; }
+    /* ── Back to top ──────────────────────────────────── */
+    #back-to-top {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 200;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--glass-stroke);
+      background: linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.03));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--ash);
+      font-family: var(--mono);
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s, border-color 0.3s, box-shadow 0.3s;
+    }
+    #back-to-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    #back-to-top:hover {
+      border-color: rgba(212,184,122,0.5);
+      box-shadow: 0 0 18px rgba(212,184,122,0.25);
+      color: var(--gold-glow);
+    }
+
+    /* ── Mobile ───────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .hamburger { display: flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 16px;
+        right: 16px;
+        flex-direction: column;
+        padding: 16px;
+        background: linear-gradient(135deg, rgba(20,32,57,0.96), rgba(11,20,36,0.98));
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-stroke);
+        border-radius: var(--r-md);
+        gap: 4px;
+      }
+      .nav-links.open { display: flex; }
+      .nav-inner { position: relative; }
+
+      .page-hero-content { padding: 100px 32px 72px; }
+      .page-hero-intro { font-size: 17px; }
+
+      .section-rule { padding: 48px 32px 36px; }
+      .cards-section { padding: 0 24px 60px; }
+
+      .research-card { padding: 28px; }
+      .rc-media { width: calc(100% + 56px); margin: -28px -28px 24px; }
+
+      .rc-meta-strip { grid-template-columns: repeat(2, 1fr); }
+      .rc-meta-strip > div:nth-child(2n) { border-right: none; }
+      .rc-meta-strip > div:nth-child(n+3) {
+        border-top: 1px solid rgba(255,255,255,0.08);
+        padding-top: 14px;
+        margin-top: 4px;
+      }
+
+      .rc-pdf iframe { height: 420px; }
+
+      .footer { padding: 56px 32px 48px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+
+      .pano-divider { height: 220px; }
+      .pano-divider-bg { background-attachment: scroll; }
+    }
+
+    @media (max-width: 480px) {
+      .page-hero-h1 { font-size: clamp(52px, 14vw, 72px); }
+      .rc-title { font-size: 24px; }
     }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="navbar">
-  <div class="nav-container">
-    <a href="index.html" class="nav-logo">KB</a>
+<div class="starfield"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     NAV
+═══════════════════════════════════════════════════════════ -->
+<nav class="site-nav">
+  <div class="nav-inner glass">
+    <a href="index.html" class="nav-brand">Katerina Bischel</a>
     <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
       <span></span><span></span><span></span>
     </button>
-    <ul class="nav-links" id="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="resume.html">Resume</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="research.html">Research</a></li>
-      <li><a href="writing.html">Writing</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="resume.html">Resume</a>
+      <a href="projects.html">Projects</a>
+      <a href="research.html" class="active">Research</a>
+      <a href="writing.html">Writing</a>
+      <a href="contact.html">Contact</a>
+    </div>
   </div>
 </nav>
 
-<!-- PAGE HERO -->
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE HERO — panorama_5 background
+═══════════════════════════════════════════════════════════ -->
 <section class="page-hero">
-  <div class="hero-bg" style="background-image: url('panorama_5.jpeg');"></div>
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <h1 class="page-hero-title">Research</h1>
-    <p class="page-hero-subtitle">Original academic investigation in environmental science, water resources &amp; machine learning</p>
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-content reveal">
+    <p class="page-hero-eyebrow">§ Chapter IV · The investigations · MMXXIII — MMXXVI</p>
+    <h1 class="page-hero-h1">Research</h1>
+    <p class="page-hero-intro">Four investigations across hydrochemistry, conservation computer vision, and marine geochemistry — one in preparation, one in the field, one in the bound report, one in the archive. The build artifacts these investigations produced live on Projects; this chapter is about the science.</p>
+    <p class="orcid-badge">
+      <a href="https://orcid.org/0009-0005-4168-9726" target="_blank" rel="noopener noreferrer">§ ORCID · 0009-0005-4168-9726 ↗</a>
+    </p>
   </div>
 </section>
 
-<!-- RESEARCH CARDS -->
-<section class="research-main">
-  <div class="research-container">
-    <h2 class="section-title reveal">Academic Research</h2>
-
-    <!-- ══ CARD 1 — PILCOMAYO RIVER (Current Work) ══ -->
-    <div class="research-card reveal">
-      <div class="rc-live-indicator">
-        <span class="rc-live-dot"></span>
-        Currently In Progress
-      </div>
-
-      <div style="margin-bottom: 14px;">
-        <span class="rc-badge">📄 Manuscript in Preparation · 2026</span>
-        <span class="rc-badge rc-badge-collab">With Dr. Arturo Keller, UCSB</span>
-      </div>
-
-      <h2 class="rc-title">Heavy Metal Contamination in the Pilcomayo River Basin</h2>
-      <p class="rc-subtitle">
-        Spatiotemporal Dynamics, Sediment-Water Partitioning, and Geochemically Targeted Remediation Strategies
-      </p>
-
-      <div class="rc-citation">
-        <p>
-          <strong>Bischel, K., and Keller, A. (in preparation).</strong>
-          Heavy metal contamination in the Pilcomayo River Basin: Spatiotemporal dynamics,
-          sediment-water partitioning, and geochemically targeted remediation strategies.
-          <em>[Journal TBD].</em>
-        </p>
-      </div>
-
-      <div class="rc-collab">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        Collaborator: Dr. Arturo Keller, Bren School of Environmental Science &amp; Management, UC Santa Barbara
-      </div>
-
-      <div class="rc-body">
-        <p>
-          This manuscript investigates heavy metal contamination dynamics in the Pilcomayo River Basin,
-          examining how metals partition between sediment and water across space and time. The research
-          develops geochemically targeted remediation strategies grounded in field data and environmental
-          chemistry — directly advancing practical approaches to river pollution remediation.
-        </p>
-        <p>
-          The Pilcomayo River flows through Bolivia, Argentina, and Paraguay, serving as a critical
-          water source for indigenous communities and agricultural regions while facing severe contamination
-          from upstream mining activity. Quantifying spatiotemporal dynamics and sediment-water partitioning
-          behavior is foundational to designing effective, site-specific remediation interventions.
-        </p>
-      </div>
-    </div>
-
-    <!-- ══ CARD 2 — POLLINATOR AI ══ -->
-    <div class="research-card reveal">
-      <img src="bee_model.png"
-           alt="YOLOv8 pollinator detection model output showing bees on flowering plants"
-           class="card-top-image" />
-
-      <div style="margin-bottom: 14px;">
-        <span class="rc-badge rc-badge-field">Field Research · Machine Learning · 2025</span>
-        <a href="https://us15.campaign-archive.com/?e=__test_email__&u=05cf4db23a15975cb832e2846&id=3d0ad0cae9"
-           target="_blank" rel="noopener noreferrer" class="rc-badge rc-badge-press" style="text-decoration:none;">
-          📰 Featured In Press
-        </a>
-      </div>
-
-      <h2 class="rc-title">Automated Pollinator Monitoring Using YOLOv8 Computer Vision</h2>
-
-      <div class="rc-collab">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        UC Santa Barbara · Cheadle Center for Biodiversity &amp; Ecological Restoration · Dr. Katja Seltmann &amp; Dr. Chris Evelyn
-      </div>
-
-      <div class="rc-body">
-        <p>
-          Developed and trained YOLOv8 object detection models to automate pollinator monitoring for two
-          federally endangered coastal plant species: <em>Ventura marsh milk-vetch</em>
-          (<em>Astragalus pycnostachyus</em> var. <em>lanosissimus</em>) and <em>salt marsh bird's-beak</em>
-          (<em>Chloropyron maritimum</em> ssp. <em>maritimum</em>) at the North Campus Open Space (NCOS)
-          restoration site in Goleta, CA.
-        </p>
-        <p>
-          Collected and processed 200+ hours of field camera footage over a 9-week season (June–September
-          2025) across four monitoring sites. Using Panasonic Lumix cameras positioned within yarn-delineated
-          quadrants, footage was captured during three daily shifts three days per week, with site visit order
-          randomized each shift. Environmental conditions were logged alongside each recording session.
-        </p>
-        <p>
-          Integrated trained models with the HyDaT tracking framework to identify and quantify pollinator
-          visitation events, including entry timing, duration, and exit. Mentored two undergraduate research
-          trainees throughout the season in field protocols, camera operation, and data quality assessment.
-        </p>
-      </div>
-
-      <div class="rc-links">
-        <a href="https://us15.campaign-archive.com/?e=__test_email__&u=05cf4db23a15975cb832e2846&id=3d0ad0cae9"
-           target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-          📰 Read Feature Article
-        </a>
-        <a href="projects.html" class="btn btn-ghost">
-          View Project
-        </a>
-      </div>
-    </div>
-
-    <!-- ══ CARD 3 — RIVER REMEDY CAPSTONE ══ -->
-    <div class="research-card reveal">
-      <div style="margin-bottom: 14px;">
-        <span class="rc-badge rc-badge-capstone">🌊 Master's Capstone · Bren School 2026</span>
-      </div>
-
-      <h2 class="rc-title">River Remedy — Graduate Capstone Report</h2>
-
-      <div class="rc-body">
-        <p>
-          A comprehensive graduate-level environmental assessment examining river health, pollution sources,
-          contaminant transport pathways, and evidence-based remediation strategies. Developed as a
-          master's-level capstone deliverable at the UC Santa Barbara Bren School, this report synthesizes
-          field data, environmental chemistry, and policy analysis into actionable long-term restoration
-          recommendations.
-        </p>
-      </div>
-
-  <div class="rc-links">
-  <a href="https://bren.ucsb.edu/sites/default/files/2026-04/GP%20River%20Remedy%20Final%20Report%20compressed.pdf" 
-     target="_blank" 
-     rel="noopener noreferrer" 
-     class="btn btn-primary">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-      <polyline points="15 3 21 3 21 9"/>
-      <line x1="10" y1="14" x2="21" y2="3"/>
-    </svg>
-    View Full Report
-  </a>
-
-  <a href="River Remedy Final Report.pdf" 
-     target="_blank" 
-     rel="noopener noreferrer" 
-     class="btn btn-ghost">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-      <polyline points="7 10 12 15 17 10"/>
-      <line x1="12" y1="15" x2="12" y2="3"/>
-    </svg>
-    Download PDF
-  </a>
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION RULE — § 4.1 · Four investigations
+═══════════════════════════════════════════════════════════ -->
+<div class="section-rule reveal">
+  <div class="rule-diamond">
+    <div class="diamond"></div>
+    <span class="eyebrow">§ 4.1 · Four investigations</span>
+    <div class="diamond"></div>
+  </div>
 </div>
 
-      <div class="rc-pdf-wrap">
-        <iframe src="River Remedy Final Report.pdf"
-                title="River Remedy Final Report"
-                aria-label="River Remedy capstone report PDF viewer">
-        </iframe>
-      </div>
-      <p class="rc-pdf-fallback">
-        If the preview doesn't load, <a href="River Remedy Final Report.pdf" download>click to download</a>.
-      </p>
+<!-- ═══════════════════════════════════════════════════════════
+     RESEARCH CARD STACK
+═══════════════════════════════════════════════════════════ -->
+<div class="cards-section">
+
+  <!-- ══════════════════════════════════════════════════
+       Card 01 — Pilcomayo River Basin manuscript
+  ═══════════════════════════════════════════════════ -->
+  <article class="glass research-card reveal">
+
+    <div class="rc-status-row">
+      <span class="spec">§ Plate 01 · Manuscript in preparation</span>
+      <span class="chip gold"><span class="dot"></span>In prep · 2026</span>
     </div>
 
-    <!-- ══ CARD 4 — SENIOR THESIS ══ -->
-    <div class="research-card reveal">
-      <div style="margin-bottom: 14px;">
-        <span class="rc-badge rc-badge-undergrad">🎓 Undergraduate · Senior Thesis · UCSB</span>
-      </div>
-
-      <h2 class="rc-title">Senior Undergraduate Thesis</h2>
-
-      <div class="rc-body">
-        <p>
-          Original undergraduate research in environmental studies at UCSB, representing the
-          culmination of a B.A. with concentration in Water Quality &amp; Systems. This thesis reflects
-          the investigative depth and scientific communication skills developed throughout undergraduate
-          study at UC Santa Barbara.
-        </p>
-      </div>
-
-      <div class="rc-links">
-        <a href="senior_thesis.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          View Thesis
-        </a>
-        <a href="senior_thesis.pdf" download class="btn btn-ghost">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Download Thesis
-        </a>
-      </div>
-
-      <div class="rc-pdf-wrap">
-        <iframe src="senior_thesis.pdf"
-                title="Senior Thesis PDF"
-                aria-label="Senior thesis PDF viewer">
-        </iframe>
-      </div>
-      <p class="rc-pdf-fallback">
-        If the preview doesn't load, <a href="senior_thesis.pdf" download>click to download</a>.
-      </p>
+    <!-- Live pulse-dot — Card 01 only -->
+    <div class="live-indicator">
+      <span class="pulse-dot"></span>
+      Currently · Manuscript in preparation
     </div>
 
-  </div>
-</section>
+    <h3 class="rc-title">Heavy Metal Contamination in the Pilcomayo River Basin</h3>
+    <p class="rc-subtitle">Spatiotemporal dynamics, sediment-water partitioning, and geochemically targeted remediation strategies.</p>
 
-<!-- FOOTER -->
+    <aside class="rc-citation">
+      <div class="eyebrow">§ Citation</div>
+      <p><strong>Bischel, K., and Keller, A.</strong> (in preparation). <em>Heavy metal contamination in the Pilcomayo River Basin: spatiotemporal dynamics, sediment–water partitioning, and geochemically targeted remediation strategies.</em> Journal TBD.</p>
+    </aside>
+
+    <div class="rc-meta-strip">
+      <div><div class="k">Project</div><div class="v">Pilcomayo Basin · Bolivia · Argentina · Paraguay</div></div>
+      <div><div class="k">Role</div><div class="v">First author · independent extension of the River Remedy thesis</div></div>
+      <div><div class="k">Advisor</div><div class="v">Dr. Arturo Keller · UCSB Bren</div></div>
+      <div><div class="k">Status</div><div class="v">Manuscript in preparation · 2026</div></div>
+    </div>
+
+    <div class="rc-prose has-dropcap">
+      <p>The Pilcomayo descends from the Bolivian Andes through Argentina and into Paraguay across an 850 km transboundary corridor, gathering sediment, silver, and a long historical load of cadmium, lead, and zinc from upstream mining. The investigation asks how those metals partition between dissolved phase, suspended sediment, and the river bed across space and time — and what that partitioning behavior implies for site-specific remediation.</p>
+      <p>The analysis draws on <strong>1,436 samples across 46 monitoring stations spanning eight years (2016–2024)</strong>, contributed by the Comisión Trinacional para el Desarrollo de la Cuenca del Río Pilcomayo. Spatiotemporal partitioning is modelled in R using a coupled hydrological–geochemical framework, with field campaigns paired against discharge regimes for the wet, dry, and shoulder seasons.</p>
+      <p>Findings track which reaches and which seasons drive the highest dissolved-metal load, and use that mapping to evaluate where geochemically targeted remediation interventions — wetland buffer reactivation, sediment capping, and source-side controls — are likely to deliver the largest reduction in downstream exposure for the indigenous communities and agricultural regions that depend on the river. Findings have additionally been presented to Diputada María Ángela Ruíz Farfán during her visit to UCSB.</p>
+    </div>
+
+    <div class="rc-actions">
+      <a class="arrow-link" href="https://katerinabischel.github.io/River_Remedy/" target="_blank" rel="noopener noreferrer">River Remedy companion site <span class="arrow">↗</span></a>
+      <a class="arrow-link" href="https://zenodo.org/records/19929950" target="_blank" rel="noopener noreferrer">Zenodo archive <span class="arrow">↗</span></a>
+      <a class="arrow-link" href="https://orcid.org/0009-0005-4168-9726" target="_blank" rel="noopener noreferrer">ORCID 0009-0005-4168-9726 <span class="arrow">↗</span></a>
+      <a class="arrow-link" href="projects.html">View on Projects (build artifact lens) <span class="arrow">→</span></a>
+    </div>
+
+  </article>
+
+  <!-- ══════════════════════════════════════════════════
+       Card 02 — Pollinator AI · YOLOv8 at NCOS
+  ═══════════════════════════════════════════════════ -->
+  <article class="glass research-card reveal">
+
+    <img src="bee_model.png" class="rc-media" alt="YOLOv8 pollinator detection model — bounding box inference on native bee at NCOS restoration site" />
+
+    <div class="rc-status-row">
+      <span class="spec">§ Plate 02 · Field study · 2025</span>
+      <span class="chip water"><span class="dot"></span>Field season · summer 2025</span>
+    </div>
+
+    <h3 class="rc-title">Automated Pollinator Monitoring with YOLOv8 at NCOS</h3>
+    <p class="rc-subtitle">Computer-vision visitation surveys for two federally endangered coastal plant species.</p>
+
+    <aside class="rc-citation">
+      <div class="eyebrow">§ Field log</div>
+      <p>UCSB Cheadle Center for Biodiversity &amp; Ecological Restoration · North Campus Open Space (NCOS), Goleta, CA · summer field season 2025.</p>
+    </aside>
+
+    <div class="rc-meta-strip">
+      <div><div class="k">Project</div><div class="v">NCOS pollinator visitation surveys</div></div>
+      <div><div class="k">Role</div><div class="v">Research assistant · field protocol design · model training · undergraduate mentorship</div></div>
+      <div><div class="k">Advisors</div><div class="v">Dr. Katja Seltmann · Dr. Chris Evelyn · UCSB Cheadle Center</div></div>
+      <div><div class="k">Status</div><div class="v">Field season complete · 2025 · Featured in Cheadle Restoration Register</div></div>
+    </div>
+
+    <div class="rc-prose">
+      <p>The study asks whether automated computer vision can credibly replace hand-tallied pollinator visitation surveys for two federally endangered coastal plant species — Ventura marsh milk-vetch (<em>Astragalus pycnostachyus</em> var. <em>lanosissimus</em>) and salt marsh bird's-beak (<em>Chloropyron maritimum</em> ssp. <em>maritimum</em>) — at the NCOS restoration site in Goleta, California.</p>
+      <p>Over a nine-week summer 2025 season, Panasonic Lumix cameras were positioned within yarn-delineated quadrants and ran three daily shifts across three days per week, with site visit order randomized each shift and environmental conditions logged alongside each session. Footage was processed through a YOLOv8 object-detection model trained on a labeled set of native bee taxa, then passed into the existing <strong>HyDaT</strong> tracking framework — an external tool whose authorship is not mine — to identify and quantify discrete visitation events: entry, duration, exit.</p>
+      <p>The trained model and the field protocol together form a reproducible pipeline that the Cheadle Center can carry into future field seasons; mentoring two undergraduate research trainees throughout the season was an explicit goal alongside the science. The build/engineering view of this work — model weights, training data, pipeline — lives on Projects.</p>
+    </div>
+
+    <div class="rc-actions">
+      <a class="arrow-link" href="https://us15.campaign-archive.com/?e=__test_email__&u=05cf4db23a15975cb832e2846&id=3d0ad0cae9" target="_blank" rel="noopener noreferrer">Read feature article <span class="arrow">↗</span></a>
+      <a class="arrow-link" href="projects.html">View on Projects (build artifact lens) <span class="arrow">→</span></a>
+    </div>
+
+  </article>
+
+  <!-- ══════════════════════════════════════════════════
+       Card 03 — River Remedy master's thesis report
+  ═══════════════════════════════════════════════════ -->
+  <article class="glass research-card reveal">
+
+    <div class="rc-status-row">
+      <span class="spec">§ Plate 03 · Master's thesis report · group authorship</span>
+      <span class="chip gold"><span class="dot"></span>2026 · UCSB Bren</span>
+    </div>
+
+    <h3 class="rc-title">River Remedy — master's thesis report</h3>
+    <p class="rc-subtitle">Group capstone investigation of pollution sources, contaminant transport, and remediation strategy.</p>
+
+    <aside class="rc-citation">
+      <div class="eyebrow">§ Citation</div>
+      <p><strong>River Remedy Group</strong> (2026). <em>River Remedy: an integrated assessment of pollution sources, contaminant transport, and remediation strategy.</em> Master's thesis report, Bren School of Environmental Science &amp; Management, UC Santa Barbara. 141 pp.</p>
+    </aside>
+
+    <div class="rc-meta-strip">
+      <div><div class="k">Project</div><div class="v">River Remedy master's thesis (Pilcomayo case study)</div></div>
+      <div><div class="k">Role</div><div class="v">Co-author · hydrochemistry analysis lead · spatial figures · technical-writing voice</div></div>
+      <div><div class="k">Advisor</div><div class="v">Dr. Arturo Keller · UCSB Bren</div></div>
+      <div><div class="k">Status</div><div class="v">Final report submitted · April 2026</div></div>
+    </div>
+
+    <div class="rc-prose">
+      <p>A 141-page graduate-group investigation that synthesizes field data, environmental chemistry, and policy analysis into long-term remediation recommendations for a pollution-stressed river system. Group authorship is attributed inside the document; my contribution centered on the heavy-metals hydrochemistry chapters, the spatial figures, and carrying a consistent technical-writing voice across the report.</p>
+      <p>The Pilcomayo manuscript in preparation (Card 01) is my solo first-author extension of this group work — taking the heavy-metals analysis I led for the report and developing it into a standalone, peer-review-targeted paper.</p>
+    </div>
+
+    <div class="rc-actions">
+      <a class="arrow-link" href="https://bren.ucsb.edu/sites/default/files/2026-04/GP%20River%20Remedy%20Final%20Report%20compressed.pdf" target="_blank" rel="noopener noreferrer">View report (Bren PDF) <span class="arrow">↗</span></a>
+      <a class="arrow-link" href="River Remedy Final Report.pdf" download>Download local copy <span class="arrow">→</span></a>
+    </div>
+
+    <div class="rc-pdf">
+      <iframe src="River Remedy Final Report.pdf" title="River Remedy master's thesis report"></iframe>
+    </div>
+    <p class="rc-pdf-fallback">If the preview doesn't load, <a href="River Remedy Final Report.pdf" download>click to download</a>.</p>
+
+  </article>
+
+  <!-- ══════════════════════════════════════════════════
+       Card 04 — Senior thesis · bivalve calcium carbonate
+  ═══════════════════════════════════════════════════ -->
+  <article class="glass research-card reveal">
+
+    <div class="rc-status-row">
+      <span class="spec">§ Plate 04 · Senior thesis · undergraduate</span>
+      <span class="chip gold"><span class="dot"></span>B.A. · UCSB · June 2024</span>
+    </div>
+
+    <h3 class="rc-title">Remediating Ocean Acidification: Calcium Carbonate from Discarded Bivalves</h3>
+    <p class="rc-subtitle">Reintroducing ground bivalve shells to enhance ocean alkalinity — and the dissolved-oxygen trade-off that came with it.</p>
+
+    <aside class="rc-citation">
+      <div class="eyebrow">§ Citation</div>
+      <p><strong>Bischel, K.</strong> (2024). <em>Remediating ocean acidification: using calcium carbonate from discarded bivalves to enhance ocean alkalinity.</em> Senior thesis, B.A. in Environmental Studies, UC Santa Barbara. Advisor: Kelsey Dowdy.</p>
+    </aside>
+
+    <div class="rc-meta-strip">
+      <div><div class="k">Project</div><div class="v">Bivalve-shell alkalinity enhancement · UCSB reef tanks</div></div>
+      <div><div class="k">Role</div><div class="v">Sole author · experimental design · field collection · benchtop chemistry</div></div>
+      <div><div class="k">Advisor</div><div class="v">Kelsey Dowdy · UCSB Environmental Studies · with CCBER (Alison Rickard, Roost Lab) for instrumentation</div></div>
+      <div><div class="k">Status</div><div class="v">Awarded · June 2024</div></div>
+    </div>
+
+    <div class="rc-prose">
+      <p>The thesis asks whether calcium carbonate from discarded bivalve shells — sourced through a partnership with Hendry's Boathouse, a local Santa Barbara seafood restaurant — can meaningfully counter ocean acidification when reintroduced into marine systems as a ground material. The framing draws on indigenous shell-stewardship practices from the Bodega Bay community alongside contemporary aquatic chemistry.</p>
+      <p>Ground bivalve shells were dosed into reef-tank treatments at UCSB and tracked over time against control tanks for pH, dissolved oxygen, conductivity, and salinity using YSI and pH meters provided by CCBER. A MANOVA evaluated the joint treatment effect across response variables.</p>
+      <p><strong>Findings:</strong> ground shell additions did raise pH, supporting the alkalinity-enhancement hypothesis — but a measurable decrease in dissolved oxygen was observed alongside the pH rise, indicating a real biogeochemical trade-off rather than a clean win. The thesis ends by recommending future work on shell dispersal methods that maximize the alkalinity benefit while characterizing and mitigating the DO drawdown — particularly mechanistic and long-term studies.</p>
+    </div>
+
+    <div class="rc-actions">
+      <a class="arrow-link" href="senior_thesis.pdf">View thesis (PDF) <span class="arrow">→</span></a>
+      <a class="arrow-link" href="senior_thesis.pdf" download>Download <span class="arrow">→</span></a>
+    </div>
+
+    <div class="rc-pdf">
+      <iframe src="senior_thesis.pdf" title="Senior thesis · ocean acidification remediation"></iframe>
+    </div>
+    <p class="rc-pdf-fallback">If the preview doesn't load, <a href="senior_thesis.pdf" download>click to download</a>.</p>
+
+  </article>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PANORAMA DIVIDER — data actually means
+═══════════════════════════════════════════════════════════ -->
+<div class="pano-divider">
+  <div class="pano-divider-bg" style="background-image: url('panorama_7.jpeg');"></div>
+  <p class="pano-divider-quote">
+    "The questions are about water and metal and pollinators and shells; the through-line is what the <span class="emph">data actually means</span>."
+  </p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     FOOTER / COLOPHON
+═══════════════════════════════════════════════════════════ -->
 <footer>
-  <div class="footer-inner">
-    <p class="footer-copy">© 2026 Katerina Bischel · Environmental Scientist · Applied Marine Sciences · M.E.S.M., UC Santa Barbara Bren School</p>
-    <div class="footer-links">
-      <a href="https://www.linkedin.com/in/katerina-bischel/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-      </a>
-      <a href="https://github.com/katerinabischell" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-      </a>
+  <div class="footer reveal">
+    <div class="footer-grid">
+      <!-- Col 1 — brand + colophon -->
+      <div>
+        <div class="footer-brand">Katerina Bischel</div>
+        <p class="footer-tagline">
+          A portfolio of watersheds, pollinators, and the quiet science of how water moves — and what it carries with it.
+        </p>
+        <div class="rule-diamond">
+          <span class="diamond"></span>
+        </div>
+        <p class="footer-colophon-spec">Set in Cormorant Garamond &amp; JetBrains Mono.</p>
+      </div>
+      <!-- Col 2 — § Pages -->
+      <div>
+        <p class="footer-col-head">§ Pages</p>
+        <nav class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="resume.html">Resume</a>
+          <a href="projects.html">Projects</a>
+          <a href="research.html">Research</a>
+          <a href="writing.html">Writing</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+      <!-- Col 3 — § Field -->
+      <div>
+        <p class="footer-col-head">§ Field</p>
+        <nav class="footer-links">
+          <a href="research.html">Pilcomayo manuscript</a>
+          <a href="https://katerinabischel.github.io/River_Remedy/" target="_blank" rel="noopener noreferrer">River Remedy site ↗</a>
+          <a href="research.html">YOLOv8 pollinators</a>
+          <a href="projects.html">Whitewater plan</a>
+          <a href="https://katerinabischel.shinyapps.io/my-calcofi-app/" target="_blank" rel="noopener noreferrer">CalCOFI dashboard ↗</a>
+        </nav>
+      </div>
+      <!-- Col 4 — § Elsewhere -->
+      <div>
+        <p class="footer-col-head">§ Elsewhere</p>
+        <nav class="footer-links">
+          <a href="mailto:katerinabischel@amarine.com">Email</a>
+          <a href="https://www.linkedin.com/in/katerina-bischel/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+          <a href="https://github.com/katerinabischel" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          <a href="https://orcid.org/0009-0005-4168-9726" target="_blank" rel="noopener noreferrer">ORCID ↗</a>
+        </nav>
+        <p class="footer-copyright">© MMXXVI · K. Bischel</p>
+      </div>
     </div>
   </div>
 </footer>
 
-<button class="back-to-top" id="back-to-top" aria-label="Back to top">
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 15l-6-6-6 6"/></svg>
-</button>
+<!-- Back to top -->
+<button id="back-to-top" aria-label="Back to top">↑</button>
 
 <script src="main.js"></script>
 </body>
