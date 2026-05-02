@@ -21,21 +21,43 @@ document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 })();
 
 // ── Hamburger menu ───────────────────────────────────────────
-const hamburger = document.getElementById('hamburger');
-const navLinks  = document.getElementById('nav-links');
+document.addEventListener('DOMContentLoaded', () => {
+  const hamburger = document.getElementById('hamburger');
+  const navLinks  = document.getElementById('nav-links');
 
-if (hamburger && navLinks) {
+  if (!hamburger || !navLinks) return;
+
+  function closeMenu() {
+    hamburger.classList.remove('open');
+    navLinks.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+  }
+
+  function openMenu() {
+    hamburger.classList.add('open');
+    navLinks.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+  }
+
   hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    navLinks.classList.toggle('open');
+    const isOpen = hamburger.classList.contains('open');
+    isOpen ? closeMenu() : openMenu();
   });
+
   navLinks.querySelectorAll('a').forEach(a =>
-    a.addEventListener('click', () => {
-      hamburger.classList.remove('open');
-      navLinks.classList.remove('open');
-    })
+    a.addEventListener('click', closeMenu)
   );
-}
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeMenu();
+  });
+
+  document.addEventListener('click', e => {
+    if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+      closeMenu();
+    }
+  });
+});
 
 // ── Back to top ──────────────────────────────────────────────
 const btt = document.getElementById('back-to-top');
