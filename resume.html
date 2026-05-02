@@ -3,116 +3,982 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Resume | Katerina Bischel</title>
-  <meta name="description" content="Resume and credentials for Katerina Bischel — Environmental Scientist at Applied Marine Sciences. M.E.S.M. 2026, UC Santa Barbara Bren School." />
-  <meta property="og:title"       content="Resume | Katerina Bischel" />
-  <meta property="og:description" content="Download or view Katerina Bischel's resume — AMS Format and General PDF." />
-  <meta property="og:image"       content="panorama_4.jpeg" />
-  <link rel="stylesheet" href="styles.css" />
+  <title>Resume · Katerina Bischel</title>
+  <meta name="description" content="Curriculum vitae of Katerina Bischel — Environmental Scientist, Applied Marine Sciences. Research, teaching, leadership, and continuing education." />
+  <meta property="og:title"       content="Resume · Katerina Bischel" />
+  <meta property="og:description" content="Chapter II · Curriculum — Environmental Scientist · Applied Marine Sciences" />
+  <meta property="og:image"       content="panorama_2.jpeg" />
+  <meta property="og:type"        content="website" />
+  <link rel="stylesheet" href="ui_kit/shared.css" />
   <style>
-    .resume-section {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 4rem 2rem 5rem;
+    /* ── Reveal on scroll ─────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
     }
-    .docx-icon {
-      font-size: 3rem;
-      margin-bottom: 0.75rem;
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Hamburger ────────────────────────────────────── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 6px;
+    }
+    .hamburger span {
       display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--ash);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── Nav ──────────────────────────────────────────── */
+    nav.site-nav {
+      position: sticky;
+      top: 16px;
+      z-index: 100;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+    }
+    .nav-brand {
+      font-family: var(--serif);
+      font-size: 20px;
+      color: var(--paper);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2px;
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .nav-links a {
+      padding: 8px 13px;
+      border-radius: 999px;
+      color: var(--ash);
+      text-decoration: none;
+      transition: color 0.3s, background 0.3s;
+    }
+    .nav-links a.active {
+      color: var(--gold-glow);
+      background: rgba(212,184,122,0.12);
+    }
+    .nav-links a:hover { color: var(--paper); }
+
+    /* ── Hero ─────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('panorama_2.jpeg');
+      background-size: cover;
+      background-position: center;
+      z-index: 0;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(11,20,36,0.84), rgba(20,30,52,0.80));
+    }
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 40%, rgba(8,14,28,0.55) 100%);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 720px;
+      padding: 120px 40px 100px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(64px, 8vw, 112px);
+      line-height: 0.92;
+      letter-spacing: -0.015em;
+      color: var(--paper);
+      font-weight: 400;
+      margin-bottom: 32px;
+    }
+    .hero-title em {
+      color: var(--gold-glow);
+      font-style: italic;
+      font-weight: 300;
+    }
+    .hero-subline {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 20px;
+      line-height: 1.55;
+      color: var(--ash-soft);
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    /* ── Panorama dividers ────────────────────────────── */
+    .pano-divider {
+      width: 100%;
+      height: 320px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pano-divider-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+    .pano-divider-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(11,20,36,0.60);
+    }
+    .pano-divider-quote {
+      position: relative;
+      z-index: 1;
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(20px, 2.5vw, 30px);
+      color: var(--paper);
+      text-align: center;
+      max-width: 720px;
+      padding: 0 40px;
+      line-height: 1.45;
+    }
+    .pano-divider-quote .emph {
+      color: var(--gold-glow);
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    /* ── Page shell ───────────────────────────────────── */
+    .page-section {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 80px 56px;
+    }
+    .page-section-sm {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 56px 80px;
+    }
+
+    /* ── Section header block ─────────────────────────── */
+    .section-header {
+      margin-bottom: 48px;
+    }
+    .section-eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    /* ── Download cards ───────────────────────────────── */
+    .downloads-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .dl-card {
+      padding: 32px 40px;
+    }
+    .dl-card-eyebrow {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.85;
+      margin-bottom: 14px;
+    }
+    .dl-card-heading {
+      font-family: var(--serif);
+      color: var(--paper);
+      font-weight: 400;
+      margin-bottom: 10px;
+    }
+    .dl-card-heading.primary { font-size: 26px; }
+    .dl-card-heading.secondary { font-size: 21px; }
+    .dl-card-note {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--ash);
+      margin-bottom: 24px;
+      max-width: 560px;
+    }
+
+    /* ── Ledger rows ──────────────────────────────────── */
+    .ledger-table {
+      width: 100%;
+    }
+    .ledger-hairline {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(212,184,122,0.25), transparent);
+      margin: 0;
+      border: none;
+    }
+    .ledger-row {
+      display: grid;
+      grid-template-columns: 148px 1fr auto;
+      gap: 32px;
+      padding: 32px 0;
+      align-items: start;
+    }
+    .ledger-date {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      line-height: 1.5;
+      padding-top: 4px;
+    }
+    .ledger-main {
+      min-width: 0;
+    }
+    .ledger-title {
+      font-family: var(--serif);
+      font-size: 21px;
+      color: var(--paper);
+      font-weight: 400;
+      margin-bottom: 4px;
+      line-height: 1.2;
+    }
+    .ledger-org {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 14px;
+      color: var(--ash);
+      margin-bottom: 12px;
+    }
+    .ledger-desc {
+      font-family: var(--serif);
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--ash-soft);
+      max-width: 640px;
+      margin-bottom: 0;
+    }
+    .ledger-collaborators {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      color: var(--ash);
+      opacity: 0.65;
+      margin-top: 10px;
+    }
+    .ledger-thumb {
+      width: 120px;
+      flex-shrink: 0;
+    }
+    .ledger-thumb img {
+      width: 120px;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid rgba(212,184,122,0.3);
+      box-shadow: 0 4px 16px rgba(8,14,28,0.45);
+      display: block;
+    }
+
+    /* ── Subsection labels ────────────────────────────── */
+    .subsection-block {
+      padding-top: 64px;
+      padding-bottom: 8px;
+    }
+    .subsection-block:first-child { padding-top: 0; }
+
+    /* ── Footer ───────────────────────────────────────── */
+    .footer {
+      border-top: 1px solid var(--glass-stroke);
+      padding: 72px 56px 56px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1.5fr 1.5fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+    .footer-brand {
+      font-family: var(--serif);
+      font-size: 26px;
+      color: var(--paper);
+      margin-bottom: 14px;
+    }
+    .footer-tagline {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--ash);
+      max-width: 340px;
+      margin-bottom: 24px;
+    }
+    .footer-colophon-spec {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      letter-spacing: 0.14em;
+      color: var(--aurora-3);
+      opacity: 0.6;
+      margin-top: 16px;
+    }
+    .footer-col-head {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-links a {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.14em;
+      color: var(--ash);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--gold-glow); }
+    .footer-copyright {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      letter-spacing: 0.18em;
+      color: var(--aurora-3);
+      opacity: 0.55;
+      margin-top: 12px;
+    }
+
+    /* ── Back to top ──────────────────────────────────── */
+    #back-to-top {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 200;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--glass-stroke);
+      background: linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.03));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--ash);
+      font-family: var(--mono);
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s, border-color 0.3s, box-shadow 0.3s;
+    }
+    #back-to-top.visible { opacity: 1; pointer-events: auto; }
+    #back-to-top:hover {
+      border-color: rgba(212,184,122,0.5);
+      box-shadow: 0 0 18px rgba(212,184,122,0.25);
+      color: var(--gold-glow);
+    }
+
+    /* ── Mobile ───────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .hamburger { display: flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 16px;
+        right: 16px;
+        flex-direction: column;
+        padding: 16px;
+        background: linear-gradient(135deg, rgba(20,32,57,0.96), rgba(11,20,36,0.98));
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-stroke);
+        border-radius: var(--r-md);
+        gap: 4px;
+      }
+      .nav-links.open { display: flex; }
+      .nav-inner { position: relative; }
+
+      .hero-content { padding: 96px 28px 80px; }
+      .hero-title { font-size: clamp(52px, 12vw, 68px); }
+
+      .page-section { padding: 60px 28px; }
+      .page-section-sm { padding: 0 28px 60px; }
+
+      .dl-card { padding: 24px 28px; }
+
+      /* Ledger rows: date top, main middle, thumb bottom */
+      .ledger-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 24px 0;
+      }
+      .ledger-thumb {
+        width: 100%;
+        max-width: 200px;
+      }
+      .ledger-thumb img {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+      }
+
+      .footer { padding: 56px 28px 48px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+
+      .pano-divider { height: 220px; }
+      .pano-divider-bg { background-attachment: scroll; }
+    }
+
+    @media (max-width: 480px) {
+      .ledger-date { font-size: 10px; }
     }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="navbar">
-  <div class="nav-container">
-    <a href="index.html" class="nav-logo">KB</a>
+<div class="starfield"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 1 — Sticky nav  (active: Resume)
+═══════════════════════════════════════════════════════════ -->
+<nav class="site-nav">
+  <div class="nav-inner glass">
+    <a href="index.html" class="nav-brand">Katerina Bischel</a>
     <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
       <span></span><span></span><span></span>
     </button>
-    <ul class="nav-links" id="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="resume.html">Resume</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="research.html">Research</a></li>
-      <li><a href="writing.html">Writing</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="resume.html" class="active">Resume</a>
+      <a href="projects.html">Projects</a>
+      <a href="research.html">Research</a>
+      <a href="writing.html">Writing</a>
+      <a href="contact.html">Contact</a>
+    </div>
   </div>
 </nav>
 
-<!-- PAGE HERO -->
-<section class="page-hero">
-  <div class="hero-bg" style="background-image: url('panorama_2.jpeg');"></div>
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <h1 class="page-hero-title">Resume &amp; Credentials</h1>
-    <p class="page-hero-subtitle">Download, view, or explore my professional background</p>
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 2 — Hero
+═══════════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content reveal">
+    <p class="hero-eyebrow">Chapter II &nbsp;·&nbsp; Curriculum</p>
+    <h1 class="hero-title">The <em>record</em>.</h1>
+    <p class="hero-subline">
+      A chronological record across research, teaching, leadership, and continuing education — five years of work in environmental science at UC Santa Barbara and beyond.
+    </p>
   </div>
 </section>
 
-<!-- RESUME SECTION -->
-<div class="resume-section">
-  <h2 class="section-title reveal">Resumes &amp; Documents</h2>
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 3 — Downloads  (three stacked glass cards)
+═══════════════════════════════════════════════════════════ -->
+<div class="page-section reveal">
+  <div class="section-header">
+    <div class="rule-diamond"><span class="diamond"></span></div>
+    <p class="section-eyebrow" style="margin-top: 20px;">§ II.0 &nbsp;·&nbsp; Documents</p>
+  </div>
 
-  <!-- PRIMARY — AMS Format (DOCX) -->
-  <div class="resume-primary-card reveal reveal-d1">
-    <h3 class="resume-card-title">Resume </h3>
-    <p class="resume-card-note">
-      Two-page resume in Applied Marine Sciences format — click to download.
-      This is the primary, most current version of my professional resume.
-    </p>
-    <div style="display:flex; gap:1rem; flex-wrap:wrap;">
-      <a href="Bischel_resume_AMS_format_2pp.docx" download class="btn btn-primary">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Download Resume 
-      </a>
+  <div class="downloads-stack">
+
+    <!-- Card 1 — AMS Format Resume (primary) -->
+    <div class="dl-card glass">
+      <p class="dl-card-eyebrow">✦ &nbsp; Primary &nbsp;·&nbsp; Most current</p>
+      <h2 class="dl-card-heading primary">Resume — AMS format</h2>
+      <p class="dl-card-note">Two-page resume in Applied Marine Sciences format. The most current version of my professional resume.</p>
+      <a href="Bischel_resume_AMS_format_2pp.docx" class="btn btn-primary" download>Download Resume &nbsp;↓</a>
     </div>
-  </div>
 
-  <!-- SECONDARY — General PDF -->
-  <div class="resume-secondary-card reveal reveal-d2">
-    <h3 class="resume-card-title" style="font-size:1.1rem; margin-bottom:0.35rem;">Past Resume (PDF)</h3>
-    <p class="resume-card-note" style="margin-bottom:1rem;">Undergraduate and Graduate Experiences Resume.</p>
-    <a href="Katerina_Bischel_%20Resume.pdf" download class="btn btn-ghost" style="font-size:0.88rem; padding:0.65rem 1.5rem;">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Download Resume
-    </a>
-  </div>
+    <!-- Card 2 — Past Resume (PDF) -->
+    <div class="dl-card glass">
+      <p class="dl-card-eyebrow">✦ &nbsp; Archive &nbsp;·&nbsp; Combined undergraduate + graduate</p>
+      <h2 class="dl-card-heading secondary">Past resume (PDF)</h2>
+      <p class="dl-card-note">Combined undergraduate and graduate experience resume.</p>
+      <a href="Katerina_Bischel_%20Resume.pdf" class="btn btn-ghost" download>Download PDF &nbsp;↓</a>
+    </div>
 
-  <!-- CREDENTIAL CARD — Diploma -->
-  <div class="resume-secondary-card reveal reveal-d2" style="margin-top:2.5rem;">
-    <span class="resume-card-badge badge-credential">🎓 Official Document</span>
-    <h3 class="resume-card-title" style="font-size:1.05rem; margin-bottom:0.3rem;">UC Santa Barbara Diploma · 2024</h3>
-    <p class="resume-card-note" style="margin-bottom:1rem;">Official UCSB diploma — Bachelor of Arts, Environmental Studies.</p>
-    <a href="diploma.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" style="font-size:0.88rem; padding:0.65rem 1.5rem;">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-      View Diploma
-    </a>
-  </div>
+    <!-- Card 3 — UCSB Diploma -->
+    <div class="dl-card glass">
+      <p class="dl-card-eyebrow">✦ &nbsp; Credential &nbsp;·&nbsp; Conferred June 2024</p>
+      <h2 class="dl-card-heading secondary">UC Santa Barbara diploma</h2>
+      <p class="dl-card-note">Official UCSB diploma — Bachelor of Arts, Environmental Studies.</p>
+      <a href="diploma.pdf" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">View Diploma &nbsp;↗</a>
+    </div>
 
+  </div>
 </div>
 
-<!-- FOOTER -->
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 4 — Structured timeline
+═══════════════════════════════════════════════════════════ -->
+<div class="page-section-sm">
+
+  <!-- ─── § II.1 · Professional ──────────────────────── -->
+  <div class="subsection-block reveal">
+    <div class="rule-diamond"><span class="diamond"></span></div>
+    <p class="section-eyebrow" style="margin-top: 20px;">§ II.1 &nbsp;·&nbsp; Professional</p>
+  </div>
+
+  <div class="ledger-table reveal">
+    <hr class="ledger-hairline" />
+    <!-- Entry P1 -->
+    <div class="ledger-row">
+      <div class="ledger-date">2026 —</div>
+      <div class="ledger-main">
+        <h3 class="ledger-title">Environmental Scientist</h3>
+        <p class="ledger-org">Applied Marine Sciences</p>
+        <p class="ledger-desc">Environmental scientist focused on water resources and pollution remediation. The work spans field research, quantitative modeling, and scientific writing in support of regulatory compliance and environmental policy.</p>
+      </div>
+      <div></div>
+    </div>
+    <hr class="ledger-hairline" />
+  </div>
+
+  <!-- ─── § II.2 · Research positions ───────────────── -->
+  <div class="subsection-block reveal">
+    <div class="rule-diamond"><span class="diamond"></span></div>
+    <p class="section-eyebrow" style="margin-top: 20px;">§ II.2 &nbsp;·&nbsp; Research positions</p>
+  </div>
+
+  <div class="ledger-table reveal">
+    <hr class="ledger-hairline" />
+
+    <!-- Entry R1 — Cheadle Center Pollinator AI Researcher -->
+    <div class="ledger-row">
+      <div class="ledger-date">Summer 2025 · 9-week field season</div>
+      <div class="ledger-main">
+        <h3 class="ledger-title">Pollinator AI Researcher &nbsp;·&nbsp; YOLOv8 monitoring</h3>
+        <p class="ledger-org">UCSB Cheadle Center for Biodiversity &amp; Ecological Restoration</p>
+        <p class="ledger-desc">Trained YOLOv8 deep learning object detection models to automate pollinator monitoring for two federally endangered coastal plant species — Ventura marsh milk-vetch (<em>Astragalus pycnostachyus</em> var. <em>lanosissimus</em>) and salt marsh bird's-beak (<em>Chloropyron maritimum</em> ssp. <em>maritimum</em>) — at the North Campus Open Space restoration site in Goleta. Designed and executed a 9-week field season (June–September 2025) across four monitoring sites, capturing 200+ hours of footage with Panasonic Lumix cameras in yarn-delineated quadrants. Three daily shifts, randomized site order, with weather, wind, and pollinator activity logged alongside every recording. Explored integration with the HyDaT tracking framework as a next step toward quantifying visitation events. Mentored two undergraduate research trainees throughout the season.</p>
+        <p class="ledger-collaborators">Conducted with Dr. Katja Seltmann and Dr. Chris Evelyn (UCSB Cheadle Center).</p>
+      </div>
+      <div class="ledger-thumb">
+        <img
+          src="bee_model.png"
+          alt="YOLOv8 bee detection model training screenshot"
+          onerror="this.parentElement.style.display='none'"
+        />
+      </div>
+    </div>
+    <hr class="ledger-hairline" />
+
+    <!-- Entry R2 — Bombus Vosnesenskii Research Assistant -->
+    <div class="ledger-row">
+      <div class="ledger-date">Feb 2023 — Sep 2023</div>
+      <div class="ledger-main">
+        <h3 class="ledger-title">Bombus Vosnesenskii Research Assistant</h3>
+        <p class="ledger-org">UCSB Cheadle Center &nbsp;·&nbsp; Part-time</p>
+        <p class="ledger-desc">Hands-on field research collecting bee pollen and metabarcoding DNA data to document pollen collection patterns and identify native plant taxa at the genus and species level. The DNA dataset supported downstream protein-to-lipid ratio analysis and native bumble-bee / native-plant correlation modeling.</p>
+      </div>
+      <div class="ledger-thumb">
+        <img
+          src="bombus_vosnesenskii_research.png"
+          alt="Bombus vosnesenskii field research — pollen collection and metabarcoding"
+          onerror="this.parentElement.style.display='none'"
+        />
+      </div>
+    </div>
+    <hr class="ledger-hairline" />
+
+    <!-- Entry R3 — Aquatic Invertebrates Intern -->
+    <div class="ledger-row">
+      <div class="ledger-date">Jun 2023 — Sep 2023</div>
+      <div class="ledger-main">
+        <h3 class="ledger-title">Aquatic Invertebrates Intern</h3>
+        <p class="ledger-org">UCSB CCBER &nbsp;·&nbsp; NCOS</p>
+        <p class="ledger-desc">Used aquatic invertebrate microorganisms as bioindicators of slough water health and overall local ecosystem health at the North Campus Open Space. Position included field sample collection (YSI meter measurements) and species identification under microscope using a dichotomous key.</p>
+      </div>
+      <div class="ledger-thumb">
+        <img
+          src="aquatic_invert_int_01.png"
+          alt="Aquatic invertebrate intern — microscopy and bioindicator species identification at NCOS"
+          onerror="this.parentElement.style.display='none'"
+        />
+      </div>
+    </div>
+    <hr class="ledger-hairline" />
+
+    <!-- Entry R4 — Lab Intern (Nemophila Menziesii) -->
+    <div class="ledger-row">
+      <div class="ledger-date">Sep 2023 — Dec 2023</div>
+      <div class="ledger-main">
+        <h3 class="ledger-title">Lab Intern &nbsp;·&nbsp; EEMB 148 (Upper-Division Biological Sciences Internship)</h3>
+        <p class="ledger-org">Nemophila Menziesii Lab &nbsp;·&nbsp; UCSB</p>
+        <p class="ledger-desc">Investigated whether the rate of evolutionary change depends on standing genetic variation in fitness, using <em>Nemophila menziesii</em> as a model. Methods drew on quantitative genetics — continuous traits influenced by many genes, flower size and bloom timing, fecundity (seed data), pollinator and drought effects on flower morphology, and the effect of corolla diameter on predation. Six hours per week.</p>
+      </div>
+      <div></div>
+    </div>
+    <hr class="ledger-hairline" />
+
+    <!-- Entry R5 — Lab Volunteer (Nemophila Menziesii) -->
+    <div class="ledger-row">
+      <div class="ledger-date">Jun 2023 — Sep 2023</div>
+      <div class="ledger-main">
+        <h3 class="ledger-title">Lab Volunteer &nbsp;·&nbsp; Apprenticeship</h3>
+        <p class="ledger-org">Nemophila Menziesii Lab &nbsp;·&nbsp; UCSB</p>
+        <p class="ledger-desc">Earlier volunteer phase of the same <em>Nemophila menziesii</em> research program — plant collection, pulverization, leaf-area measurement, and data entry — building the methodological skills required for the formal EEMB 148 internship that followed.</p>
+      </div>
+      <div></div>
+    </div>
+    <hr class="ledger-hairline" />
+  </div>
+
+  <!-- ─── § II.3 · Teaching & instruction ───────────── -->
+  <div class="subsection-block reveal">
+    <div class="rule-diamond"><span class="diamond"></span></div>
+    <p class="section-eyebrow" style="margin-top: 20px;">§ II.3 &nbsp;·&nbsp; Teaching &amp; instruction</p>
+  </div>
+
+  <div class="ledger-table reveal">
+    <hr class="ledger-hairline" />
+
+    <!-- Entry T1 — TA, MCDB 111 -->
+    <div class="ledger-row">
+      <div class="ledger-date">Aug 2025 — Sep 2025</div>
+      <div class="ledger-main">
+        <h3 class="ledger-title">Teaching Assistant &nbsp;·&nbsp; Human Physiology (MCDB 111)</h3>
+        <p class="ledger-org">UC Santa Barbara</p>
+        <p class="ledger-desc">Taught core physiological concepts including thermoregulation, muscle function, cardiovascular dynamics, and endocrine systems, using case studies to connect theory to practical application. Led three weekly discussion sections, proctored midterm and final exams, and authored customized PowerPoint materials with case-study and worksheet integrations.</p>
+      </div>
+      <div></div>
+    </div>
+    <hr class="ledger-hairline" />
+
+    <!-- Entry T2 — TA, EEMB 2LL -->
+    <div class="ledger-row">
+      <div class="ledger-date">Apr 2025 — Jun 2025</div>
+      <div class="ledger-main">
+        <h3 class="ledger-title">Teaching Assistant &nbsp;·&nbsp; Molecular &amp; Ecological Biology Laboratory (EEMB 2LL)</h3>
+        <p class="ledger-org">UC Santa Barbara</p>
+        <p class="ledger-desc">Led students through foundational experiments in molecular biology, microbiology, ecology, evolution, and plant biology. Taught core lab techniques including PCR, RFLP analysis, gel electrophoresis, and Gram staining, and guided students in microbial classification using 16S rDNA and colony morphology. Facilitated multi-week experimental work using <em>Drosophila melanogaster</em> on natural selection and genetic variation, population dynamics of protists, ecological community analysis in rocky intertidal zones, and plant identification using dichotomous keys. Beyond technique, mentored students in scientific writing, experimental design, and data analysis using R and Google Sheets.</p>
+      </div>
+      <div class="ledger-thumb">
+        <img
+          src="ta_ecology_lab.png"
+          alt="EEMB 2LL ecology lab teaching assistant session"
+          onerror="this.parentElement.style.display='none'"
+        />
+      </div>
+    </div>
+    <hr class="ledger-hairline" />
+
+    <!-- Entry T3 — TA, EEMB 146W -->
+    <div class="ledger-row">
+      <div class="ledger-date">Jan 2025 — Mar 2025</div>
+      <div class="ledger-main">
+        <h3 class="ledger-title">Teaching Assistant &nbsp;·&nbsp; Biometry (EEMB 146W)</h3>
+        <p class="ledger-org">UC Santa Barbara</p>
+        <p class="ledger-desc">Taught and facilitated a biometry course on statistical methods for biological research. Led weekly computer labs in R, graded coursework, and covered descriptive statistics, hypothesis testing, ANOVA, linear regression, and generalized linear models. Guided students in applying these techniques to real-world environmental and ecological datasets, with attention to experimental design and model selection.</p>
+      </div>
+      <div></div>
+    </div>
+    <hr class="ledger-hairline" />
+
+    <!-- Entry T4 — DSP Proctor -->
+    <div class="ledger-row">
+      <div class="ledger-date">Sep 2021 — May 2023</div>
+      <div class="ledger-main">
+        <h3 class="ledger-title">DSP Proctor</h3>
+        <p class="ledger-org">UC Santa Barbara &nbsp;·&nbsp; Disabled Students Program</p>
+        <p class="ledger-desc">Provided in-class moderation and academic support for DSP students, attending up to three classes per day. Streamed course content, accommodated individual student requirements, and supported group discussion participation across two academic years.</p>
+      </div>
+      <div></div>
+    </div>
+    <hr class="ledger-hairline" />
+  </div>
+
+</div><!-- /page-section-sm (pre-divider) -->
+
+<!-- ═══════════════════════════════════════════════════════════
+     MID-PAGE PANORAMA DIVIDER  (between Teaching and Leadership)
+═══════════════════════════════════════════════════════════ -->
+<div class="pano-divider">
+  <div class="pano-divider-bg" style="background-image: url('panorama_6.jpeg');"></div>
+  <p class="pano-divider-quote">
+    "Every laboratory, every classroom, every coastline taught the <span class="emph">next</span>."
+  </p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     TIMELINE continued — Leadership & Continuing Education
+═══════════════════════════════════════════════════════════ -->
+<div class="page-section-sm">
+
+  <!-- ─── § II.4 · Leadership & service ─────────────── -->
+  <div class="subsection-block reveal">
+    <div class="rule-diamond"><span class="diamond"></span></div>
+    <p class="section-eyebrow" style="margin-top: 20px;">§ II.4 &nbsp;·&nbsp; Leadership &amp; service</p>
+  </div>
+
+  <div class="ledger-table reveal">
+    <hr class="ledger-hairline" />
+
+    <!-- Entry L1 — Campus Climate Ambassador -->
+    <div class="ledger-row">
+      <div class="ledger-date">Jan 2023 — Sep 2023</div>
+      <div class="ledger-main">
+        <h3 class="ledger-title">Campus Climate Ambassador</h3>
+        <p class="ledger-org">Global Climate Pledge &nbsp;·&nbsp; UCSB campus apprenticeship &nbsp;·&nbsp; Remote</p>
+        <p class="ledger-desc">Represented UCSB as a campus climate ambassador, working with international sustainability mentors and peers across institutions. Attended weekly webinars while developing concrete sustainability goals for local issues and contributing to team management. Earned Green Lab Certification through the program.</p>
+      </div>
+      <div></div>
+    </div>
+    <hr class="ledger-hairline" />
+
+    <!-- Entry L2 — Chapter Lead, Seedlings -->
+    <div class="ledger-row">
+      <div class="ledger-date">Jun 2022 — Jan 2023</div>
+      <div class="ledger-main">
+        <h3 class="ledger-title">Chapter Lead</h3>
+        <p class="ledger-org">Seedlings &nbsp;·&nbsp; Professional Student Chapter &nbsp;·&nbsp; UCSB</p>
+        <p class="ledger-desc">Led a developing professional student chapter focused on environmental mentorship and resource-sharing. Coordinated weekly mentorship sessions with faculty across campuses, managed local environmental partnerships, recorded local events, contributed to the UCSB Green Guide, and ran weekly team meetings.</p>
+      </div>
+      <div></div>
+    </div>
+    <hr class="ledger-hairline" />
+
+    <!-- Entry L3 — Environmental Affairs Board -->
+    <div class="ledger-row">
+      <div class="ledger-date">Sep 2022 — May 2023</div>
+      <div class="ledger-main">
+        <h3 class="ledger-title">Member &nbsp;·&nbsp; Environmental Affairs Board (EAB)</h3>
+        <p class="ledger-org">UC Santa Barbara</p>
+        <p class="ledger-desc">Collaborated with environmentally active student peers on weekly sustainability workshops covering daily-practice and decision-making frameworks for environmental impact reduction.</p>
+      </div>
+      <div></div>
+    </div>
+    <hr class="ledger-hairline" />
+
+    <!-- Entry L4 — ECOalition Member -->
+    <div class="ledger-row">
+      <div class="ledger-date">Nov 2022 — May 2023</div>
+      <div class="ledger-main">
+        <h3 class="ledger-title">Member &nbsp;·&nbsp; ECOalition</h3>
+        <p class="ledger-org">UC Santa Barbara</p>
+        <p class="ledger-desc">Member of a coalition uniting UCSB's environmental student organizations to share resources and advance the campus sustainability movement.</p>
+      </div>
+      <div></div>
+    </div>
+    <hr class="ledger-hairline" />
+
+    <!-- Entry L5 — Sea Center Volunteer -->
+    <div class="ledger-row">
+      <div class="ledger-date">Mar 2022 — Jun 2023</div>
+      <div class="ledger-main">
+        <h3 class="ledger-title">Volunteer &nbsp;·&nbsp; Animal Welfare &amp; Marine Education</h3>
+        <p class="ledger-org">Santa Barbara Museum of Natural History &nbsp;·&nbsp; Sea Center</p>
+        <p class="ledger-desc">Volunteered with the Santa Barbara Channel and intertidal ecosystems exhibits, contributing to marine education and conservation outreach. Identified marine organisms and described their ecological roles, collaborated with certified naturalists on public-facing programming, and educated visitors — particularly children — on marine life identification and safety. Three hours weekly across the position; bridged research literacy with public outreach while deepening working knowledge of marine ecology.</p>
+      </div>
+      <div class="ledger-thumb">
+        <img
+          src="sea_center_volunteer_01.png"
+          alt="Sea Center volunteer — marine education and animal welfare at the Santa Barbara Museum of Natural History"
+          onerror="this.parentElement.style.display='none'"
+        />
+      </div>
+    </div>
+    <hr class="ledger-hairline" />
+  </div>
+
+  <!-- ─── § II.5 · Continuing education ─────────────── -->
+  <div class="subsection-block reveal">
+    <div class="rule-diamond"><span class="diamond"></span></div>
+    <p class="section-eyebrow" style="margin-top: 20px;">§ II.5 &nbsp;·&nbsp; Continuing education</p>
+  </div>
+
+  <div class="ledger-table reveal">
+    <hr class="ledger-hairline" />
+
+    <!-- Entry C1 — EPA · PFAS -->
+    <div class="ledger-row">
+      <div class="ledger-date">Oct 29, 2024 · 1.0 contact hour</div>
+      <div class="ledger-main">
+        <h3 class="ledger-title">PFAS — Rule Implementation and Treatment</h3>
+        <p class="ledger-org">U.S. Environmental Protection Agency &nbsp;·&nbsp; Small Drinking Water Systems Webinar Series</p>
+        <p class="ledger-desc">Per- and polyfluoroalkyl substances regulatory framework, treatment options for small drinking-water systems, and rule-implementation pathways.</p>
+      </div>
+      <div class="ledger-thumb">
+        <img
+          src="epa_pfas.png"
+          alt="EPA PFAS webinar certificate — rule implementation and treatment for drinking water systems"
+          onerror="this.parentElement.style.display='none'"
+        />
+      </div>
+    </div>
+    <hr class="ledger-hairline" />
+
+    <!-- Entry C2 — EPA · Anatoxin-Producing Cyanobacteria -->
+    <div class="ledger-row">
+      <div class="ledger-date">Nov 20, 2024 · 1.0 hour</div>
+      <div class="ledger-main">
+        <h3 class="ledger-title">Health Effects and Ecology of Anatoxin-Producing Cyanobacteria</h3>
+        <p class="ledger-org">U.S. Environmental Protection Agency &nbsp;·&nbsp; Harmful Algal Blooms, Hypoxia, and Nutrients Research Webinar Series</p>
+        <p class="ledger-desc">Anatoxin biosynthesis, ecological drivers of cyanobacterial blooms, and human and ecosystem health effects of toxin exposure.</p>
+      </div>
+      <div class="ledger-thumb">
+        <img
+          src="epa_cyanobacteria.png"
+          alt="EPA cyanobacteria webinar certificate — anatoxin-producing harmful algal blooms ecology and health effects"
+          onerror="this.parentElement.style.display='none'"
+        />
+      </div>
+    </div>
+    <hr class="ledger-hairline" />
+
+    <!-- Entry C3 — EPA · Toxic Aromatherapy -->
+    <div class="ledger-row">
+      <div class="ledger-date">Aug 9, 2023 · 1.0 contact hour</div>
+      <div class="ledger-main">
+        <h3 class="ledger-title">Toxic Aromatherapy — A Melioidosis Mystery</h3>
+        <p class="ledger-org">U.S. Environmental Protection Agency &nbsp;·&nbsp; Emergency Response Research Webinar Series</p>
+        <p class="ledger-desc"><em>Burkholderia pseudomallei</em> (Tier 1 select agent) environmental contamination case study, CERCLA-authorized soil decontamination protocols, and PCR-based site verification methods.</p>
+      </div>
+      <div class="ledger-thumb">
+        <img
+          src="epa_melioidosis.png"
+          alt="EPA melioidosis webinar certificate — Burkholderia pseudomallei contamination and CERCLA decontamination"
+          onerror="this.parentElement.style.display='none'"
+        />
+      </div>
+    </div>
+    <hr class="ledger-hairline" />
+
+    <!-- Entry C4 — Green Lab Certification -->
+    <div class="ledger-row">
+      <div class="ledger-date">2023</div>
+      <div class="ledger-main">
+        <h3 class="ledger-title">Green Lab Certification</h3>
+        <p class="ledger-org">UCSB &nbsp;·&nbsp; Climate Ambassador Program</p>
+        <p class="ledger-desc">Sustainability certification earned through the Global Climate Pledge Campus Climate Ambassador apprenticeship, emphasizing energy efficiency, waste reduction, and chemical stewardship in laboratory environments.</p>
+      </div>
+      <div></div>
+    </div>
+    <hr class="ledger-hairline" />
+  </div>
+
+</div><!-- /page-section-sm (post-divider) -->
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 5 — Footer / colophon
+═══════════════════════════════════════════════════════════ -->
 <footer>
-  <div class="footer-inner">
-    <p class="footer-copy">© 2026 Katerina Bischel · Environmental Scientist · Applied Marine Sciences · M.E.S.M., UC Santa Barbara Bren School</p>
-    <div class="footer-links">
-      <a href="https://www.linkedin.com/in/katerina-bischel/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-      </a>
-      <a href="https://github.com/katerinabischell" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-      </a>
+  <div class="footer reveal">
+    <div class="footer-grid">
+      <!-- Col 1 -->
+      <div>
+        <div class="footer-brand">Katerina Bischel</div>
+        <p class="footer-tagline">
+          A portfolio of watersheds, pollinators, and the quiet science of how water moves — and what it carries with it.
+        </p>
+        <div class="rule-diamond">
+          <span class="diamond"></span>
+        </div>
+        <p class="footer-colophon-spec">Set in Cormorant Garamond &amp; JetBrains Mono.</p>
+      </div>
+      <!-- Col 2 — § Pages -->
+      <div>
+        <p class="footer-col-head">§ Pages</p>
+        <nav class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="resume.html">Resume</a>
+          <a href="projects.html">Projects</a>
+          <a href="research.html">Research</a>
+          <a href="writing.html">Writing</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+      <!-- Col 3 — § Field -->
+      <div>
+        <p class="footer-col-head">§ Field</p>
+        <nav class="footer-links">
+          <a href="research.html">Pilcomayo manuscript</a>
+          <a href="https://katerinabischel.github.io/River_Remedy/" target="_blank" rel="noopener noreferrer">River Remedy site ↗</a>
+          <a href="research.html">YOLOv8 pollinators</a>
+          <a href="projects.html">Whitewater plan</a>
+          <a href="https://katerinabischel.shinyapps.io/my-calcofi-app/" target="_blank" rel="noopener noreferrer">CalCOFI dashboard ↗</a>
+        </nav>
+      </div>
+      <!-- Col 4 — § Elsewhere -->
+      <div>
+        <p class="footer-col-head">§ Elsewhere</p>
+        <nav class="footer-links">
+          <a href="mailto:katerinabischel@amarine.com">Email</a>
+          <a href="https://www.linkedin.com/in/katerina-bischel/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+          <a href="https://github.com/katerinabischel" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          <a href="https://orcid.org/0009-0005-4168-9726" target="_blank" rel="noopener noreferrer">ORCID ↗</a>
+        </nav>
+        <p class="footer-copyright">© MMXXVI · K. Bischel</p>
+      </div>
     </div>
   </div>
 </footer>
 
-<button class="back-to-top" id="back-to-top" aria-label="Back to top">
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 15l-6-6-6 6"/></svg>
-</button>
+<!-- Back to top -->
+<button id="back-to-top" aria-label="Back to top">↑</button>
 
 <script src="main.js"></script>
 </body>
