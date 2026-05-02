@@ -3,251 +3,831 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About | Katerina Bischel</title>
-  <meta name="description" content="About Katerina Bischel — Environmental Scientist at Applied Marine Sciences. M.E.S.M. 2026, UC Santa Barbara Bren School. Water Resources, Pollution Remediation, Data Science." />
-  <meta property="og:title"       content="About | Katerina Bischel" />
-  <meta property="og:description" content="Environmental Scientist at Applied Marine Sciences. M.E.S.M. 2026, UC Santa Barbara Bren School." />
-  <meta property="og:image"       content="panorama_4.jpeg" />
-  <link rel="stylesheet" href="styles.css" />
+  <title>About · Katerina Bischel</title>
+  <meta name="description" content="About Katerina Bischel — Environmental Scientist, Applied Marine Sciences. M.E.S.M. UCSB Bren. Field notes on a non-linear path through water science and data." />
+  <meta property="og:title"       content="About · Katerina Bischel" />
+  <meta property="og:description" content="Chapter I · Field notes — Environmental Scientist · Applied Marine Sciences" />
+  <meta property="og:image"       content="panorama_5.jpeg" />
+  <meta property="og:type"        content="website" />
+  <link rel="stylesheet" href="ui_kit/shared.css" />
   <style>
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.6fr;
-      gap: 4rem;
-      align-items: start;
+    /* ── Reveal on scroll ─────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
     }
-    @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
-    .about-photo-col { text-align: center; }
-    .about-photo {
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid var(--accent-cyan);
-      box-shadow: 0 0 0 6px rgba(0,212,255,0.12), 0 0 40px rgba(0,212,255,0.35);
-      margin: 0 auto 1.5rem;
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
-    .about-name {
-      font-family: var(--font-heading);
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--accent-teal-light);
-      margin-bottom: 0.3rem;
+
+    /* ── Hamburger button ─────────────────────────────── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 6px;
     }
-    .about-role { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; }
-    .about-ams-badge {
-      display: inline-flex;
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--ash);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── Nav ──────────────────────────────────────────── */
+    nav.site-nav {
+      position: sticky;
+      top: 16px;
+      z-index: 100;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+    .nav-inner {
+      display: flex;
       align-items: center;
-      gap: 0.4rem;
-      margin-top: 0.9rem;
-      padding: 0.35rem 0.9rem;
-      border-radius: 50px;
-      background: rgba(0,212,255,0.08);
-      border: 1px solid rgba(0,212,255,0.32);
-      color: var(--accent-teal-light);
-      font-size: 0.8rem;
-      font-weight: 600;
-      animation: badge-pulse 2.8s ease-in-out infinite;
+      justify-content: space-between;
+      padding: 12px 24px;
     }
-    .about-ams-badge .badge-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--accent-cyan);
-      box-shadow: 0 0 6px var(--accent-cyan);
-      animation: dot-pulse 2.8s ease-in-out infinite;
+    .nav-brand {
+      font-family: var(--serif);
+      font-size: 20px;
+      color: var(--paper);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2px;
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .nav-links a {
+      padding: 8px 13px;
+      border-radius: 999px;
+      color: var(--ash);
+      transition: color 0.3s, background 0.3s;
+    }
+    .nav-links a.active {
+      color: var(--gold-glow);
+      background: rgba(212,184,122,0.12);
+    }
+    .nav-links a:hover { color: var(--paper); }
+
+    /* ── Hero ─────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('panorama_5.jpeg');
+      background-size: cover;
+      background-position: center;
+      z-index: 0;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(11,20,36,0.82), rgba(20,30,52,0.76));
+    }
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 40%, rgba(8,14,28,0.55) 100%);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 120px 56px 100px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 72px;
+      width: 100%;
+    }
+    .hero-text {
+      max-width: 680px;
+      flex: 1;
+    }
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(64px, 7vw, 108px);
+      line-height: 0.92;
+      letter-spacing: -0.015em;
+      color: var(--paper);
+      font-weight: 400;
+      margin-bottom: 28px;
+    }
+    .hero-title em {
+      color: var(--gold-glow);
+      font-style: italic;
+      font-weight: 300;
+    }
+    .hero-subline {
+      font-family: var(--serif);
+      font-size: 20px;
+      line-height: 1.55;
+      color: var(--ash-soft);
+      font-style: italic;
+      max-width: 620px;
+    }
+
+    /* ── Hero portrait (rectangular, frontispiece) ────── */
+    .hero-portrait {
+      flex-shrink: 0;
+    }
+    .portrait-frame-rect {
+      width: 280px;
+      aspect-ratio: 4/5;
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      border: 1px solid rgba(212,184,122,0.4);
+      box-shadow:
+        0 0 0 5px rgba(212,184,122,0.07),
+        0 0 36px rgba(212,184,122,0.22),
+        0 32px 64px rgba(8,14,28,0.65);
+    }
+    .portrait-frame-rect img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    /* ── Panorama dividers ────────────────────────────── */
+    .pano-divider {
+      width: 100%;
+      height: 320px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pano-divider-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+    .pano-divider-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(11,20,36,0.58);
+    }
+    .pano-divider-quote {
+      position: relative;
+      z-index: 1;
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(20px, 2.5vw, 28px);
+      color: var(--paper);
+      text-align: center;
+      max-width: 720px;
+      padding: 0 40px;
+      line-height: 1.45;
+    }
+    .pano-divider-quote .emph {
+      color: var(--gold-glow);
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    /* ── Bio section ──────────────────────────────────── */
+    .bio-section {
+      max-width: 720px;
+      margin: 80px auto 0;
+      padding: 0 40px 72px;
+    }
+
+    /* ── Education cards ──────────────────────────────── */
+    .education-section {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 40px 72px;
+    }
+    .edu-card {
+      padding: 36px 40px;
+      margin-bottom: 24px;
+    }
+    .edu-card:last-child { margin-bottom: 0; }
+    .edu-eyebrow {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .edu-degree {
+      font-family: var(--serif);
+      font-size: 26px;
+      color: var(--paper);
+      font-weight: 400;
+      margin-bottom: 6px;
+    }
+    .edu-institution {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 16px;
+      color: var(--ash);
+      margin-bottom: 14px;
+    }
+    .edu-status {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--aurora-3);
+      opacity: 0.85;
+      margin-bottom: 8px;
+    }
+    .edu-concentration {
+      font-family: var(--serif);
+      font-size: 15px;
+      color: var(--ash);
+      opacity: 0.8;
+    }
+
+    /* ── How I work ───────────────────────────────────── */
+    .how-section {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 40px 72px;
+    }
+    .how-card {
+      padding: 40px 44px;
+    }
+
+    /* ── Mentorship & teaching ────────────────────────── */
+    .mentorship-section {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 56px 80px;
+    }
+    .mentorship-card {
+      padding: 48px 52px;
+    }
+    .mentorship-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      margin-top: 28px;
+    }
+    .mentorship-subhead {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .mentorship-body {
+      font-family: var(--serif);
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--ash-soft);
+    }
+    .mentorship-footer-line {
+      margin-top: 32px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      text-align: right;
+    }
+    .mentorship-footer-line a {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--aurora-3);
+      opacity: 0.6;
+      text-decoration: none;
+      transition: color 0.3s, opacity 0.3s;
+    }
+    .mentorship-footer-line a:hover { color: var(--gold-glow); opacity: 1; }
+
+    /* ── Skills ───────────────────────────────────────── */
+    .skills-section {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 56px 80px;
+    }
+    .skills-group {
+      margin-bottom: 36px;
+    }
+    .skills-group:last-child { margin-bottom: 0; }
+    .skills-group-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+      display: block;
+    }
+    .chip-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* ── ORCID line ───────────────────────────────────── */
+    .orcid-section {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 56px 72px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .orcid-line {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold-soft);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .orcid-line:hover { color: var(--gold-glow); }
+
+    /* ── Section helpers ──────────────────────────────── */
+    .section-eyebrow-block {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 72px 56px 0;
+    }
+    .section-head-centered {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 72px 40px 0;
+    }
+
+    /* ── Footer ───────────────────────────────────────── */
+    .footer {
+      border-top: 1px solid var(--glass-stroke);
+      padding: 72px 56px 56px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1.5fr 1.5fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+    .footer-brand {
+      font-family: var(--serif);
+      font-size: 26px;
+      color: var(--paper);
+      margin-bottom: 14px;
+    }
+    .footer-tagline {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--ash);
+      max-width: 340px;
+      margin-bottom: 24px;
+    }
+    .footer-colophon-spec {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      letter-spacing: 0.14em;
+      color: var(--aurora-3);
+      opacity: 0.6;
+      margin-top: 16px;
+    }
+    .footer-col-head {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-links a {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.14em;
+      color: var(--ash);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--gold-glow); }
+    .footer-copyright {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      letter-spacing: 0.18em;
+      color: var(--aurora-3);
+      opacity: 0.55;
+      margin-top: 12px;
+    }
+
+    /* ── Back to top ──────────────────────────────────── */
+    #back-to-top {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 200;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--glass-stroke);
+      background: linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.03));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--ash);
+      font-family: var(--mono);
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s, border-color 0.3s, box-shadow 0.3s;
+    }
+    #back-to-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    #back-to-top:hover {
+      border-color: rgba(212,184,122,0.5);
+      box-shadow: 0 0 18px rgba(212,184,122,0.25);
+      color: var(--gold-glow);
+    }
+
+    /* ── Mobile ───────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .hamburger { display: flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 16px;
+        right: 16px;
+        flex-direction: column;
+        padding: 16px;
+        background: linear-gradient(135deg, rgba(20,32,57,0.96), rgba(11,20,36,0.98));
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-stroke);
+        border-radius: var(--r-md);
+        gap: 4px;
+      }
+      .nav-links.open { display: flex; }
+      .nav-inner { position: relative; }
+
+      .hero-content {
+        flex-direction: column-reverse;
+        align-items: center;
+        padding: 100px 32px 80px;
+        gap: 40px;
+      }
+      .hero-text { max-width: 100%; }
+      .portrait-frame-rect { width: 200px; }
+
+      .bio-section { padding: 0 32px 56px; margin-top: 56px; }
+      .education-section { padding: 0 32px 56px; }
+      .how-section { padding: 0 32px 56px; }
+      .mentorship-section { padding: 0 32px 64px; }
+      .mentorship-card { padding: 32px 28px; }
+      .mentorship-inner { grid-template-columns: 1fr; gap: 32px; }
+      .skills-section { padding: 0 32px 64px; }
+      .orcid-section { padding: 0 32px 56px; }
+      .section-eyebrow-block { padding: 56px 32px 0; }
+      .section-head-centered { padding: 56px 32px 0; }
+
+      .footer { padding: 56px 32px 48px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+
+      .pano-divider { height: 220px; }
+      .pano-divider-bg { background-attachment: scroll; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title { font-size: clamp(48px, 13vw, 64px); }
+      .portrait-frame-rect { width: 160px; }
     }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="navbar">
-  <div class="nav-container">
-    <a href="index.html" class="nav-logo">KB</a>
+<div class="starfield"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     BLOCK 1 — Sticky nav
+═══════════════════════════════════════════════════════════ -->
+<nav class="site-nav">
+  <div class="nav-inner glass">
+    <a href="index.html" class="nav-brand">Katerina Bischel</a>
     <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
       <span></span><span></span><span></span>
     </button>
-    <ul class="nav-links" id="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="resume.html">Resume</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="research.html">Research</a></li>
-      <li><a href="writing.html">Writing</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html" class="active">About</a>
+      <a href="resume.html">Resume</a>
+      <a href="projects.html">Projects</a>
+      <a href="research.html">Research</a>
+      <a href="writing.html">Writing</a>
+      <a href="contact.html">Contact</a>
+    </div>
   </div>
 </nav>
 
-<!-- PAGE HERO -->
-<section class="page-hero">
-  <div class="hero-bg" style="background-image: url('panorama_1.jpeg');"></div>
-  <div class="hero-overlay"></div>
+<!-- ═══════════════════════════════════════════════════════════
+     BLOCK 2 — Hero
+═══════════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg"></div>
   <div class="hero-content">
-    <h1 class="page-hero-title">About Me</h1>
-    <p class="page-hero-subtitle">Environmental Scientist · Applied Marine Sciences · Bren School M.E.S.M. 2026</p>
-  </div>
-</section>
-
-<!-- BIO + PHOTO -->
-<section class="section">
-  <div class="about-grid">
-    <div class="about-photo-col reveal">
-      <img src="profile_photo.PNG" alt="Katerina Bischel" class="about-photo" />
-      <p class="about-name">Katerina Bischel</p>
-      <p class="about-role">Environmental Scientist<br>Applied Marine Sciences</p>
+    <div class="hero-text reveal">
+      <p class="hero-eyebrow">Chapter I &nbsp;·&nbsp; Field notes</p>
+      <h1 class="hero-title">How I came to <em>the work.</em></h1>
+      <p class="hero-subline">
+        Two degrees at UC Santa Barbara, half a dozen field positions, a graduate research site bridging Bolivia and the Bren School, and a working hand in everything from camera traps to bilingual analytical sites. The path is non-linear by design.
+      </p>
     </div>
-
-    <div class="reveal reveal-d1">
-      <h2 style="margin-bottom:1rem; color: var(--accent-teal-light);">Who I Am</h2>
-      <p style="color: var(--text-secondary); line-height: 1.85; font-size: 1rem; margin-bottom: 1.3rem;">
-        I am an environmental scientist with an M.E.S.M. from the UC Santa Barbara
-        Bren School — one of the world's top environmental graduate programs. My work
-        sits at the intersection of fieldwork, data science, and policy: from training
-        AI-powered pollinator monitoring systems, to analyzing California coastal water
-        quality, to designing pollution remediation strategies for real-world watersheds.
-      </p>
-      <p style="color: var(--text-secondary); line-height: 1.85; font-size: 1rem;">
-        I recently joined Applied Marine Sciences as an Environmental Scientist, where
-        I bring a combination of field research experience, quantitative modeling
-        skills, and scientific communication ability to marine and water resource
-        challenges.
-      </p>
+    <div class="hero-portrait reveal">
+      <div class="portrait-frame-rect">
+        <img
+          src="about_picture.jpg"
+          alt="Katerina Bischel, environmental scientist — field portrait"
+        />
+      </div>
     </div>
   </div>
 </section>
 
-<!-- PANORAMA DIVIDER -->
-<div class="pano-divider" style="background-image: url('panorama_8.jpeg');">
-  <div class="pano-divider-content reveal">
-    <p class="pano-divider-quote">Bridging <span>fieldwork</span> and <span>data science</span> to protect our water systems</p>
+<!-- ═══════════════════════════════════════════════════════════
+     BLOCK 3 — Bio
+═══════════════════════════════════════════════════════════ -->
+<div class="bio-section reveal">
+  <p class="eyebrow" style="margin-bottom: 12px;">§ I.1 &nbsp;·&nbsp; The path</p>
+  <h2 style="font-size: 48px; margin-bottom: 28px;">A scientist's bio</h2>
+  <p class="body-serif" style="margin-bottom: 22px;">
+    I'm an environmental scientist working in water pollution remediation, watershed management, and environmental data science. My academic foundation is at UC Santa Barbara — a B.A. in Environmental Studies (concentration: Water Quality &amp; Systems) followed by an M.E.S.M. at the Bren School of Environmental Science &amp; Management with specializations in Pollution Prevention &amp; Remediation and Water Resource Management. The throughline has always been finding clear, defensible answers to environmental questions that resist easy ones, and communicating what the data actually means once you've found them.
+  </p>
+  <p class="body-serif">
+    I work at Applied Marine Sciences as an Environmental Scientist focused on water resources and pollution remediation. The work draws on field research, quantitative modeling, computer vision, and scientific writing in roughly equal measure.
+  </p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     DIVIDER 1 — panorama_3 · "collecting the data yourself"
+═══════════════════════════════════════════════════════════ -->
+<div class="pano-divider">
+  <div class="pano-divider-bg" style="background-image: url('panorama_3.jpeg');"></div>
+  <p class="pano-divider-quote">
+    "The water doesn't speak — but it leaves <span class="emph">traces</span>, and the work is learning how to read them."
+  </p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     BLOCK 4 — Education
+═══════════════════════════════════════════════════════════ -->
+<div class="section-head-centered reveal">
+  <p class="eyebrow" style="margin-bottom: 12px;">§ I.2 &nbsp;·&nbsp; Formation</p>
+  <h2 style="font-size: 44px; margin-bottom: 40px;">Education</h2>
+</div>
+
+<div class="education-section reveal">
+  <!-- Card 1 — M.E.S.M. -->
+  <div class="edu-card glass">
+    <p class="edu-eyebrow">✦ Bren School · UCSB</p>
+    <h3 class="edu-degree">Master of Environmental Science and Management</h3>
+    <p class="edu-institution">Bren School of Environmental Science &amp; Management, University of California, Santa Barbara</p>
+    <p class="edu-status">M.E.S.M. &nbsp;·&nbsp; graduating June 2026</p>
+    <p class="edu-concentration">Concentrations:
+  <a href="https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management/academics-mesm/specializations/pollution"
+     target="_blank" rel="noopener noreferrer">Pollution Prevention &amp; Remediation</a>
+   &nbsp;·&nbsp;
+  <a href="https://bren.ucsb.edu/masters-programs/master-environmental-science-and-management/academics-mesm/specializations/water"
+     target="_blank" rel="noopener noreferrer">Water Resource Management</a>
+</p>
+  </div>
+  <!-- Card 2 — B.A. -->
+  <div class="edu-card glass">
+    <p class="edu-eyebrow">✦ Letters &amp; Science · UCSB</p>
+    <h3 class="edu-degree">Bachelor of Arts in Environmental Studies</h3>
+    <p class="edu-institution">University of California, Santa Barbara</p>
+    <p class="edu-status">B.A. awarded &nbsp;·&nbsp; June 2024 &nbsp;·&nbsp; Dean's Honors</p>
+    <p class="edu-concentration">Concentration: Water Quality &amp; Systems</p>
   </div>
 </div>
 
-<!-- EDUCATION -->
-<section class="section-bg">
-  <div class="section-inner">
-    <h2 class="section-title reveal">Education</h2>
-    <div class="reveal reveal-d1" style="max-width: 700px; margin: 0 auto;">
+<!-- ═══════════════════════════════════════════════════════════
+     BLOCK 5 — How I work
+═══════════════════════════════════════════════════════════ -->
+<div class="how-section reveal">
+  <div class="how-card glass">
+    <p class="eyebrow" style="margin-bottom: 12px;">§ I.3 &nbsp;·&nbsp; The throughline</p>
+    <h3 style="font-size: 36px; margin-bottom: 20px;">How I work</h3>
+    <p class="body-serif">
+      The work usually begins with data — sometimes collected directly, more often acquired from existing monitoring programs or built on prior published studies with proper citation and provenance. From there comes the analytical layer: R, Python, GIS, statistical models that respect the messiness of environmental data, and machine-learning pipelines where automation earns its place. The work becomes useful at the communication layer — a peer-reviewed manuscript, a bilingual analytical site, an interactive dashboard, a watershed plan in plain English. The point isn't the analysis itself; the point is whether the result can be acted on by the people who need it.
+    </p>
+  </div>
+</div>
 
-      <!-- M.E.S.M. -->
-      <div class="edu-card">
-        <div class="edu-badge" style="background: rgba(16,185,129,0.1); border-color: rgba(16,185,129,0.3); color: var(--accent-green);">✦ Bren School · UCSB</div>
-        <p class="edu-degree">Master of Environmental Science and Management</p>
-        <p class="edu-school">Bren School of Environmental Science &amp; Management, UC Santa Barbara</p>
-        <p class="edu-year">M.E.S.M., 2026</p>
-        <p class="edu-concentrations">
-          <strong>Concentrations:</strong> Pollution Prevention &amp; Remediation · Water Resource Management
+<!-- ═══════════════════════════════════════════════════════════
+     BLOCK 6 — Mentorship & teaching
+═══════════════════════════════════════════════════════════ -->
+<div class="mentorship-section reveal">
+  <p class="eyebrow" style="margin-bottom: 12px;">§ I.4 &nbsp;·&nbsp; Teaching &amp; mentorship</p>
+  <div class="mentorship-card glass">
+    <h3 style="font-size: 32px; line-height: 1.2;">Instruction sits alongside the research — not after it.</h3>
+    <div class="mentorship-inner">
+      <!-- Left — Research mentorship -->
+      <div>
+        <p class="mentorship-subhead">✦ &nbsp; Field mentorship &nbsp;·&nbsp; 2025</p>
+        <p class="mentorship-body">
+          Trained and supervised two undergraduate research assistants during the 2025 pollinator monitoring field season at UCSB's North Campus Open Space restoration site — field protocol, camera system operation, and data quality review.
         </p>
       </div>
-
-      <!-- B.A. -->
-      <div class="edu-card">
-        <div class="edu-badge" style="background: rgba(16,185,129,0.1); border-color: rgba(16,185,129,0.3); color: var(--accent-green);">✦ UCSB</div>
-        <p class="edu-degree">Bachelor of Arts — Environmental Studies</p>
-        <p class="edu-school">University of California, Santa Barbara</p>
-        <p class="edu-year">B.A., 2024</p>
-        <p class="edu-concentrations">
-          <strong>Concentration:</strong> Water Quality &amp; Systems
+      <!-- Right — Teaching -->
+      <div>
+        <p class="mentorship-subhead">✦ &nbsp; Teaching assistantships &nbsp;·&nbsp; 2025</p>
+        <p class="mentorship-body">
+          Teaching Assistant for three UCSB courses across the 2025 academic year: Human Physiology (MCDB 111), Molecular and Ecological Biology Laboratory (EEMB 2LL), and Biometry — a statistical-methods course taught in R (EEMB 146W). Earlier, two academic years (2021–2023) as a UCSB Disabled Students Program Proctor.
         </p>
       </div>
-
+    </div>
+    <div class="mentorship-footer-line">
+      <a href="resume.html">// full chronology in Chapter II &nbsp;·&nbsp; Curriculum →</a>
     </div>
   </div>
-</section>
+</div>
 
-<!-- LEADERSHIP -->
-<section class="section" style="padding-bottom: 2rem;">
-  <h2 class="section-title reveal">Leadership &amp; Mentorship</h2>
-  <div class="leadership-callout reveal reveal-d1">
-    <div class="lc-icon">🌱</div>
-    <div>
-      <p class="lc-label">Mentorship</p>
-      <p class="lc-text">
-        Trained and supervised two undergraduate research assistants during the 2025
-        pollinator monitoring field season at UCSB's North Campus Open Space restoration
-        site. Responsibilities included field protocol instruction, and camera system operation,
-        data quality review.
-      </p>
+<!-- ═══════════════════════════════════════════════════════════
+     DIVIDER 2 — panorama_7 · "The rigor is in the framing"
+═══════════════════════════════════════════════════════════ -->
+<div class="pano-divider">
+  <div class="pano-divider-bg" style="background-image: url('panorama_7.jpeg');"></div>
+  <p class="pano-divider-quote">
+    "Most environmental answers don't come clean. The <span class="emph">rigor</span> is in the framing."
+  </p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     BLOCK 7 — Skills
+═══════════════════════════════════════════════════════════ -->
+<div class="section-eyebrow-block reveal">
+  <p class="eyebrow" style="margin-bottom: 12px;">§ I.5 &nbsp;·&nbsp; Instruments &amp; domains</p>
+  <h2 style="font-size: 36px; margin-bottom: 40px;">What I work with</h2>
+</div>
+
+<div class="skills-section reveal">
+  <!-- Group 1 — Technical -->
+  <div class="skills-group">
+    <span class="skills-group-label">Technical</span>
+    <div class="chip-cloud">
+      <span class="chip"><span class="dot"></span>Python</span>
+      <span class="chip"><span class="dot"></span>R</span>
+      <span class="chip"><span class="dot"></span>R Shiny</span>
+      <span class="chip"><span class="dot"></span>Machine Learning</span>
+      <span class="chip"><span class="dot"></span>Computer Vision</span>
+      <span class="chip"><span class="dot"></span>GIS &amp; Spatial Analysis</span>
+      <span class="chip"><span class="dot"></span>Statistical Analysis</span>
     </div>
   </div>
-</section>
-
-<!-- SKILLS -->
-<section class="section" style="padding-top: 2rem;">
-  <h2 class="section-title reveal">Skills &amp; Expertise</h2>
-  <div class="skills-section-wrap reveal reveal-d1">
-
-    <!-- Technical -->
-    <div class="skills-group">
-      <div class="skills-group-label sgl-technical">Technical</div>
-      <div class="skills-grid">
-        <span class="skill-badge skill-badge-tech">🐍 Python</span>
-        <span class="skill-badge skill-badge-tech">📊 R</span>
-        <span class="skill-badge skill-badge-tech">✨ R Shiny</span>
-        <span class="skill-badge skill-badge-tech">🤖 YOLOv8</span>
-        <span class="skill-badge skill-badge-tech">🧠 Machine Learning</span>
-        <span class="skill-badge skill-badge-tech">👁️ Computer Vision</span>
-        <span class="skill-badge skill-badge-tech">🔍 Object Detection</span>
-        <span class="skill-badge skill-badge-tech">📡 HyDaT Tracking</span>
-        <span class="skill-badge skill-badge-tech">🗺️ GIS &amp; Spatial Analysis</span>
-        <span class="skill-badge skill-badge-tech">🌐 ArcGIS</span>
-        <span class="skill-badge skill-badge-tech">📈 Environmental Data Science</span>
-        <span class="skill-badge skill-badge-tech">🎥 Camera Trap Analysis</span>
-        <span class="skill-badge skill-badge-tech">📉 Statistical Analysis</span>
-      </div>
+  <!-- Group 2 — Environmental -->
+  <div class="skills-group">
+    <span class="skills-group-label">Environmental</span>
+    <div class="chip-cloud">
+      <span class="chip water"><span class="dot"></span>Water Quality Analysis</span>
+      <span class="chip water"><span class="dot"></span>Watershed Management</span>
+      <span class="chip water"><span class="dot"></span>Pollution Remediation</span>
+      <span class="chip water"><span class="dot"></span>Pollinator Ecology</span>
+      <span class="chip water"><span class="dot"></span>Coastal &amp; Marine Science</span>
+      <span class="chip water"><span class="dot"></span>Field Research &amp; Sampling</span>
+      <span class="chip water"><span class="dot"></span>Biodegradation</span>
     </div>
-
-    <!-- Environmental -->
-    <div class="skills-group">
-      <div class="skills-group-label sgl-environmental">Environmental</div>
-      <div class="skills-grid">
-        <span class="skill-badge skill-badge-env">💧 Water Quality Analysis</span>
-        <span class="skill-badge skill-badge-env">🏔️ Watershed Management</span>
-        <span class="skill-badge skill-badge-env">🧪 Pollution Remediation</span>
-        <span class="skill-badge skill-badge-env">🌱 Pollution Prevention</span>
-        <span class="skill-badge skill-badge-env">🐝 Pollinator Ecology</span>
-        <span class="skill-badge skill-badge-env">🦠 Biodegradation Science</span>
-        <span class="skill-badge skill-badge-env">🌊 Coastal &amp; Marine Science</span>
-        <span class="skill-badge skill-badge-env">⚗️ Heavy Metals Analysis</span>
-        <span class="skill-badge skill-badge-env">🔭 Field Research &amp; Sampling</span>
-        <span class="skill-badge skill-badge-env">🌿 Ecological Restoration</span>
-      </div>
-    </div>
-
-    <!-- Professional -->
-    <div class="skills-group">
-      <div class="skills-group-label sgl-professional">Professional</div>
-      <div class="skills-grid">
-        <span class="skill-badge skill-badge-pro">✍️ Technical &amp; Scientific Writing</span>
-        <span class="skill-badge skill-badge-pro">🔬 Research Design</span>
-        <span class="skill-badge skill-badge-pro">📊 Data Visualization</span>
-        <span class="skill-badge skill-badge-pro">🎓 Research Mentorship &amp; Training</span>
-        <span class="skill-badge skill-badge-pro">⚖️ Environmental Policy</span>
-        <span class="skill-badge skill-badge-pro">📋 Project Management</span>
-      </div>
-    </div>
-
   </div>
-</section>
+  <!-- Group 3 — Professional -->
+  <div class="skills-group">
+    <span class="skills-group-label">Professional</span>
+    <div class="chip-cloud">
+      <span class="chip gold"><span class="dot"></span>Technical &amp; Scientific Writing</span>
+      <span class="chip gold"><span class="dot"></span>Research Design</span>
+      <span class="chip gold"><span class="dot"></span>Data Visualization</span>
+      <span class="chip gold"><span class="dot"></span>Research Mentorship &amp; Training</span>
+    </div>
+  </div>
+</div>
 
-<!-- FOOTER -->
+<!-- ═══════════════════════════════════════════════════════════
+     BLOCK 8 — ORCID line
+═══════════════════════════════════════════════════════════ -->
+<div class="orcid-section reveal">
+  <div class="rule-diamond" style="width: 100%; max-width: 720px;">
+    <span class="diamond"></span>
+  </div>
+  <a
+    href="https://orcid.org/0009-0005-4168-9726"
+    class="orcid-line"
+    target="_blank"
+    rel="noopener noreferrer"
+  >ORCID &nbsp;·&nbsp; 0009-0005-4168-9726 &nbsp;↗</a>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     BLOCK 9 — Footer / colophon
+═══════════════════════════════════════════════════════════ -->
 <footer>
-  <div class="footer-inner">
-    <p class="footer-copy">© 2026 Katerina Bischel · Environmental Scientist · Applied Marine Sciences · M.E.S.M., UC Santa Barbara Bren School</p>
-    <div class="footer-links">
-      <a href="https://www.linkedin.com/in/katerina-bischel/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-      </a>
-      <a href="https://github.com/katerinabischell" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-      </a>
+  <div class="footer reveal">
+    <div class="footer-grid">
+      <!-- Col 1 -->
+      <div>
+        <div class="footer-brand">Katerina Bischel</div>
+        <p class="footer-tagline">
+          A portfolio of watersheds, pollinators, and the quiet science of how water moves — and what it carries with it.
+        </p>
+        <div class="rule-diamond">
+          <span class="diamond"></span>
+        </div>
+        <p class="footer-colophon-spec">Set in Cormorant Garamond &amp; JetBrains Mono.</p>
+      </div>
+      <!-- Col 2 — § Pages -->
+      <div>
+        <p class="footer-col-head">§ Pages</p>
+        <nav class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="resume.html">Resume</a>
+          <a href="projects.html">Projects</a>
+          <a href="research.html">Research</a>
+          <a href="writing.html">Writing</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+      <!-- Col 3 — § Field -->
+      <div>
+        <p class="footer-col-head">§ Field</p>
+        <nav class="footer-links">
+          <a href="research.html">Pilcomayo manuscript</a>
+          <a href="https://katerinabischel.github.io/River_Remedy/" target="_blank" rel="noopener noreferrer">River Remedy site ↗</a>
+          <a href="research.html">YOLOv8 pollinators</a>
+          <a href="projects.html">Whitewater plan</a>
+          <a href="https://katerinabischel.shinyapps.io/my-calcofi-app/" target="_blank" rel="noopener noreferrer">CalCOFI dashboard ↗</a>
+        </nav>
+      </div>
+      <!-- Col 4 — § Elsewhere -->
+      <div>
+        <p class="footer-col-head">§ Elsewhere</p>
+        <nav class="footer-links">
+          <a href="mailto:katerinabischel@amarine.com">Email</a>
+          <a href="https://www.linkedin.com/in/katerina-bischel/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+          <a href="https://github.com/katerinabischel" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          <a href="https://orcid.org/0009-0005-4168-9726" target="_blank" rel="noopener noreferrer">ORCID ↗</a>
+        </nav>
+        <p class="footer-copyright">© MMXXVI · K. Bischel</p>
+      </div>
     </div>
   </div>
 </footer>
 
-<button class="back-to-top" id="back-to-top" aria-label="Back to top">
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 15l-6-6-6 6"/></svg>
-</button>
+<!-- Back to top -->
+<button id="back-to-top" aria-label="Back to top">↑</button>
 
 <script src="main.js"></script>
 </body>
