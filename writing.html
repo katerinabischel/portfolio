@@ -477,7 +477,7 @@
       .nav-links {
         display: none;
         position: absolute;
-        top: calc(100% + 8px);
+        top: 100%;
         left: 16px;
         right: 16px;
         flex-direction: column;
@@ -488,7 +488,6 @@
         border: 1px solid var(--glass-stroke);
         border-radius: var(--r-md);
         gap: 4px;
-        z-index: 200;
       }
       .nav-links.open { display: flex; }
       .nav-inner { position: relative; }
@@ -549,15 +548,15 @@
     <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
       <span></span><span></span><span></span>
     </button>
-  </div>
-  <div class="nav-links" id="nav-links">
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="resume.html">Resume</a>
-    <a href="projects.html">Projects</a>
-    <a href="research.html">Research</a>
-    <a href="writing.html" class="active">Writing</a>
-    <a href="contact.html">Contact</a>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="resume.html">Resume</a>
+      <a href="projects.html">Projects</a>
+      <a href="research.html">Research</a>
+      <a href="writing.html" class="active">Writing</a>
+      <a href="contact.html">Contact</a>
+    </div>
   </div>
 </nav>
 
