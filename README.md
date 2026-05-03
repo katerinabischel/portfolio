@@ -1,6 +1,6 @@
 # Katerina Bischel — Portfolio Website
 
-Live: **https://katerinabischel.github.io/my_site/index.html**
+Live: **https://katerinabischel.github.io/portfolio/index.html**
 
 Personal portfolio site for Katerina Bischel, Environmental Scientist at Applied Marine Sciences. M.E.S.M. 2026, UC Santa Barbara Bren School. Water Resources · Pollution Remediation · Data Science.
 
