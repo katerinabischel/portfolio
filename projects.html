@@ -428,7 +428,7 @@
       .nav-links {
         display: none;
         position: absolute;
-        top: 100%;
+        top: calc(100% + 8px);
         left: 16px;
         right: 16px;
         flex-direction: column;
@@ -439,9 +439,10 @@
         border: 1px solid var(--glass-stroke);
         border-radius: var(--r-md);
         gap: 4px;
+        z-index: 200;
       }
       .nav-links.open { display: flex; }
-      .nav-inner { position: relative; }
+      .nav-inner { position: relative; overflow: visible; }
 
       .page-hero-content {
         padding: 100px 32px 72px;

@@ -444,7 +444,7 @@
       .nav-links {
         display: none;
         position: absolute;
-        top: 100%;
+        top: calc(100% + 8px);
         left: 16px;
         right: 16px;
         flex-direction: column;
@@ -455,9 +455,10 @@
         border: 1px solid var(--glass-stroke);
         border-radius: var(--r-md);
         gap: 4px;
+        z-index: 200;
       }
       .nav-links.open { display: flex; }
-      .nav-inner { position: relative; }
+      .nav-inner { position: relative; overflow: visible; }
 
       .hero-content { padding: 96px 28px 80px; }
       .hero-title { font-size: clamp(52px, 12vw, 68px); }
