@@ -656,7 +656,7 @@
 
     <div class="rc-prose has-dropcap">
       <p>The Pilcomayo descends from the Bolivian Andes through Argentina and into Paraguay across an 850 km transboundary corridor, gathering sediment, silver, and a long historical load of cadmium, lead, and zinc from upstream mining. The investigation asks how those metals partition between dissolved phase, suspended sediment, and the river bed across space and time — and what that partitioning behavior implies for site-specific remediation.</p>
-      <p>The analysis draws on <strong>1,436 samples across 46 monitoring stations spanning eight years (2016–2024)</strong>, contributed by the Comisión Trinacional para el Desarrollo de la Cuenca del Río Pilcomayo. Spatiotemporal partitioning is modelled in R using a coupled hydrological–geochemical framework, with field campaigns paired against discharge regimes for the wet, dry, and shoulder seasons.</p>
+      <p>The analysis draws on <strong>1,436 samples across 46 monitoring stations spanning eight years (2016–2024)</strong>, contributed by the Comisión Trinacional para el Desarrollo de la Cuenca del Río Pilcomayo. Spatiotemporal partitioning is modelled in Spyder 6 Python 3 using a coupled hydrological–geochemical framework, with field campaigns paired against discharge regimes for the wet, dry, and shoulder seasons.</p>
       <p>Findings track which reaches and which seasons drive the highest dissolved-metal load, and use that mapping to evaluate where geochemically targeted remediation interventions — wetland buffer reactivation, sediment capping, and source-side controls — are likely to deliver the largest reduction in downstream exposure for the indigenous communities and agricultural regions that depend on the river. Findings have additionally been presented to Diputada María Ángela Ruíz Farfán during her visit to UCSB.</p>
     </div>
 
@@ -697,67 +697,26 @@
     </div>
 
     <div class="rc-prose">
-      <p>The study asks whether automated computer vision can credibly replace hand-tallied pollinator visitation surveys for two federally endangered coastal plant species — Ventura marsh milk-vetch (<em>Astragalus pycnostachyus</em> var. <em>lanosissimus</em>) and salt marsh bird's-beak (<em>Chloropyron maritimum</em> ssp. <em>maritimum</em>) — at the NCOS restoration site in Goleta, California.</p>
-      <p>Over a nine-week summer 2025 season, Panasonic Lumix cameras were positioned within yarn-delineated quadrants and ran three daily shifts across three days per week, with site visit order randomized each shift and environmental conditions logged alongside each session. Footage was processed through a YOLOv8 object-detection model trained on a labeled set of native bee taxa, then passed into the existing <strong>HyDaT</strong> tracking framework — an external tool whose authorship is not mine — to identify and quantify discrete visitation events: entry, duration, exit.</p>
-      <p>The trained model and the field protocol together form a reproducible pipeline that the Cheadle Center can carry into future field seasons; mentoring two undergraduate research trainees throughout the season was an explicit goal alongside the science. The build/engineering view of this work — model weights, training data, pipeline — lives on Projects.</p>
+      <p>The study asks whether automated computer vision can credibly stand in for hand-tallied pollinator visitation surveys for two federally endangered coastal plant species — Ventura marsh milk-vetch (<em>Astragalus pycnostachyus</em> var. <em>lanosissimus</em>) and salt marsh bird's-beak (<em>Chloropyron maritimum</em> ssp. <em>maritimum</em>) — at the NCOS restoration site in Goleta, California.</p>
+      <p>Across nine weeks of the summer 2025 field season, two Panasonic Lumix cameras and a long-run "Doug" camera were deployed across four yarn-marked quadrants for three one-hour shifts daily — morning, mid-day, afternoon — with site order randomized and weather, wind speed, and on-site pollinator activity logged for every session. The result was more than 200 hours of raw video and a hand-built ground-truth log: timestamped <em>time | quadrant | bumblebee count</em> entries keyed to a numbered grid, against which every detection downstream is checked.</p>
+      <p>The training pipeline I built is the core of my contribution. Frames were extracted from raw video at 1–2 second intervals using OpenCV; a 165-frame subset (101 frames in the first pass, 64 in a second) was hand-annotated in Matplotlib, with every clearly visible <em>Bombus</em> getting a manually drawn bounding box and each annotation cross-checked against the ground-truth count log. Annotations were split 70 / 20 / 10 across train / validation / test.</p>
+      <p>A YOLOv8 detector (PyTorch · Ultralytics) was trained iteratively on this set — a 50-epoch baseline, a 150-epoch v2, and a 200-epoch v23 — with each iteration evaluated on withheld videos. The 150-epoch model reached <strong>mAP50 = 0.745</strong>, precision = 0.878, and recall = 0.648, with the precision–confidence curve plateauing at 1.00 above ~0.39 confidence; on a withheld test video the model identified bees at 100% detection rate at 1.000 confidence. A follow-on run is comparing this manually annotated dataset against a synthetic-overlay approach — high-resolution bumblebee cutouts composited onto vegetation stills with auto-generated bounding boxes — with a manuscript on the comparison in preparation under Dr. Katja Seltmann and Dr. Chris Evelyn at the Cheadle Center.</p>
     </div>
 
     <div class="rc-actions">
-      <a class="arrow-link" href="https://us15.campaign-archive.com/?e=__test_email__&u=05cf4db23a15975cb832e2846&id=3d0ad0cae9" target="_blank" rel="noopener noreferrer">Read feature article <span class="arrow">↗</span></a>
+      <a class="arrow-link" href="https://mailchi.mp/c46ecbcc1702/newsletter-for-the-north-campus-open-space-restoration-project-21044886" target="_blank" rel="noopener noreferrer">Read feature article <span class="arrow">↗</span></a>
       <a class="arrow-link" href="projects.html">View on Projects (build artifact lens) <span class="arrow">→</span></a>
     </div>
 
   </article>
 
   <!-- ══════════════════════════════════════════════════
-       Card 03 — River Remedy master's thesis report
+       Card 03 — Senior thesis · bivalve calcium carbonate
   ═══════════════════════════════════════════════════ -->
   <article class="glass research-card reveal">
 
     <div class="rc-status-row">
-      <span class="spec">§ Plate 03 · Master's thesis report · group authorship</span>
-      <span class="chip gold"><span class="dot"></span>2026 · UCSB Bren</span>
-    </div>
-
-    <h3 class="rc-title">River Remedy — master's thesis report</h3>
-    <p class="rc-subtitle">Group capstone investigation of pollution sources, contaminant transport, and remediation strategy.</p>
-
-    <aside class="rc-citation">
-      <div class="eyebrow">§ Citation</div>
-      <p><strong>River Remedy Group</strong> (2026). <em>River Remedy: an integrated assessment of pollution sources, contaminant transport, and remediation strategy.</em> Master's thesis report, Bren School of Environmental Science &amp; Management, UC Santa Barbara. 141 pp.</p>
-    </aside>
-
-    <div class="rc-meta-strip">
-      <div><div class="k">Project</div><div class="v">River Remedy master's thesis (Pilcomayo case study)</div></div>
-      <div><div class="k">Role</div><div class="v">Co-author · hydrochemistry analysis lead · spatial figures · technical-writing voice</div></div>
-      <div><div class="k">Advisor</div><div class="v">Dr. Arturo Keller · UCSB Bren</div></div>
-      <div><div class="k">Status</div><div class="v">Final report submitted · April 2026</div></div>
-    </div>
-
-    <div class="rc-prose">
-      <p>A 141-page graduate-group investigation that synthesizes field data, environmental chemistry, and policy analysis into long-term remediation recommendations for a pollution-stressed river system. Group authorship is attributed inside the document; my contribution centered on the heavy-metals hydrochemistry chapters, the spatial figures, and carrying a consistent technical-writing voice across the report.</p>
-      <p>The Pilcomayo manuscript in preparation (Card 01) is my solo first-author extension of this group work — taking the heavy-metals analysis I led for the report and developing it into a standalone, peer-review-targeted paper.</p>
-    </div>
-
-    <div class="rc-actions">
-      <a class="arrow-link" href="https://bren.ucsb.edu/sites/default/files/2026-04/GP%20River%20Remedy%20Final%20Report%20compressed.pdf" target="_blank" rel="noopener noreferrer">View report (Bren PDF) <span class="arrow">↗</span></a>
-      <a class="arrow-link" href="River Remedy Final Report.pdf" download>Download local copy <span class="arrow">→</span></a>
-    </div>
-
-    <div class="rc-pdf">
-      <iframe src="River Remedy Final Report.pdf" title="River Remedy master's thesis report"></iframe>
-    </div>
-    <p class="rc-pdf-fallback">If the preview doesn't load, <a href="River Remedy Final Report.pdf" download>click to download</a>.</p>
-
-  </article>
-
-  <!-- ══════════════════════════════════════════════════
-       Card 04 — Senior thesis · bivalve calcium carbonate
-  ═══════════════════════════════════════════════════ -->
-  <article class="glass research-card reveal">
-
-    <div class="rc-status-row">
-      <span class="spec">§ Plate 04 · Senior thesis · undergraduate</span>
+      <span class="spec">§ Plate 03 · Senior thesis · undergraduate</span>
       <span class="chip gold"><span class="dot"></span>B.A. · UCSB · June 2024</span>
     </div>
 
@@ -794,6 +753,48 @@
 
   </article>
 
+  <!-- ══════════════════════════════════════════════════
+       Card 04 — River Remedy master's thesis report
+  ═══════════════════════════════════════════════════ -->
+  <article class="glass research-card reveal">
+
+    <div class="rc-status-row">
+      <span class="spec">§ Plate 04 · Master's thesis report · group authorship</span>
+      <span class="chip gold"><span class="dot"></span>2026 · UCSB Bren</span>
+    </div>
+
+    <h3 class="rc-title">River Remedy — master's thesis report</h3>
+    <p class="rc-subtitle">Group capstone investigation of pollution sources, contaminant transport, and remediation strategy.</p>
+
+    <aside class="rc-citation">
+      <div class="eyebrow">§ Citation</div>
+      <p><strong>River Remedy Group</strong> (2026). <em>River Remedy: an integrated assessment of pollution sources, contaminant transport, and remediation strategy.</em> Master's thesis report, Bren School of Environmental Science &amp; Management, UC Santa Barbara. 141 pp.</p>
+    </aside>
+
+    <div class="rc-meta-strip">
+      <div><div class="k">Project</div><div class="v">River Remedy master's thesis (Pilcomayo case study)</div></div>
+      <div><div class="k">Role</div><div class="v">Co-author · hydrochemistry analysis lead · spatial figures · technical-writing voice</div></div>
+      <div><div class="k">Advisor</div><div class="v">Dr. Arturo Keller · UCSB Bren</div></div>
+      <div><div class="k">Status</div><div class="v">Final report submitted · April 2026</div></div>
+    </div>
+
+    <div class="rc-prose">
+      <p>A 141-page graduate-group investigation that synthesizes field data, environmental chemistry, and policy analysis into long-term remediation recommendations for a pollution-stressed river system. Group authorship is attributed inside the document; my contribution centered on the heavy-metals hydrochemistry chapters, the spatial figures, and carrying a consistent technical-writing voice across the report.</p>
+      <p>The Pilcomayo manuscript in preparation (Card 01) is my solo first-author extension of this group work — taking the heavy-metals analysis I led for the report and developing it into a standalone, peer-review-targeted paper.</p>
+    </div>
+
+    <div class="rc-actions">
+      <a class="arrow-link" href="https://bren.ucsb.edu/sites/default/files/2026-04/GP%20River%20Remedy%20Final%20Report%20compressed.pdf" target="_blank" rel="noopener noreferrer">View report (Bren PDF) <span class="arrow">↗</span></a>
+      <a class="arrow-link" href="River Remedy Final Report.pdf" download>Download local copy <span class="arrow">→</span></a>
+    </div>
+
+    <div class="rc-pdf">
+      <iframe src="River Remedy Final Report.pdf" title="River Remedy master's thesis report"></iframe>
+    </div>
+    <p class="rc-pdf-fallback">If the preview doesn't load, <a href="River Remedy Final Report.pdf" download>click to download</a>.</p>
+
+  </article>
+
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════
@@ -801,9 +802,6 @@
 ═══════════════════════════════════════════════════════════ -->
 <div class="pano-divider">
   <div class="pano-divider-bg" style="background-image: url('panorama_7.jpeg');"></div>
-  <p class="pano-divider-quote">
-    "The questions are about water and metal and pollinators and shells; the through-line is what the <span class="emph">data actually means</span>."
-  </p>
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════
@@ -851,7 +849,7 @@
       <div>
         <p class="footer-col-head">§ Elsewhere</p>
         <nav class="footer-links">
-          <a href="mailto:katerinabischel@amarine.com">Email</a>
+          <a href="mailto:katerina.bischel@gmail.com">Email</a>
           <a href="https://www.linkedin.com/in/katerina-bischel/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
           <a href="https://github.com/katerinabischel" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
           <a href="https://orcid.org/0009-0005-4168-9726" target="_blank" rel="noopener noreferrer">ORCID ↗</a>
